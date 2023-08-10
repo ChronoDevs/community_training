@@ -4,7 +4,7 @@
 |---|---|
 |WEB| http://localhost/ or https://localhost/|
 |PHPMyadmin| http://localhost:8081/index.php|
-|DB| Database→st-system_db<br>default/secret|
+|DB| Database→community_training_db<br>default/secret|
 
 ## file organization
 ```
@@ -36,7 +36,7 @@ cp env-example .env
 
 ```diff
 - APP_CODE_PATH_HOST=../
-+ APP_CODE_PATH_HOST=../st-system
++ APP_CODE_PATH_HOST=../community_training
 
 - PHP_FPM_INSTALL_EXIF=false
 + PHP_FPM_INSTALL_EXIF=true
