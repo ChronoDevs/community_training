@@ -4,7 +4,7 @@
 |---|---|
 |WEB| http://localhost/ or https://localhost/|
 |PHPMyadmin| http://localhost:8081/index.php|
-|DB| Database→st-system_db<br>default/secret|
+|DB| Database→community_training_db<br>default/secret|
 
 ## file organization
 ```
