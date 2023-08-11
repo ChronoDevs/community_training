@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('user_name')->unique()->nullable();
             $table->string('nickname')->nullable();
-            $table->string('gender')->nullable();
+            $table->enum('gender',['male', 'female'])->default('male');
             $table->date('date_of_birth')->nullable();
-            $table->integer('contact_number')->nullable();
+            $table->string('contact_number')->nullable();
             $table->integer('zip_code')->nullable();
             $table->text('address')->nullable();
             $table->string('email')->unique();
