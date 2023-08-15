@@ -91,4 +91,7 @@ DB_HOST=mysql
 DB_DATABASE=default
 DB_USERNAME=default
 DB_PASSWORD=secret
+
+MAIL_HOST=maildev
+MAIL_PORT=25
 ```
