@@ -4,6 +4,7 @@
 |---|---|
 |WEB| http://localhost/ or https://localhost/|
 |PHPMyadmin| http://localhost:8081/index.php|
+|Maildev| http://localhost:1080/|
 |DB| Database→community_training_db<br>default/secret|
 
 ## file organization
@@ -72,7 +73,7 @@ Start Docker and install laravel
 
 ```bash
 #Please note that the following command is very long for the first time. It can take up to an hour.
-docker-compose up -d apache2 mysql phpmyadmin workspace
+docker-compose up -d apache2 mysql phpmyadmin maildev workspace
 
 #Connect to the started docker
 docker-compose exec workspace bash
