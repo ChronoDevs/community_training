@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\Auth\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -41,28 +42,11 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function register(RegisterRequest $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'middle_name' => ['nullable', 'string'],
-            'last_name' => ['nullable', 'string'],
-            'user_name' => ['nullable', 'string', 'unique:users'],
-            'nickname' => ['nullable', 'string'],
-            'gender' => ['nullable', 'string', 'in:male,female'],
-            'date_of_birth' => ['nullable', 'date'],
-            'contact_number' => ['nullable', 'string'],
-            'zip_code' => ['nullable', 'numeric'],
-            'address' => ['nullable', 'string'],
-        ]);
+        $user = $this->create($request->validated());
+
+        return redirect()->route('home')->with('success', 'Registration successful! Welcome to our platform.');
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -56,7 +57,7 @@ class User extends Authenticatable
         return static::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => bcrypt($data['password']), // Using bcrypt() to hash the password
             'middle_name' => $data['middle_name'],
             'last_name' => $data['last_name'],
             'user_name' => $data['user_name'],
@@ -67,5 +68,5 @@ class User extends Authenticatable
             'zip_code' => $data['zip_code'],
             'address' => $data['address']
         ]);
-    }
+    }    
 }
