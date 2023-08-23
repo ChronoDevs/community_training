@@ -50,4 +50,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function createUser(array $data)
+    {
+        return static::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'middle_name' => $data['middle_name'],
+            'last_name' => $data['last_name'],
+            'user_name' => $data['user_name'],
+            'nickname' => $data['nickname'],
+            'gender' => $data['gender'],
+            'date_of_birth' => $data['date_of_birth'],
+            'contact_number' => $data['contact_number'],
+            'zip_code' => $data['zip_code'],
+            'address' => $data['address']
+        ]);
+    }
 }
