@@ -12,7 +12,490 @@ body {
     justify-content: center;
     align-items: center;
 }
+.social-login{
+    border: 131px 13px 130px 14px;
+    text-align: center;
+}
+.intro{
+    text-align: center;
+    margin-top: 50px;
+}
+/* Sidebar */
+.sidebar-card {
+    width: 300px;
+    height: 826px;
+    flex-shrink: 0;
+    background: rgba(36, 37, 38, 0.00);
+    border:none;
+    border-radius: 10px;
+    overflow: hidden; /* Hide any content that might overflow */
+    box-shadow: none; /* Add a box shadow for a card-like effect */
+    margin-top: 10px; /* Add margin to create space between the top edge and the left edge */
+    margin-left:25px;
+}
 
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    display: flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 0; /* No need for individual border radius on items since the card has one */
+    transition: background-color 0.3s ease-in-out; /* Add a transition effect for hover */
+}
+
+.sidebar-item:hover {
+    background-color: #3d3f412f;
+    display: inline-flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.sidebar-link {
+    display: flex;
+    width: 154px; /* Adjust width to fill the available space */
+    height: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.sidebar-link i {
+    margin-right: 8px; /* Add space between icon and text */
+}
+
+.sidebar-item.active {
+    background-color: #3D3F41; /* Set the background color for the active item */
+    display: inline-flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 10px; 
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Add space between header and stats boxes */
+    /* ... Add other styles ... */
+}
+
+.dashboard-title {
+    display: flex;
+    width: 116px;
+    height: 33px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.dropdowns {
+    display: flex;
+    gap: 10px;
+    /* ... (styles for dropdowns) ... */
+}
+
+.dropdown {
+    width: 148px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    border:none;
+    background: #3A3B3C;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 25px;
+}
+
+/* Stats Boxes */
+.stats-boxes {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px; /* Add space between stats boxes and graph box */
+    /* ... Add other styles ... */
+}
+
+.stats-box {
+    width: 296px;
+    height: 138px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background: #242526;
+    margin-right: 27px;
+    /* ... (styles for stats box) ... */
+}
+
+.stats-label {
+    width: 57px;
+    height: 30px;
+    flex-shrink: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.stats-value {
+    width: 238px;
+    height: 42px;
+    flex-shrink: 0;
+    color: #2152FF;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* Graph Box */
+.graph-box {
+    width: 934px;
+    height: 363px;
+    top: 394px;
+    left: 418px;
+    padding: 56px 8px 17px 28px;
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background: #242526;
+    /* ... (styles for graph box) ... */
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-top:15px;
+    /* ... (styles for users header) ... */
+}
+
+.admin-title {
+    display: flex;
+    width: 116px;
+    height: 33px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.search-export {
+    display: flex;
+    align-items: center;
+    /* ... (styles for search and export container) ... */
+}
+
+.search-bar {
+    display: inline-flex;
+    padding: 12px 15px 14px 25px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-right: 10px; /* Adjust the margin value to create space */
+    border-radius: 15px;
+    background: #3A3B3C;
+}
+
+.search-bar input {
+    width: 315px;
+    height: 20px;
+    color: #B0B3B8;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    border:none;
+    line-height: normal;
+    background: #3A3B3C;
+}
+
+.search-bar i {
+    width: 21px;
+    top: 12px;
+    left: 364px;
+    color: #016EB5;
+
+}
+
+.export-button {
+    width: 138px;
+    height: 46px;
+    padding: 5px 10px 5px 16px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    background: #3A3B3C;
+    border: none;
+}
+
+.export-text {
+   color:#A5A8AC;
+}
+
+.export-button i {
+    width: 32px;
+    height: 33px;
+    top: 6px;
+    left: 96px;
+    font-family: Font Awesome 5 Free;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: center;
+    color:#FFFFFF;
+}
+
+/* Admin Card */
+.admin-card {
+    width: 934px;
+    height: 492px;
+    top: 228px;
+    left: 418px;
+    border-radius: 10px;
+    border: 1px;
+    background-color:#242526;
+    border-color: #3D3F41;
+    /* ... (styles for users card) ... */
+}
+
+.new-category-button {
+    width: 161px;
+    height: 46px;
+    top: 155px;
+    left: 1191px;
+    border-radius: 15px;
+    background: #3A3B3C;
+    border:none;
+    margin-right: 30px;
+}
+
+.category-text {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left;
+    width: 114px;
+    height: 36px;
+    top: 5px;
+    left: 19px;
+    color:#A5A8AC;
+ }
+.new-category-button i {
+    width: 32px;
+    height: 25px;
+    top: 6px;
+    left: 123px;
+    font-family: Font Awesome 6 Free;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 20px;
+    letter-spacing: 0em;
+    text-align: center;
+    color:#FFFFFF;    
+}
+
+.admin-form {
+    display: none;
+    margin-top: 15px;
+    /* ... (your other styles) ... */
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* ... (your other styles) ... */
+}
+
+.form-title {
+    display: flex;
+    width: 135px;
+    height: 33px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--text-color, #A5A8AC);
+    /* ... (your other styles) ... */
+}
+
+.close-button {
+    display: flex;
+    width: 47px;
+    height: 46px;
+    padding: 6px 7px 7px 8px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 100px;
+    background: #3A3B3C;
+    border:none;
+    margin-right: 110px;
+    /* ... (your other styles) ... */
+}
+
+.close-button i {
+    display: flex;
+    width: 32px;
+    height: 33px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Font Awesome 6 Free;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    /* ... (your other styles) ... */
+}
+
+.form-group {
+    width: 855px;
+    height: 96px;
+    border-radius: 15px;
+    /* ... (your other styles) ... */
+}
+
+.category-label {
+    display: flex;
+    width: 855px;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    /* ... (your other styles) ... */
+}
+
+.category-input {
+    display: flex;
+    width: 855px;
+    height: 60px;
+    padding: 12px 380px 12px 25px;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #3A3B3C;
+    border:none;
+    color:#FFF;
+    /* ... (your other styles) ... */
+}
+
+.create-button {
+    width: 855px;
+    height: 60px;
+    padding: 13px 338px 14px 323px;
+    border-radius: 15px;
+    border:none;
+    margin-top: 30px;
+    background-color: #18328D;
+    color:#FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    /* ... (your other styles) ... */
+}
+
+.category-input::placeholder {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    width: 450px;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+}
+
+.tag-card {
+    width: 855px;
+    height: 248.072px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: #3A3B3C;
+}
+
+.label-text {
+    display: flex;
+    width: 855px;
+    height: 41.928px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: 10px;
+}
 /* Button Styles */
 .signintext-btn, .signuptext-btn {
     border-radius: 15px;
@@ -36,12 +519,4 @@ body {
 .signuptext-btn, .signuptext-btn:hover {
     border: 2px solid #18328D;
     color: #284CC8;
-}
-
-.social-login{
-    border: 131px 13px 130px 14px;
-}
-
-.intro{
-    text-align: center;
 }

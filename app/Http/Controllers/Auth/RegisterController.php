@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\User\Auth\RegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -42,50 +41,19 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * User registration
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\Response
      */
-    protected function validator(array $data)
+    protected function register(RegisterRequest $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'middle_name' => ['nullable', 'string'],
-            'last_name' => ['nullable', 'string'],
-            'user_name' => ['nullable', 'string', 'unique:users'],
-            'nickname' => ['nullable', 'string'],
-            'gender' => ['nullable', 'string', 'in:male,female'],
-            'date_of_birth' => ['nullable', 'date'],
-            'contact_number' => ['nullable', 'string'],
-            'zip_code' => ['nullable', 'numeric'],
-            'address' => ['nullable', 'string'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'user_name' => $data['user_name'],
-            'nickname' => $data['nickname'],
-            'gender' => $data['gender'],
-            'date_of_birth' => $data['date_of_birth'],
-            'contact_number' => $data['contact_number'],
-            'zip_code' => $data['zip_code'],
-            'address' => $data['address']
-        ]);
-    }
+        $user = User::createUser($request->validated());
+    
+        if (!$user) {
+            return redirect()->back()->withErrors($request->errors());
+        }
+    
+        return redirect()->route('home')->with('success', 'Registration successful! Welcome to our platform.');
+    }       
 }

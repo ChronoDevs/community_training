@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -50,4 +51,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function createUser(array $data)
+    {
+        try {
+            return static::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']), // Using bcrypt() to hash the password
+                'middle_name' => $data['middle_name'],
+                'last_name' => $data['last_name'],
+                'user_name' => $data['user_name'],
+                'nickname' => $data['nickname'],
+                'gender' => $data['gender'],
+                'date_of_birth' => $data['date_of_birth'],
+                'contact_number' => $data['contact_number'],
+                'zip_code' => $data['zip_code'],
+                'address' => $data['address']
+            ]);
+        } catch (Exception $e) {
+            // Handle the error here
+            return false;
+        }
+    }
 }
