@@ -34,3 +34,7 @@ Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('
 Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth:admin'])->group(function () {
+    // Routes only accessible to admins
+    Route::get('/admin/home', [\App\Http\Controllers\AdminController::class, 'home'])->name('admin.home');
