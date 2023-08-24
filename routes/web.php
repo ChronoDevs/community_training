@@ -20,12 +20,10 @@ Route::get('/', function () {
     return view('home');
 });
 
-// Use the Route facade to define authentication routes
-Route::name('login')->group(function () {
-    Auth::routes();
-});
+Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Home Index
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Facebook Login
 Route::get('login/facebook', [LoginController::class, 'redirectToFacebook'])->name('login.facebook');
@@ -35,6 +33,4 @@ Route::get('login/facebook/callback', [LoginController::class, 'handleFacebookCa
 Route::get('login/google', [LoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [LoginController::class, 'handleGoogleCallback']);
 
-Route::get('/register', 'App\Http\Controllers\Auth\RegisterController@showRegistrationForm')->name('register');
-
-Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

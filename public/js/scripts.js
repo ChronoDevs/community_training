@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     togglePassword.addEventListener("click", function() {
         const fieldType = passwordField.getAttribute("type");
         passwordField.setAttribute("type", fieldType === "password" ? "text" : "password");
-        togglePassword.classList.toggle("fa-eye-slash");
+        togglePassword.classList.toggle("fa-solid fa-eye-slash");
     });
 });

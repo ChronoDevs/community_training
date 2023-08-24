@@ -1,9 +1,10 @@
 @extends('layouts.app')
-
+@section('title', 'Login')
+@section('css', 'login.css')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div style="display: flex; justify-content: center; align-items: center;">
                 <div class="card-body" id="card-body">
                     <div class="intro" style="text-align: center;">
@@ -52,8 +53,8 @@
                                     <div class="input-group">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                         <div class="input-group-append">
-                                            <span class="input-group-text toggle-password" toggle="#password">
-                                                <i class="fa fa-fw fa-eye field-icon"></i>
+                                            <span class="input-group-text toggle-password" style="cursor: pointer; background: transparent; border: none;">
+                                                <i class="fa fa-fw fa-eye field-icon" style="color: var(--text-color, #A5A8AC);"></i>
                                             </span>
                                         </div>
                                     </div>
