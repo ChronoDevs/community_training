@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\User\Auth\RegisterRequest;
 
 class RegisterController extends Controller
@@ -42,21 +40,20 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    /**
+     * User registration
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\Response
+     */
     protected function register(RegisterRequest $request)
     {
-        $user = $this->create($request->validated());
-
+        $user = User::createUser($request->validated());
+    
+        if (!$user) {
+            return redirect()->back()->withErrors($request->errors());
+        }
+    
         return redirect()->route('home')->with('success', 'Registration successful! Welcome to our platform.');
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
-        return User::createUser($data);
-    }
+    }       
 }

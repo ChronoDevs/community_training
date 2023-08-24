@@ -54,19 +54,24 @@ class User extends Authenticatable
 
     public static function createUser(array $data)
     {
-        return static::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']), // Using bcrypt() to hash the password
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
-            'user_name' => $data['user_name'],
-            'nickname' => $data['nickname'],
-            'gender' => $data['gender'],
-            'date_of_birth' => $data['date_of_birth'],
-            'contact_number' => $data['contact_number'],
-            'zip_code' => $data['zip_code'],
-            'address' => $data['address']
-        ]);
-    }    
+        try {
+            return static::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']), // Using bcrypt() to hash the password
+                'middle_name' => $data['middle_name'],
+                'last_name' => $data['last_name'],
+                'user_name' => $data['user_name'],
+                'nickname' => $data['nickname'],
+                'gender' => $data['gender'],
+                'date_of_birth' => $data['date_of_birth'],
+                'contact_number' => $data['contact_number'],
+                'zip_code' => $data['zip_code'],
+                'address' => $data['address']
+            ]);
+        } catch (Exception $e) {
+            // Handle the error here
+            return false;
+        }
+    }
 }

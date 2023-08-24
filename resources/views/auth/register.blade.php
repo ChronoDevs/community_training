@@ -1,11 +1,12 @@
 @extends('layouts.app')
-
+@section('css', 'register.css')
+@section('title', 'Register')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card-body" id="card-body">
-                <div class="intro" style="text-align: center;">
+                <div class="intro">
                         <h1>
                             <span id="chronostep-text" class="styled-text">
                                 Chronostep
@@ -17,17 +18,17 @@
                         <div id="introtwo" class="small-font">Welcome to the amazing community of engineers in Chronostep Inc.</div>
                     </div>
                     <br>
-                    <div class="social-login" style="text-align: center;">
+                    <div class="social-login">
                         <button class="btn btn-primary" id="fb-button" data-oauth-provider="facebook">Continue with Facebook</button>
                         <button class="btn btn-danger" id="google-button" data-oauth-provider="google">Continue with Google</button>
                     </div>
-                    <div class="email-register" style="text-align: center;">
+                    <div class="email-register">
                         <p class="email-register-text">Already have an account? <a href="{{ route('login') }}">Log in</a>.</p>
                     </div>
 
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" style="width: 100%; max-width: 500px; margin: 0 auto;" class="register-form">
+                    <form method="POST" action="{{ route('register') }}" class="register-form">
                         @csrf
 
                         <div class="mb-3">
