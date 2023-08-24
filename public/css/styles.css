@@ -25,6 +25,7 @@ body {
     padding: 13px 40px 14px 40px;
     justify-content: center;
     align-items: center;
+    width: 244px;
 }
 
 .signintext-btn, .signintext-btn:hover {
@@ -35,4 +36,12 @@ body {
 .signuptext-btn, .signuptext-btn:hover {
     border: 2px solid #18328D;
     color: #284CC8;
+}
+
+.social-login{
+    border: 131px 13px 130px 14px;
+}
+
+.intro{
+    text-align: center;
 }

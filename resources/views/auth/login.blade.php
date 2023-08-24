@@ -5,9 +5,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
-            <div style="display: flex; justify-content: center; align-items: center;">
+            <div>
                 <div class="card-body" id="card-body">
-                    <div class="intro" style="text-align: center;">
+                    <div class="intro">
                         <h1>
                             <span id="chronostep-text" class="styled-text">
                                 Chronostep
@@ -19,19 +19,19 @@
                         <div id="introtwo" class="small-font">Welcome to the amazing community of engineers in Chronostep Inc.</div>
                     </div>
                     <br>
-                    <div class="social-login" style="text-align: center;">
+                    <div class="social-login">
                         <a href="{{ route('login.facebook') }}" class="btn btn-primary" id="facebook-button">
                             <img src="images/facebook_icon.png" alt="Facebook Icon" class="button-icon">
                             Continue with Facebook
                         </a>
                     </div>
-                    <div class="social-login" style="text-align: center;">
+                    <div class="social-login">
                         <a href="{{ route('login.google') }}" class="btn btn-danger" id="google-button">
                             <img src="images/google_icon.png" alt="Google Icon" class="button-icon">
                             Continue with Google
                         </a>
                     </div>
-                    <div class="email-login" style="text-align: center;">
+                    <div class="email-login">
                         <p class="email-login-text">----- Have a password? Continue with your email address -----</p>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -53,8 +53,8 @@
                                     <div class="input-group">
                                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                         <div class="input-group-append">
-                                            <span class="input-group-text toggle-password" style="cursor: pointer; background: transparent; border: none;">
-                                                <i class="fa fa-fw fa-eye field-icon" style="color: var(--text-color, #A5A8AC);"></i>
+                                            <span class="input-group-text toggle-password">
+                                                <i class="fa fa-fw fa-eye field-icon"></i>
                                             </span>
                                         </div>
                                     </div>
