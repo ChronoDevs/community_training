@@ -22,6 +22,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@5.15.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
@@ -72,6 +73,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
+                                <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; height: 50px; float: left; margin-right: 7px; flex-shrink: 0;">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
@@ -97,4 +99,3 @@
         </main>
     </div>
 </body>
-</html>

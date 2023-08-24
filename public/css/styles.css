@@ -1,7 +1,9 @@
-body{
+/* Global Styles */
+body {
     background: var(--bg-color, #18191A);
 }
-#container{
+
+#container {
     background-color: #242526;
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
     width: 100%;
@@ -18,37 +20,6 @@ body{
     text-align: center;
     margin-top: 50px;
 }
-.signintext-btn{
-    border-radius: 15px;
-    margin: 10px;
-    background: #18328D;
-    color: #FFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    padding: 13px 40px 14px 40px;
-    justify-content: center;
-    align-items: center;
-}
-.signuptext-btn{
-    border-radius: 15px;
-    border: 2px solid #18328D;
-    margin: 10px;
-    color: #284CC8;
-    text-align: center;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    padding: 13px 40px 14px 40px;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Sidebar */
 .sidebar-card {
     width: 300px;
@@ -524,4 +495,28 @@ body{
     font-weight: 700;
     line-height: normal;
     margin-top: 10px;
+}
+/* Button Styles */
+.signintext-btn, .signuptext-btn {
+    border-radius: 15px;
+    margin: 10px;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 13px 40px 14px 40px;
+    justify-content: center;
+    align-items: center;
+    width: 244px;
+}
+
+.signintext-btn, .signintext-btn:hover {
+    background: #18328D;
+    color: #FFF;
+}
+
+.signuptext-btn, .signuptext-btn:hover {
+    border: 2px solid #18328D;
+    color: #284CC8;
 }
