@@ -4,7 +4,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            @include('admin_sidebar')
         </div>
         <div class="col-md-9">
             <div class="dashboard-header">
@@ -43,4 +42,9 @@
         </div>
     </div>
 </div>
+@endsection
+@section('content')
+<script>
+
+</script>
 @endsection
