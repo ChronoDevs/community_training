@@ -38,9 +38,10 @@
                 </div>
             </div>
             <div class="graph-box">
-                <canvas id="chart-line" class="chart-canvas" width="898px" height="290px"></canvas>
+                <canvas id="chart-line" class="chart-canvas"></canvas>
             </div>
         </div>
     </div>
 </div>
+@section('js', 'adminchart.min.js')
 @endsection
