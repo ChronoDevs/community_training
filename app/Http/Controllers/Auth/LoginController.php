@@ -116,6 +116,12 @@ class LoginController extends Controller
         }
     }
 
+    /**
+     * Log the user out and perform necessary actions
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         Auth::logout();
