@@ -42,10 +42,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/posts', [\App\Http\Controllers\AdminController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
     Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
-    });
-
-Route::middleware(['auth:admin'])->group(function () {
-        // Routes for managing categories
+    // Routes for managing categories
     Route::get('/admin/categories', 'App\Http\Controllers\AdminController@categories')->name('admin.categories');
     Route::post('/admin/categories/create', 'App\Http\Controllers\AdminController@createCategory')->name('admin.categories.create');
     Route::get('/admin/edit-category/{id}', 'App\Http\Controllers\AdminController@editCategory')->name('admin.editCategory');
