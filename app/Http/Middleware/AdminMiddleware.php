@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
+    /**
+     * This middleware checks if the user is logged in as an admin. If the user is not logged in as an admin, the user will be redirected to the admin login page.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('admin')->check()) {
@@ -33,4 +40,3 @@ class AdminMiddleware
         return $next($request);
     }
 }
-
