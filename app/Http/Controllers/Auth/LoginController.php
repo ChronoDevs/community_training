@@ -73,4 +73,21 @@ class LoginController extends Controller
         return $fieldType;
         // This method determines the username to use for authentication. By default, it uses the email address, but it can be customized to use another field.
     }
+
+    /**
+     * Log the user out and perform necessary actions
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/home');
+    }
 }

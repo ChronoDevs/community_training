@@ -1,0 +1,188 @@
+#post_avatar {
+    width: 40px;
+    height: 40px;
+}
+.btn-link {
+    display: block;
+}
+.btn-link.user-likes-listing {
+display: none;
+}
+.categories-list {
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6b6c6d var(--card, #242526);
+    background-color: #18191A;
+}
+.categories-list::-webkit-scrollbar {
+    width: 8px;
+}
+.categories-list::-webkit-scrollbar-track {
+    background-color: var(--card, #242526);
+}
+.categories-list::-webkit-scrollbar-thumb {
+    background-color: #6b6c6d;
+    border: none; /* Remove the border */
+    border-radius: 4px;
+}
+#card-body {
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background: var(--card, #242526);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 600px;
+}
+.tags-list {
+    height: 200px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6b6c6d var(--card, #242526);
+    background-color: #18191A;
+    border-color: #18191A;
+}
+.tags-list::-webkit-scrollbar {
+    width: 8px;
+}
+.tags-list::-webkit-scrollbar-track {
+    background-color: var(--card, #242526);
+}
+.tags-list::-webkit-scrollbar-thumb {
+    background-color: #6b6c6d;
+    border: none; /* Remove the border */
+    border-radius: 4px;
+}
+#multipletags {
+    color: #FFFFFF;
+}
+li {
+    text-decoration: underline;
+}
+.column3 {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+#chronostep-text {
+    color: var(--skyblue, #00BDFE);
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+}
+#community-text {
+    color: var(--primary-2, #18328D);
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+}
+.listing-icons{
+    color: #FFF;
+    font-family: Font Awesome 5 Free;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.comment-button, .favorite-button {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+}
+.like-count, .comment-count {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    padding-top: 12px;
+}
+.comment-count:hover {
+    text-decoration: none;
+    color: var(--text-color, #A5A8AC);
+}
+.comment-button:hover, .favorite-button:hover {
+    text-decoration: none;
+    color: var(--text-color, #A5A8AC);
+}
+.btn-group {
+    float: left;
+}
+.text {
+    color: #FFFFFF;
+}
+.filter-link {
+    text-decoration: none;
+    color: var(--primary-2, #18328D);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.filter-link.active-link {
+    text-decoration: none;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+.signintext-btn {
+    border-radius: 15px;
+    margin: 10px;
+    background: #18328D;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 13px 40px 14px 40px;
+    justify-content: center;
+    align-items: center;
+}
+.signuptext-btn {
+    border-radius: 15px;
+    border: 2px solid #18328D;
+    margin: 10px;
+    color: #284CC8;
+    text-align: center;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 13px 40px 14px 40px;
+    justify-content: center;
+    align-items: center;
+}
+#auth-container {
+    border-radius: 10px;
+    border: 2px solid var(--card, #242526);
+    background: var(--card, #242526);
+    width: 300px;
+    height: 430px;
+    flex-shrink: 0;
+}
+.hidden{
+    display: none;
+}
+.column3-cards{
+    background: var(--card, #242526);
+}
