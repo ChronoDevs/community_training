@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +13,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Home Index
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth:guest'])->group(function () {
+    // Facebook Login
+    Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
+    Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
+    // Google Login
+    Route::get('login/google', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
+    Route::get('login/google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+});
 
-// Facebook Login
-Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
-Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
-
-// Google Login
-Route::get('login/google', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
-Route::get('login/google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
-
-Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::middleware(['auth:user'])->group(function () {
+    Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    // Home Index
+    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
 
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
@@ -36,11 +35,4 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/posts', [\App\Http\Controllers\AdminController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
     Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
-    // Routes for managing categories
-    Route::get('/admin/categories', 'App\Http\Controllers\AdminController@categories')->name('admin.categories');
-    Route::post('/admin/categories/create', 'App\Http\Controllers\AdminController@createCategory')->name('admin.categories.create');
-    Route::get('/admin/edit-category/{id}', 'App\Http\Controllers\AdminController@editCategory')->name('admin.editCategory');
-    Route::post('/admin/update-category/{id}', 'App\Http\Controllers\AdminController@updateCategory')->name('admin.updateCategory');
-    Route::get('/admin/delete-category/{id}', 'App\Http\Controllers\AdminController@deleteCategory')->name('admin.deleteCategory');
-    Route::get('/admin/search-categories', 'App\Http\Controllers\AdminController@searchCategories')->name('admin.searchCategories');
-    });
+});
