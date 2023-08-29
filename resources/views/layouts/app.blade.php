@@ -17,7 +17,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('js/script.js') }}" defer></script>
     <script src="{{ asset('js/admin.js') }}" defer></script>
-    <script src="{{ asset('js/adminchart.min.js') }}" defer></script>
     <script src="{{ asset('js/adminsearch.js') }}" defer></script>
     @if (trim($__env->yieldContent('js')))
     <script src="{{ url('js') }}/@yield('js')" defer></script>

@@ -93,87 +93,10 @@ body {
     border-radius: 10px;
 }
 
-/* Dashboard Header */
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px; /* Add space between header and stats boxes */
-    /* ... Add other styles ... */
-}
-
-.dashboard-title {
-    display: flex;
-    width: 116px;
-    height: 33px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.dropdowns {
-    display: flex;
-    gap: 10px;
-    /* ... (styles for dropdowns) ... */
-}
-
-/* Stats Boxes */
-.stats-boxes {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px; /* Add space between stats boxes and graph box */
-    /* ... Add other styles ... */
-}
-
-.stats-box {
-    width: 296px;
-    height: 138px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    border: 1px solid #3D3F41;
-    background: #242526;
-    margin-right: 27px;
-    /* ... (styles for stats box) ... */
-}
-
-.stats-label {
-    width: 57px;
-    height: 30px;
-    flex-shrink: 0;
-    color: #FFF;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.stats-value {
-    width: 238px;
-    height: 42px;
-    flex-shrink: 0;
-    color: #2152FF;
-    font-family: Inter;
-    font-size: 30px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
 /* Graph Box */
 .graph-box {
-    width: 934px;
-    height: 363px;
+    width:898px;
+    height:290px;
     top: 394px;
     left: 418px;
     padding: 56px 8px 17px 28px;
