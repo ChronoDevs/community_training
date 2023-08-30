@@ -8,13 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    /**
-     * This middleware checks if the user is logged in as an admin. If the user is not logged in as an admin, the user will be redirected to the admin login page.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('admin')->check()) {
@@ -22,7 +15,12 @@ class AdminMiddleware
             return $next($request);
         }
 
-        // If the user is not logged in as an admin, perform redirection based on the intended URL
+        // If the request is for the '/home' route, allow access without authentication
+        if ($request->is('home')) {
+            return $next($request);
+        }
+
+        // For all other routes, perform the regular redirection logic
         $intendedUrl = url()->previous();
 
         // Define URLs that should not trigger a redirect (e.g., login, logout, etc.)
