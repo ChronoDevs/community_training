@@ -1,0 +1,73 @@
+/* Sidebar */
+.sidebar-card {
+    width: 300px;
+    height: 826px;
+    flex-shrink: 0;
+    background: rgba(36, 37, 38, 0.00);
+    border:none;
+    border-radius: 10px;
+    overflow: hidden; /* Hide any content that might overflow */
+    box-shadow: none; /* Add a box shadow for a card-like effect */
+    margin-top: 10px; /* Add margin to create space between the top edge and the left edge */
+    margin-left:25px;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    display: flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 0; /* No need for individual border radius on items since the card has one */
+    transition: background-color 0.3s ease-in-out; /* Add a transition effect for hover */
+}
+
+.sidebar-item:hover {
+    background-color: #3d3f412f;
+    display: inline-flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.sidebar-link {
+    display: flex;
+    width: 154px; /* Adjust width to fill the available space */
+    height: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.sidebar-link i {
+    margin-right: 8px; /* Add space between icon and text */
+}
+
+.sidebar-item.active {
+    background-color: #3D3F41; /* Set the background color for the active item */
+    display: inline-flex;
+    height: 50px;
+    padding: 16px 86px 16px 25px;
+    align-items: flex-start;
+    gap: 15px;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
