@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
-
-// Home Index
-Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
-
 Route::middleware(['auth:guest'])->group(function () {
+    Auth::routes();
     // Facebook Login
     Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
     Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
     // Google Login
     Route::get('login/google', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
     Route::get('login/google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+    // Home Index
+    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 });
 
 Route::middleware(['auth:user'])->group(function () {
