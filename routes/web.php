@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home Index
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+Auth::routes();
+
 Route::middleware(['auth:guest'])->group(function () {
     Auth::routes();
     // Facebook Login

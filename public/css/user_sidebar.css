@@ -1,0 +1,40 @@
+.sidebar {
+    flex-shrink: 0;
+    background: #18191A;
+}
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sidebar-list li {
+    margin-bottom: 15px;
+}
+.sidebar-list li a {
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    color: #A5A8AC;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+.sidebar-list li a.active {
+    background-color: #2f2f30;
+    color: #fff;
+}
+.sidebar-list li a:hover {
+    background-color: #2f2f30;
+}
+.logout-button {
+    display: block;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #18191A;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+.logout-button:hover {
+    background-color: #c0392b;
+}
