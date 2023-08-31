@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Home Index
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+Auth::routes();
+
 Route::middleware(['auth:guest'])->group(function () {
     // Facebook Login
     Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
@@ -24,8 +29,6 @@ Route::middleware(['auth:guest'])->group(function () {
 
 Route::middleware(['auth:user'])->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-    // Home Index
-    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Route::middleware(['auth:admin'])->group(function () {

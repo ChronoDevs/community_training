@@ -183,6 +183,14 @@ li {
 .hidden{
     display: none;
 }
+.column3{
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
 .column3-cards{
     background: var(--card, #242526);
 }

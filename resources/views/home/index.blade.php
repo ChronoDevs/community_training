@@ -1,13 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Home')
-@section('css', 'home_index.css')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/home_index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user_sidebar.css') }}">
 @section('content')
 <div class="container">
     <div class="row">
         <!-- Column 1: User Interaction Section -->
         @auth
         <div class="col-md-3">
-            <!-- @include('sidebar') -->
+            @include('usersidebar')
         </div>
         @endauth
         @guest
