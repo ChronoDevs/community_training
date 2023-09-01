@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:guest'])->group(function () {
+
     Auth::routes();
     // Facebook Login
     Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
@@ -23,11 +23,11 @@ Route::middleware(['auth:guest'])->group(function () {
     Route::get('login/google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
     // Home Index
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
-});
 
-Route::middleware(['auth:user'])->group(function () {
+
+
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-});
+
 
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
@@ -36,4 +36,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/posts', [\App\Http\Controllers\AdminController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
     Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
+
+    Route::put('admin/updateUser/{id}', '\App\Http\Controllers\AdminController@updateUser')->name('admin.updateUser');
+
 });

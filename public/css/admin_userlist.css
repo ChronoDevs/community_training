@@ -1,0 +1,65 @@
+.modal {
+    position: absolute;
+    margin: 0 auto;
+}
+
+.modal-header {
+    background-color: #3D3F41;
+    color:#FFFF;
+}
+
+.table td button {
+    align-items: center;
+    margin: 0 auto;
+}
+
+.modal-header h5 {
+    margin: 0 auto;
+}
+
+.modal-dialog {
+    /* Set the modal's width to 800px */
+    width: 800px;
+  
+    /* Set the modal's height to 600px */
+    height: 600px;
+}
+  
+.avatar-img {
+    max-width: 100%; /* Make the avatar responsive within its container */
+    width: 300px; /* Adjust the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5%;
+    display: block;
+    margin: 0 auto; /* Center the avatar horizontally */
+    margin-top: 50px;
+}
+
+/* Apply background colors to the columns */
+.avatar-col {
+    background-color: #f2f2f25d; /* Use your desired background color */
+    padding: 20px; /* Add some padding for spacing */
+}
+
+.user-details-col {
+    background-color: #FFFFFF; /* Use your desired background color */
+    padding: 20px; /* Add some padding for spacing */
+}
+
+/* Adjust the modal header spacing */
+.modal-header {
+    border-bottom: none; /* Remove the default border at the bottom of the modal header */
+}
+
+/* Adjust the modal footer spacing */
+.modal-footer {
+    border-top: none; /* Remove the default border at the top of the modal footer */
+    background-color: #3d3f412f;
+}
+
+div.modal-content .userlist_label {
+    border: none;
+    outline: none;
+    width: 220px;
+    background-color: #fafafa;
+}
