@@ -63,3 +63,32 @@ div.modal-content .userlist_label {
     width: 220px;
     background-color: #fafafa;
 }
+
+.export-button {
+    width: 138px;
+    height: 46px;
+    padding: 5px 10px 5px 16px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    background: #3A3B3C;
+    border: none;
+    text-decoration: none;
+}
+
+.export-button a.export-text {
+    text-decoration: none;
+    color: #A5A8AC
+ } 
+
+.export-button i {
+    width: 32px;
+    height: 33px;
+    top: 6px;
+    left: 96px;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: center;
+    color:#FFFFFF;
+}

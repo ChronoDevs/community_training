@@ -38,5 +38,6 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
 
     Route::put('admin/updateUser/{id}', '\App\Http\Controllers\AdminController@updateUser')->name('admin.updateUser');
-
+    Route::get('/export-users', '\App\Http\Controllers\AdminController@exportUsers')->name('export.users');
+    Route::get('/admin/users/search', '\App\Http\Controllers\AdminController@search')->name('admin.users.search');
 });

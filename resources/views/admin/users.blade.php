@@ -13,13 +13,17 @@
                     Users
                 </div>
                 <div class="search-export">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search...">
-                        <i class="fa fa-search"></i>
-                    </div>
+                    <form action="{{ route('admin.users.search') }}" method="GET" class="search-bar">
+                        @csrf
+                        <div>
+                            <input type="text" name="search" placeholder="Search...">
+                            <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                        </div>
                     <button class="export-button">
-                        <span class="export-text">Export</span>
-                        <i class="fa fa-download"></i>
+                        <a href="{{ route('export.users') }}" class="export-text">Export
+                            <i class="fa fa-download"></i>
+                        </a>
                     </button>
                 </div>
             </div>
@@ -47,9 +51,9 @@
                                     <td>{{ $user->gender }}</td>
                                     <td>{{ $user->nickname }}</td>
                                     <td>
-                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{ $user->id }}">
-                                        <i class="fa fa-search btn-lg"></i>
-                                    </button>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{ $user->id }}">
+                                            <i class="fa fa-search btn-lg"></i>
+                                        </button>
                                     </td>
                                     <!-- Add more table cells for other user details -->
                                 </tr>
@@ -76,24 +80,29 @@
                                                 <!-- User Details -->
                                                 <p><label for="name">Name:</label>
                                                 <input type="text" name="name" value="{{ $user->name }}" class="userlist_label"></p>
-                                                <p><label for="name">Middle Name:</label>
+                                                <p><label for="middle_name">Middle Name:</label>
                                                 <input type="text" name="middle_name" value="{{ $user->middle_name }}" class="userlist_label"></p>
-                                                <p><label for="name">Last Name:</label>
+                                                <p><label for="last_name">Last Name:</label>
                                                 <input type="text" name="last_name" value="{{ $user->last_name }}" class="userlist_label"></p>
-                                                <p><label for="name">Gender:</label>
-                                                <input type="text" name="gender" value="{{ $user->gender }}" class="userlist_label"></p>
-                                                <p><label for="name">Email:</label>
+                                                <p><label for="gender">Gender:</label>
+                                                    <select name="gender" class="userlist_label">
+                                                        <option value="male" @if($user->gender === 'male') selected @endif>Male</option>
+                                                        <option value="female" @if($user->gender === 'female') selected @endif>Female</option>
+                                                </select></p>
+                                                <p><label for="email">Email:</label>
                                                 <input type="text" name="email" value="{{ $user->email }}" class="userlist_label"></p>
-                                                <p><label for="email">User Name:</label>
+                                                <p><label for="user_name">User Name:</label>
                                                 <input type="text" name="user_name" value="{{ $user->user_name }}" class="userlist_label"></p>
-                                                <p><label for="name">Nickname:</label>
+                                                <p><label for="nickname">Nickname:</label>
                                                 <input type="text" name="nickname" value="{{ $user->nickname }}" class="userlist_label"></p>
-                                                <p><label for="name">Birthday:</label>
+                                                <p><label for="date_of_birth">Birthday:</label>
                                                 <input type="date" name="date_of_birth" value="{{ $user->date_of_birth }}" class="userlist_label"></p>
-                                                <p><label for="name">Contact Number:</label>
-                                                <input type="text" name="contuct_number" value="{{ $user->contuct_number }}" class="userlist_label"></p>
-                                                <p><label for="name">Zipcode:</label>
+                                                <p><label for="contact_number">Contact Number:</label>
+                                                <input type="text" name="contact_number" value="{{ $user->contact_number }}" class="userlist_label"></p>
+                                                <p><label for="zip_code">Zipcode:</label>
                                                 <input type="text" name="zip_code" value="{{ $user->zip_code }}" class="userlist_label"></p>
+                                                <p><label for="address">Address:</label>
+                                                <input type="text" name="address" value="{{ $user->address }}" class="userlist_label"></p>
                                             </div>
                                         </div>
                                     </div>
