@@ -80,4 +80,49 @@ class User extends Authenticatable
             return false;
         }
     }
+    
+    /**
+     * Update user details.
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function updateUser(array $data)
+    {
+        try {
+            // Update user details based on the provided data
+            $this->name = $data['name'];
+            $this->middle_name = $data['middle_name'];
+            $this->last_name = $data['last_name'];
+            $this->gender = $data['gender'];
+            $this->email = $data['email'];
+            $this->user_name = $data['user_name'];
+            $this->nickname = $data['nickname'];
+            $this->date_of_birth = $data['date_of_birth'];
+            $this->contact_number = $data['contact_number'];
+            $this->zip_code = $data['zip_code'];
+            $this->address = $data['address'];
+
+            // Save the updated user details to the database
+            $this->save();
+    
+            return true; // Updated successfully
+        } catch (\Exception $e) {
+            return false; // An error occurred
+        }
+    }
+
+    /**
+     * Scope: Perform a search query based on a keyword.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string $keyword
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $keyword)
+    {
+        // Customize this query as per your search criteria
+        return $query->where('id', 'like', "%$keyword%")
+            ->orWhere('name', 'like', "%$keyword%");
+    }
 }
