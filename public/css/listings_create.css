@@ -11,14 +11,10 @@
 .btn-link.user-likes-listing {
     display: none;
 }
-.action-button {
-    color: white;
-    text-decoration: none;
-}
 
 /* Categories List */
 .categories-list {
-    height: 350px;
+    height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #6b6c6d var(--card, #242526);
@@ -45,12 +41,12 @@
     border: 1px solid #3D3F41;
     background: var(--card, #242526);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 634px;
+    width: 600px;
 }
 
 /* Tags List */
 .tags-list {
-    height: 350px;
+    height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #6b6c6d var(--card, #242526);
@@ -118,64 +114,6 @@ li {
     line-height: normal;
 }
 
-/* Listing Styles */
-.listing-avatar {
-    border-radius: 50px;
-    border: 1px solid var(--text-color, #A5A8AC);
-}
-
-#listing-user-name {
-    color: var(--skyblue, #00BDFE);
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    margin-bottom: 0px;
-}
-
-#listing-user-position {
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-bottom: 0px;
-}
-
-#listing-datetime {
-    color: #7A7A7A;
-    font-family: Inter;
-    font-size: 9px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-#listing-title {
-    color: #FFF;
-    font-family: Inter;
-    font-size: 25px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-top: 10px;
-    text-decoration: none;
-    height: 50px;
-}
-
-#listing-tags {
-    color: #2152FF;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-right: 5px;
-}
-
-/* Comment and Favorite Buttons */
 .comment-button,
 .favorite-button {
     color: var(--text-color, #A5A8AC);
@@ -187,7 +125,6 @@ li {
     text-decoration: none;
 }
 
-/* Like and Comment Counts */
 .like-count,
 .comment-count {
     color: var(--text-color, #A5A8AC);
@@ -200,28 +137,21 @@ li {
     padding-top: 12px;
 }
 
-.comment-count:hover {
-    text-decoration: none;
-    color: var(--text-color, #A5A8AC);
-}
-
+.comment-count:hover,
 .comment-button:hover,
 .favorite-button:hover {
     text-decoration: none;
     color: var(--text-color, #A5A8AC);
 }
 
-/* Button Group */
 .btn-group {
     float: left;
 }
 
-/* Text Styles */
 .text {
     color: #FFFFFF;
 }
 
-/* Filter Links */
 .filter-link {
     text-decoration: none;
     color: var(--primary-2, #18328D);
@@ -242,7 +172,7 @@ li {
     line-height: normal;
 }
 
-/* Sign In and Sign Up Buttons */
+/* Buttons for Authentication */
 .signintext-btn {
     border-radius: 15px;
     margin: 10px;
@@ -290,22 +220,28 @@ li {
     display: none;
 }
 
-/* Column3 Styles */
-.column3 {
+/* Input Fields */
+#title,
+#desc,
+#tags {
+    border-radius: 15px;
+    background: #3A3B3C;
+    color: white;
+    width: 800px;
+}
+
+#title::placeholder,
+#desc::placeholder,
+#tags::placeholder {
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
-    font-size: 18px;
+    font-size: 14px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
     line-height: normal;
 }
 
-/* Column3 Cards */
-.column3-cards {
-    background: var(--card, #242526);
-}
-
-/* Invisible */
-.invi {
-    background: var(--card, #242526);
+#title,
+#tags {
+    height: 60px;
 }
