@@ -39,6 +39,7 @@ body {
     align-items: center;
     margin-bottom: 30px;
     margin-top:15px;
+    margin-right: 20px;
     /* ... (styles for users header) ... */
 }
 
@@ -68,6 +69,8 @@ body {
     padding: 12px 15px 14px 25px;
     justify-content: flex-end;
     align-items: flex-start;
+    width: 400px;
+    height: 46px;
     margin-right: 10px; /* Adjust the margin value to create space */
     border-radius: 15px;
     background: #3A3B3C;
@@ -93,35 +96,6 @@ body {
     color: #016EB5;
 
 }
-
-.export-button {
-    width: 138px;
-    height: 46px;
-    padding: 5px 10px 5px 16px;
-    border-radius: 15px;
-    background-color: #FFFFFF;
-    background: #3A3B3C;
-    border: none;
-}
-
-.export-text {
-   color:#A5A8AC;
-}
-
-.export-button i {
-    width: 32px;
-    height: 33px;
-    top: 6px;
-    left: 96px;
-    font-family: Font Awesome 5 Free;
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 23px;
-    letter-spacing: 0em;
-    text-align: center;
-    color:#FFFFFF;
-}
-
 /* Admin Card */
 .admin-card {
     width: 934px;

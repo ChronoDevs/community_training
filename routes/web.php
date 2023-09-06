@@ -25,7 +25,7 @@ Route::middleware(['auth:guest'])->group(function () {
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 });
 
-Route::middleware(['auth:user'])->group(function () {
+Route::middleware(['auth:web'])->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });
 
@@ -36,4 +36,9 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/admin/posts', [\App\Http\Controllers\AdminController::class, 'posts'])->name('admin.posts');
     Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
     Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
+
+    Route::get('admin/editUser/{user}', [\App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.editUser');
+    Route::put('admin/updateUser/{user}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('admin.updateUser');
+    Route::get('/export-users', [\App\Http\Controllers\AdminController::class, 'exportUsers'])->name('export.users');
+    Route::get('/admin/users/search', [\App\Http\Controllers\AdminController::class, 'search'])->name('admin.users.search');
 });
