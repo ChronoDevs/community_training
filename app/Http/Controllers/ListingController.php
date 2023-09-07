@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ListingStoreRequest;
+use App\Http\Requests\ListingUpdateRequest;
 use App\Models\Listing;
 use App\Models\Category;
 use App\Models\Tag;
@@ -49,12 +50,19 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
+        // Attempt to create a new listing
         $listing = Listing::createListing($request);
 
-        // Attach the selected category to the listing
-        $listing->categories()->attach($request->input('category'));
+        // Check if the listing was successfully created
+        if ($listing) {
+            // Attach the selected category to the listing
+            $listing->categories()->attach($request->input('category'));
 
-        return redirect()->route('listings.index')->with('success', 'Listing created successfully!');
+            return redirect()->route('listings.index')->with('success', 'Listing created successfully!');
+        } else {
+            // Handle the case where listing creation failed
+            return redirect()->back()->with('error', 'Failed to create the listing. Please try again.');
+        }
     }
 
     /**
@@ -80,35 +88,32 @@ class ListingController extends Controller
     /**
      * Update the specified listing in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ListingUpdateRequest  $request
      * @param  \App\Models\Listing  $listing
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Listing $listing)
+    public function update(ListingUpdateRequest $request, Listing $listing)
     {
         // Check if the authenticated user is the creator of the listing
         if (Gate::denies('update-listing', $listing)) {
             abort(403, 'Unauthorized');
         }
 
-        $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'tags' => 'array', // Ensure 'tags' is an array in the request
-        ]);
-
-        $listing->update([
+        // Prepare data for the update (title, description, tags, category)
+        $data = [
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-        ]);
+            'tags' => $request->input('tags'),
+            'category' => $request->input('category'),
+        ];
 
-        // Sync tags for the listing
-        $listing->tags()->sync($request->input('tags'));
-
-        // Update the selected category for the listing
-        $listing->categories()->sync($request->input('category'));
-
-        return redirect()->route('listings.index')->with('success', 'Listing updated successfully!');
+        // Use the custom update method in the Listing model
+        if ($listing->updateListing($data)) {
+            return redirect()->route('listings.index')->with('success', 'Listing updated successfully!');
+        } else {
+            // Handle the case where the update fails within the transaction
+            return back()->with('error', 'Failed to update the listing.');
+        }
     }
 
     /**
@@ -124,14 +129,14 @@ class ListingController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        // Update the 'deleted_by' column with the ID of the user who deleted the listing
-        $listing->update([
-            'deleted_by' => Auth::id(),
-        ]);
+        // Soft delete the listing (including 'deleted_by' and 'deleted_at' updates)
+        $listing->softDelete();
 
-        // Soft delete the listing
-        $listing->delete();
-
-        return redirect()->route('listings.index')->with('success', 'Listing deleted successfully!');
+        // Check if the listing was successfully deleted
+        if ($listing->trashed()) {
+            return redirect()->route('listings.index')->with('success', 'Listing deleted successfully!');
+        } else {
+            return redirect()->route('listings.index')->with('error', 'Failed to delete the listing.');
+        }
     }
 }
