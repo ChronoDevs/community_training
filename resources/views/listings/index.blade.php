@@ -81,7 +81,7 @@
         </div>
     </div>
 </div>
-@endsection
+
 
 @section('js', 'listings_index.js')
 @endsection

@@ -60,7 +60,6 @@
         </div>
     </div>
 </div>
-@endsection
 
 @section('js', 'listings_create.js')
 @endsection
