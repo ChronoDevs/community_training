@@ -45,10 +45,10 @@ class ListingController extends Controller
     /**
      * Store a newly created listing in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ListingStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ListingStoreRequest $request)
     {
         // Attempt to create a new listing
         $listing = Listing::createListing($request);
