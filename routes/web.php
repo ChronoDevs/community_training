@@ -35,6 +35,9 @@ use Illuminate\Support\Facades\Route;
     Route::post('/listings', [App\Http\Controllers\ListingController::class, 'store'])->name('listings.store');
     Route::resource('listings', App\Http\Controllers\ListingController::class);
 
+    // Tags page route
+    Route::get('/tags', [App\Http\Controllers\TagController::class, 'index'])->name('tags.index');
+
     // Faqs page route
     Route::get('/faqs', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
 
