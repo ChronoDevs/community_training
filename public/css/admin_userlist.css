@@ -73,6 +73,7 @@ div.modal-content .userlist_label {
     background: #3A3B3C;
     border: none;
     text-decoration: none;
+    margin-right: 20px;
 }
 
 .export-button a.export-text {

@@ -119,5 +119,10 @@ class AdminController extends Controller
         $users = User::search($keyword)->get();
 
         return view('admin.users', compact('users'));
-    }     
+    }
+    
+    public function posts()
+    {
+        return view('admin.posts');
+    }
 }

@@ -4,7 +4,8 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px; /* Add space between header and stats boxes */
-    /* ... Add other styles ... */
+    margin-right: 6px;
+    margin-top: 15px;
 }
 
 .dashboard-title {
@@ -22,38 +23,16 @@
     line-height: normal;
 }
 
-.dropdowns {
-    display: flex;
-    gap: 10px;
-    /* ... (styles for dropdowns) ... */
-}
-
-.dropdown {
-    width: 148px;
-    height: 46px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border:none;
-    background: #3A3B3C;
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-right: 25px;
-}
-
 /* Stats Boxes */
 .stats-boxes {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px; /* Add space between stats boxes and graph box */
     /* ... Add other styles ... */
 }
 
 .stats-box {
-    width: 296px;
+    width: 290px;
     height: 138px;
     flex-shrink: 0;
     display: flex;
@@ -63,7 +42,7 @@
     border-radius: 10px;
     border: 1px solid #3D3F41;
     background: #242526;
-    margin-right: 25px;
+    margin-right: 32px;
     /* ... (styles for stats box) ... */
 }
 
@@ -89,4 +68,17 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+/* Graph Box */
+.graph-box {
+    width:934px;
+    height:363px;
+    top: 394px;
+    left: 418px;
+    padding: 56px 8px 17px 28px;
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background: #242526;
+    /* ... (styles for graph box) ... */
 }
