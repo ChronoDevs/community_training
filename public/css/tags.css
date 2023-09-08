@@ -1,0 +1,70 @@
+/* Filter Link */
+.filter-link {
+    text-decoration: none;
+    color: var(--primary-2, #18328D);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+/* Active Filter Link */
+.filter-link.active-link {
+    text-decoration: none;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+#card-body {
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background: #242526;
+}
+
+.invi {
+    background: var(--card, #242526);
+}
+
+.tag-name {
+    color: #2152FF;
+    font-family: Inter;
+    font-size: 25px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.tag-desc {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.tag-listings, .tag-lists {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    text-decoration: none;
+    transition: font-size 0.3s;
+}
+
+.tag-lists:hover {
+    color: #9cb7e9;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.info {
+    font-size: 24px;
+}

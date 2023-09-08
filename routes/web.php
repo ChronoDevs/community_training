@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:guest'])->group(function () {
+//Route::middleware(['auth:guest'])->group(function () {
     Auth::routes();
 
     // Facebook Login
@@ -30,17 +30,23 @@ Route::middleware(['auth:guest'])->group(function () {
     // Line Login
     Route::get('login/line', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToLine'])->name('login.line');
     Route::get('login/line/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleLineCallback']);
-});
+//});
 
-Route::middleware(['auth'])->group(function () {
+//Route::middleware(['auth'])->group(function () {
     // Listings page route
     Route::get('/listings', [App\Http\Controllers\ListingController::class, 'index'])->name('listings.index');
     Route::get('/listings/create', [App\Http\Controllers\ListingController::class, 'create'])->name('listings.create');
     Route::post('/listings', [App\Http\Controllers\ListingController::class, 'store'])->name('listings.store');
     Route::resource('listings', App\Http\Controllers\ListingController::class);
 
+    // Tags page route
+    Route::get('/tags', [App\Http\Controllers\TagController::class, 'index'])->name('tags.index');
+
+    // Faqs page route
+    Route::get('/faqs', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
+
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-});
+//});
 
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
