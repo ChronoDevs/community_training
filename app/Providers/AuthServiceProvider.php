@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Define the 'update-listing' gate to check if the user can update a listing
+        Gate::define('update-listing', function ($user, $listing) {
+            return $user->id === $listing->user_id;
+        });
+
+        // Define the 'delete-listing' gate to check if the user can delete a listing
+        Gate::define('delete-listing', function ($user, $listing) {
+            return $user->id === $listing->user_id;
+        });
     }
 }
