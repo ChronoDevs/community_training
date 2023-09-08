@@ -57,6 +57,9 @@ class Listing extends Model
             // Attach tags to the listing
             $listing->tags()->attach($request->input('tags'));
 
+            // If you also want to attach categories to the listing, you can do it here:
+            $listing->categories()->attach($request->input('category'));
+
             return $listing;
         }, 5); // The second argument '5' specifies the number of times to attempt the transaction in case of deadlock
     }
