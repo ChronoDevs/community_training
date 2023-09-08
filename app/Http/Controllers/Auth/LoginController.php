@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -84,6 +85,53 @@ class LoginController extends Controller
 
         // Returns to home after login
         return redirect()->route('home.index');
+    }
+
+    /**
+     * Redirect the user to LINE for authentication.
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function redirectToLine()
+    {
+        return Socialite::driver('line')->redirect();
+    }
+
+    /**
+     * Handle the callback from LINE.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function handleLineCallback()
+    {
+        try {
+            $lineUser = Socialite::driver('line')->user();
+        
+            // Check if the LINE user is already registered in your database based on their LINE ID
+            $user = User::where('line_id', $lineUser->getId())->first();
+        
+            if (!$user) {
+                // If the user doesn't exist, create a new user
+                $user = new User();
+                $user->name = $lineUser->getName();
+                $user->email = $lineUser->getEmail() ?? 'line_user@example.com'; // Use a default email if LINE user has no email
+                $user->line_id = $lineUser->getId(); // Store LINE ID for future reference
+                $user->password = bcrypt(Str::random(8)); // Temporary random password
+                $user->save();
+            }
+        
+            // Authenticate the user (you may use Laravel's Auth system)
+            Auth::login($user);
+        
+            // Redirect to the home page or any other desired route
+            return redirect()->route('home.index');
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            \Log::error('LINE login error: ' . $e->getMessage());
+        
+            // Redirect to the error page with a user-friendly message
+            return redirect('/error')->with('error', 'LINE login failed. Please try again later.');
+        }
     }
 
     /**
