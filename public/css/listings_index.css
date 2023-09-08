@@ -11,14 +11,10 @@
 .btn-link.user-likes-listing {
     display: none;
 }
-.action-button {
-    color: white;
-    text-decoration: none;
-}
 
 /* Categories List */
 .categories-list {
-    height: 350px;
+    height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #6b6c6d var(--card, #242526);
@@ -50,7 +46,7 @@
 
 /* Tags List */
 .tags-list {
-    height: 350px;
+    height: 200px;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #6b6c6d var(--card, #242526);
@@ -109,21 +105,13 @@ li {
     line-height: normal;
 }
 
-.listing-icons {
-    color: #FFF;
-    font-family: "Font Awesome 5 Free";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-/* Listing Styles */
+/* Listing Avatar */
 .listing-avatar {
     border-radius: 50px;
     border: 1px solid var(--text-color, #A5A8AC);
 }
 
+/* Listing User Name */
 #listing-user-name {
     color: var(--skyblue, #00BDFE);
     font-family: Inter;
@@ -134,6 +122,17 @@ li {
     margin-bottom: 0px;
 }
 
+/* Listing Icons */
+.listing-icons {
+    color: #FFF;
+    font-family: "Font Awesome 5 Free";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+/* Listing User Position */
 #listing-user-position {
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
@@ -144,6 +143,7 @@ li {
     margin-bottom: 0px;
 }
 
+/* Listing Datetime */
 #listing-datetime {
     color: #7A7A7A;
     font-family: Inter;
@@ -153,6 +153,7 @@ li {
     line-height: normal;
 }
 
+/* Listing Title */
 #listing-title {
     color: #FFF;
     font-family: Inter;
@@ -165,6 +166,7 @@ li {
     height: 50px;
 }
 
+/* Listing Tags */
 #listing-tags {
     color: #2152FF;
     font-family: Inter;
@@ -290,7 +292,7 @@ li {
     display: none;
 }
 
-/* Column3 Styles */
+/* Additional Styles */
 .column3 {
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
@@ -300,12 +302,10 @@ li {
     line-height: normal;
 }
 
-/* Column3 Cards */
 .column3-cards {
     background: var(--card, #242526);
 }
 
-/* Invisible */
 .invi {
     background: var(--card, #242526);
 }
