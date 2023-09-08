@@ -31,6 +31,12 @@
                             Continue with Google
                         </a>
                     </div>
+                    <div class="social-login">
+                        <a href="{{ route('login.line') }}" class="btn btn-success" id="line-button">
+                            <img src="images/line_icon.png" alt="LINE Icon" class="line-icon">
+                            Continue with LINE
+                        </a>
+                    </div>
                     <div class="email-login">
                         <p class="email-login-text">----- Have a password? Continue with your email address -----</p>
                         <form method="POST" action="{{ route('login') }}">
