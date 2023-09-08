@@ -26,6 +26,10 @@ use Illuminate\Support\Facades\Route;
 
     // Home Index
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
+    // Line Login
+    Route::get('login/line', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToLine'])->name('login.line');
+    Route::get('login/line/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleLineCallback']);
 //});
 
 //Route::middleware(['auth'])->group(function () {
