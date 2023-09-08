@@ -1,0 +1,45 @@
+/* FAQ Container */
+.faq {
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    color: white;
+}
+
+/* FAQ Header */
+.faq-header {
+    border-radius: 10px;
+    border: 1px solid #3D3F41;
+    background-color: #3D3F41;
+    color: #FFF;
+    font-family: Inter;
+    font-style: normal;
+    line-height: normal;
+}
+
+/* FAQ Body */
+.faq-body {
+    border: 1px solid #3D3F41;
+    background-color: #3D3F41;
+}
+
+/* Filter Link */
+.filter-link {
+    text-decoration: none;
+    color: var(--primary-2, #18328D);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+/* Active Filter Link */
+.filter-link.active-link {
+    text-decoration: none;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
