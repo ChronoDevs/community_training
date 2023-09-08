@@ -111,6 +111,4 @@
         </div>
     </div>
 </div>
-
-@section('js', 'faqs.js')
 @endsection

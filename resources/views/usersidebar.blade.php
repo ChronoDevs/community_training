@@ -11,6 +11,11 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('tags.index') }}" class="{{ request()->routeIs('tags.*') ? 'active' : '' }}">
+                <i class="fas fa-tags"></i> Tags
+            </a>
+        </li>
+        <li>
             <a href="{{ route('faqs.index') }}" class="{{ request()->routeIs('faqs.*') ? 'active' : '' }}">
                 <i class="fas fa-question-circle"></i> FAQs
             </a>
