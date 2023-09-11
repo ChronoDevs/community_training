@@ -47,6 +47,7 @@
             </div>
 
             @foreach($listings as $listing)
+            @if($listing->status === 'published')
             <div class="card mb-3 invi">
                 <div class="card-body" id="card-body">
                     <div class="d-flex align-items-center">
@@ -114,6 +115,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             @endforeach
             <!-- Pagination Links -->
             <div class="d-flex justify-content-center">

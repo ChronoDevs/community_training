@@ -20,44 +20,6 @@ body {
     text-align: center;
 }
 
-/* Graph Box */
-.graph-box {
-    width:898px;
-    height:290px;
-    top: 394px;
-    left: 418px;
-    padding: 56px 8px 17px 28px;
-    border-radius: 10px;
-    border: 1px solid #3D3F41;
-    background: #242526;
-    /* ... (styles for graph box) ... */
-}
-
-.admin-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    margin-top:15px;
-    margin-right: 20px;
-    /* ... (styles for users header) ... */
-}
-
-.admin-title {
-    display: flex;
-    width: 116px;
-    height: 33px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
 .search-export {
     display: flex;
     align-items: center;

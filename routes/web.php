@@ -64,4 +64,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('admin/updateUser/{user}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('admin.updateUser');
     Route::get('/export-users', [\App\Http\Controllers\AdminController::class, 'exportUsers'])->name('export.users');
     Route::get('/admin/users/search', [\App\Http\Controllers\AdminController::class, 'search'])->name('admin.users.search');
+
+    Route::get('admin/inspectListing/{listing}', [\App\Http\Controllers\AdminController::class, 'inspectListing'])->name('admin.inspectListing');
+    Route::put('admin/updateListingStatus/{listing}', [\App\Http\Controllers\AdminController::class, 'updateListingStatus'])->name('admin.updateListingStatus');
+    Route::get('admin/filterListings', [\App\Http\Controllers\AdminController::class, 'filterListings'])->name('admin.filterListings');
 });

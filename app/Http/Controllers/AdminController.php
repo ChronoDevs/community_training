@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use League\Csv\Writer;
 use App\Models\User;
+use App\Models\Listing;
 
 class AdminController extends Controller
 {
@@ -119,5 +120,62 @@ class AdminController extends Controller
         $users = User::search($keyword)->get();
 
         return view('admin.users', compact('users'));
-    }     
+    }
+    
+    /**
+     * Retrieve and display a list of listings with associated users and tags.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function posts()
+    {
+        // Fetch listings with their associated users and tags
+        $listings = Listing::with('user', 'tags')->get();
+
+        return view('admin.posts', ['listings' => $listings]);
+    }
+
+    /**
+     * Display the inspection view for a specific listing.
+     *
+     * @param  \App\Models\Listing  $listing
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function inspectListing(Listing $listing)
+    {
+        return view('admin.inspect_listing', ['listing' => $listing]);
+    }
+
+    /**
+     * Update the status of a listing based on the provided status and action.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Listing  $listing
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateListingStatus(Request $request, Listing $listing)
+    {
+        $status = $request->input('status');
+        $action = $request->input('action');
+
+        // Call the custom method on the Listing instance
+        $message = $listing->updateListingStatus($status, $action);
+
+        if ($message === false) {
+            return redirect()->back()->with('error', 'Invalid status provided.');
+        }
+
+        // Redirect back with the success message
+        return redirect()->back()->with('success', $message);
+    }
+
+    public function filterListings(Request $request)
+    {
+        $status = $request->input('status');
+        
+        // Fetch filtered listings based on the selected status
+        $listings = Listing::where('status', $status)->get();
+        
+        return response()->json(['listings' => $listings]);
+    }
 }
