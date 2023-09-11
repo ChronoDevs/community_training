@@ -109,4 +109,37 @@ class Listing extends Model
         // Save the model to apply the changes
         $this->save();
     }
+
+    public function likes()
+    {
+        return $this->hasMany(ListingLike::class);
+    }
+
+    public function like(User $user)
+    {
+        if (!$this->likes()->where('user_id', $user->id)->exists()) {
+            $this->likes()->create(['user_id' => $user->id]);
+        }
+    }
+
+    public function unlike(User $user)
+    {
+        $this->likes()->where('user_id', $user->id)->delete();
+    }
+
+    public function getLikesTextAttribute()
+    {
+        $likeCount = $this->likes->count();
+
+        if ($likeCount === 0) {
+            return 'No one liked this post yet';
+        } elseif ($likeCount <= 2) {
+            $likedBy = $this->likes->pluck('user.name')->implode(', ');
+            return "$likedBy liked this post";
+        } else {
+            $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
+            $remainingLikes = $likeCount - 2;
+            return "$likedBy and $remainingLikes others liked this post";
+        }
+    }
 }
