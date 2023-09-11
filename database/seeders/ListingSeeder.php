@@ -19,7 +19,7 @@ class ListingSeeder extends Seeder
     public function run()
     {
         // Get a list of user IDs and category IDs for association
-        $userIds = User::pluck('id');
+        $userIds = User::inRandomOrder()->pluck('id'); // Pick random user IDs
         $categoryIds = Category::pluck('id'); // Get all category IDs
 
         // Get all tag IDs

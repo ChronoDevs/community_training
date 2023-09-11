@@ -109,4 +109,21 @@ class Listing extends Model
         // Save the model to apply the changes
         $this->save();
     }
+
+    public function likes()
+    {
+        return $this->hasMany(ListingLike::class);
+    }
+
+    public function like(User $user)
+    {
+        if (!$this->likes()->where('user_id', $user->id)->exists()) {
+            $this->likes()->create(['user_id' => $user->id]);
+        }
+    }
+
+    public function unlike(User $user)
+    {
+        $this->likes()->where('user_id', $user->id)->delete();
+    }
 }
