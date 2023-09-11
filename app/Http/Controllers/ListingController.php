@@ -22,7 +22,7 @@ class ListingController extends Controller
     public function index()
     {
         // Fetch all listings from the database
-        $listings = Listing::paginate(5);
+        $listings = Listing::where('status', 'published')->paginate(5);
 
         // Return the listings view with the data
         return view('listings.index', compact('listings'));

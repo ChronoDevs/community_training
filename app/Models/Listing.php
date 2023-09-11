@@ -109,4 +109,35 @@ class Listing extends Model
         // Save the model to apply the changes
         $this->save();
     }
+
+        /**
+     * Update the status of the listing.
+     *
+     * @param string $status
+     * @param string $action
+     * @return bool
+     */
+    public function updateListingStatus($status, $action)
+    {
+        // Check if the provided status is valid (published or unpublished)
+        if ($status !== 'published' && $status !== 'unpublished') {
+            return false;
+        }
+
+        // Update the status of the listing
+        $this->status = $status;
+
+        // Save the updated listing
+        $this->save();
+
+        // Determine the action and return a success message
+        if ($action === 'publish') {
+            return 'Listing published successfully.';
+        } elseif ($action === 'unpublish') {
+            return 'Listing unpublished successfully.';
+        }
+
+        // If no specific action is specified, return null
+        return null;
+    }
 }
