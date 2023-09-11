@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const likeButtons = document.querySelectorAll('.btn-link[id^="like-btn"]');
     const likedButtons = document.querySelectorAll('.btn-link[id^="liked-btn"]');
     const likeCounts = document.querySelectorAll('.like-count[id^="like-count-"]');
+    const clickableLinks = document.querySelectorAll('.clickable-link');
 
     // Event listener for filter links
     filterLinks.forEach(link => {
@@ -44,6 +45,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     // Handle errors here
                 }
             });
+        });
+    });
+
+    // Event listener for clickable links
+    clickableLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const url = this.getAttribute('data-url');
+            window.location.href = url;
         });
     });
 });
