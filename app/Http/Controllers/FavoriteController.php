@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Models\Favorite;
 use App\Models\Listing;
 
@@ -30,12 +31,16 @@ class FavoriteController extends Controller
     public function add(Listing $listing)
     {
         // Create a new favorite record for the current user and listing
-        Favorite::create([
+        $favorite = Favorite::create([
             'user_id' => auth()->id(),
             'listing_id' => $listing->id,
         ]);
 
-        return back()->with('success', 'Listing added to favorites!');
+        if ($favorite) {
+            return back()->with('success', 'Listing added to favorites!');
+        } else {
+            return back()->with('error', 'Failed to add listing to favorites.');
+        }
     }
 
     /**
@@ -52,12 +57,22 @@ class FavoriteController extends Controller
             ->first();
 
         if ($favorite) {
-            $favorite->delete();
+            if ($favorite->delete()) {
+                return back()->with('success', 'Listing removed from favorites!');
+            } else {
+                return back()->with('error', 'Failed to remove listing from favorites.');
+            }
+        } else {
+            return back()->with('error', 'Listing was not found in your favorites.');
         }
-
-        return back()->with('success', 'Listing removed from favorites!');
     }
 
+    /**
+     * Add a listing to the user's favorites using Eloquent relationships.
+     *
+     * @param  \App\Models\Listing  $listing
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addToFavorites(Listing $listing)
     {
         $user = auth()->user();
