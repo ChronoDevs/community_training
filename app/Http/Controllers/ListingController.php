@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ListingStoreRequest;
 use App\Http\Requests\ListingUpdateRequest;
 use App\Models\Listing;
+use App\Models\ListingLike;
 use App\Models\Category;
 use App\Models\Tag;
 
@@ -138,5 +139,31 @@ class ListingController extends Controller
         } else {
             return redirect()->route('listings.index')->with('error', 'Failed to delete the listing.');
         }
+    }
+
+    /**
+     * Like the listing
+     *
+     * @param \App\Models\Listing $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function like(Listing $listing)
+    {
+        $listing->like(auth()->user());
+
+        return redirect()->back();
+    }
+
+    /**
+     * Unlike the listing
+     *
+     * @param \App\Models\Listing $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function unlike(Listing $listing)
+    {
+        $listing->unlike(auth()->user());
+
+        return redirect()->back();
     }
 }

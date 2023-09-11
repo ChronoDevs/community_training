@@ -78,18 +78,34 @@
                     <div class="d-flex justify-content-between align-items-center mt-3">
                         <div>
                             @auth
-                            <!-- Like Link with Icon -->
-                            <a href="#" class=" me-3 action-button">
-                                <i class="far fa-thumbs-up"></i> Like
-                            </a>
+                            <!-- Like Link with Icon and Text -->
+                            @if (!$listing->likes()->where('user_id', auth()->id())->exists())
+                                <form method="POST" action="{{ route('listings.like', $listing->id) }}" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="me-3 action-link">
+                                        <i class="far fa-thumbs-up"></i> Like
+                                    </button>
+                                </form>
+                            @else
+                                <!-- Unlike Link with Icon and Text -->
+                                <form method="POST" action="{{ route('listings.unlike', $listing->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="me-3 action-link">
+                                        <i class="far fa-thumbs-down"></i> Unlike
+                                    </button>
+                                </form>
+                            @endif
 
-                            <!-- Comment Link with Icon -->
-                            <a href="#" class=" me-3 action-button">
-                                <i class="far fa-comment"></i> Comment
-                            </a>
+                            <!-- Display likes text based on the number of likes -->
+                            <span class="likes-text" style="font-size: 12px; color: white;">{{ $listing->likesText }}</span>
                             @endauth
                         </div>
 
+                        <!-- Comment Link with Icon -->
+                        <a href="#" class="me-3 action-button">
+                            <i class="far fa-comment"></i> Comment
+                        </a>
                         <!-- Favorite Link with Icon -->
                         @auth
                         <a href="#" class="action-button">

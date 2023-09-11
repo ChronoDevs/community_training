@@ -45,6 +45,10 @@ use Illuminate\Support\Facades\Route;
     // Faqs page route
     Route::get('/faqs', [App\Http\Controllers\FaqController::class, 'index'])->name('faqs.index');
 
+    // Like and Unlike
+    Route::post('/listings/{listing}/like', [App\Http\Controllers\ListingController::class, 'like'])->name('listings.like');
+    Route::delete('/listings/{listing}/unlike', [App\Http\Controllers\ListingController::class, 'unlike'])->name('listings.unlike');
+
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 //});
 
