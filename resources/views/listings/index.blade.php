@@ -84,6 +84,5 @@
     </div>
 </div>
 
-
 @section('js', 'scripts.js')
 @endsection
