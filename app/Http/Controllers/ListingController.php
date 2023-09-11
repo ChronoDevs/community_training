@@ -141,6 +141,12 @@ class ListingController extends Controller
         }
     }
 
+    /**
+     * Like the listing
+     *
+     * @param \App\Models\Listing $listing
+     * @return \Illuminate\Http\Response
+     */
     public function like(Listing $listing)
     {
         $listing->like(auth()->user());
@@ -148,6 +154,12 @@ class ListingController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Unlike the listing
+     *
+     * @param \App\Models\Listing $listing
+     * @return \Illuminate\Http\Response
+     */
     public function unlike(Listing $listing)
     {
         $listing->unlike(auth()->user());

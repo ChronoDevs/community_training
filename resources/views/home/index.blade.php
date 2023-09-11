@@ -97,14 +97,7 @@
                             @endif
 
                             <!-- Display likes text based on the number of likes -->
-                            @php
-                                $likeCount = $listing->likes->count();
-                                $likedBy = $listing->likes->pluck('user.name')->implode(', ');
-
-                                $likesText = $likeCount === 0 ? 'No one liked this post yet' : ($likeCount <= 2 ? "$likedBy liked this post" : "$likedBy and " . ($likeCount - 2) . " others liked this post");
-                            @endphp
-
-                            <span class="likes-text" style="font-size: 12px; color: white;">{{ $likesText }}</span>
+                            <span class="likes-text" style="font-size: 12px; color: white;">{{ $listing->likesText }}</span>
                             @endauth
                         </div>
 
