@@ -69,9 +69,8 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('admin/updateListingStatus/{listing}', [\App\Http\Controllers\AdminController::class, 'updateListingStatus'])->name('admin.updateListingStatus');
     Route::get('admin/filterListings', [\App\Http\Controllers\AdminController::class, 'filterListings'])->name('admin.filterListings');
 
-    Route::post('/admin/categories/create', 'App\Http\Controllers\AdminController@createCategory')->name('admin.categories.create');
-    Route::get('/admin/edit-category/{id}', 'App\Http\Controllers\AdminController@editCategory')->name('admin.editCategory');
-    Route::post('/admin/update-category/{id}', 'App\Http\Controllers\AdminController@updateCategory')->name('admin.updateCategory');
-    Route::get('/admin/delete-category/{id}', 'App\Http\Controllers\AdminController@deleteCategory')->name('admin.deleteCategory');
-    Route::get('/admin/search-categories', 'App\Http\Controllers\AdminController@searchCategories')->name('admin.searchCategories');
+    Route::post('admin/createCategory', [\App\Http\Controllers\AdminController::class, 'createCategory'])->name('admin.createCategory');
+    Route::get('admin/editCategory/{category}', [\App\Http\Controllers\AdminController::class, 'editCategory'])->name('admin.editCategory');
+    Route::put('admin/updateCategory/{category}', [\App\Http\Controllers\AdminController::class, 'updateCategory'])->name('admin.updateCategory');
+    Route::delete('admin/deleteCategory/{category}', [\App\Http\Controllers\AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');    
 });

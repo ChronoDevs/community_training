@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('css', 'admin_categories.css')
 @section('title', 'Categories')
 @section('content')
 <div class="container">
@@ -37,18 +38,21 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $category->id }}</td>
-                                <td>{{ $category->title }}</td>
+                                <td>{{ $category->name }}</td>
                                 <td>{{ $category->created_at }}</td>
                                 <td>
-                                    <!-- Edit Category Button -->
-                                    <button class="btn btn-primary btn-sm">
-                                        <i class="fa fa-pencil"></i> Edit
-                                    </button>
-
-                                    <!-- Delete Category Button -->
-                                    <a href="{{ route('admin.deleteCategory', ['id' => $category->id]) }}" class="btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </a>
+                                    <div class="btn-group">
+                                        <!-- Edit Category Button -->
+                                        <a href="{{ route('admin.editCategory', ['category' => $category->id]) }}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </a>
+                                        <!-- Delete Category Button -->
+                                        <form method="POST" action="{{ route('admin.deleteCategory', ['category' => $category]) }}">
+                                            @csrf
+                                            @method('DELETE') <!-- Add this line to set the method to DELETE -->
+                                            <button class="btn btn-danger btn-sm fas fa-trash" type="submit">Delete</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -63,7 +67,7 @@
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('admin.categories.create') }}">
+                <form method="POST" action="{{ route('admin.createCategory') }}">
                     @csrf
                     <div class="form-group">
                         <label for="categoryTitle" class="category-label">Title</label>

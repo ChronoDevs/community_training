@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\Admin\CreateCategoryRequest;
 use Illuminate\Http\Request;
 use League\Csv\Writer;
 use App\Models\User;
@@ -180,56 +181,76 @@ class AdminController extends Controller
         return response()->json(['listings' => $listings]);
     }
 
+    /**
+     * Display a paginated list of categories in the admin panel.
+     *
+     * @return \Illuminate\View\View
+     */
     public function categories()
     {
-        $categories = Category::paginate(9); // Retrieve categories with pagination
+        $categories = Category::paginate(10); // Retrieve categories with pagination
         return view('admin.categories', compact('categories'));
     }
 
-    public function createCategory(Request $request)
+    /**
+     * Create a new category based on the provided request.
+     *
+     * @param  \App\Http\Requests\CreateCategoryRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createCategory(CreateCategoryRequest $request)
     {
-        // Validate the input
-        $request->validate([
-            'category_title' => 'required|string|max:255',
-            // Add more validation rules if needed
-        ]);
+        // Get the category title from the request
+        $name = $request->input('category_title');
 
-        // Create a new category
-        $category = new Category();
-        $category->title = $request->input('category_title');
-        // Set other attributes if needed
-        $category->save();
+        // Call the createCategory method in the Category model
+        $category = Category::createCategory($name);
 
         return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
     }
 
-    public function editCategory($id)
+    /**
+     * Display the form for editing a specific category.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\View\View
+     */
+    public function editCategory(Category $category)
     {
-        $category = Category::findOrFail($id);
         return view('admin.edit_category', compact('category'));
     }
 
-    public function updateCategory(Request $request, $id)
+    /**
+     * Update the details of a category based on the provided request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateCategory(Request $request, Category $category)
     {
-        $category = Category::findOrFail($id);
-        $category->title = $request->input('title');
-        // Update other fields if needed
-        $category->save();
-    
+        $name = $request->input('name');
+        $category->updateCategory($name);
+
         // Fetch the updated category after saving changes
-        $updatedCategory = Category::findOrFail($id);
-    
+        $updatedCategory = Category::findOrFail($category->id);
+
         return redirect()->route('admin.categories')->with([
             'success' => 'Category updated successfully.',
             'updatedCategory' => $updatedCategory, // Pass the updated category to the view
         ]);
     }
-    
-    public function deleteCategory($id)
+
+    /**
+     * Delete a specific category.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteCategory(Category $category)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $category->deleteCategory();
 
         return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
-    }
+    }    
 }
