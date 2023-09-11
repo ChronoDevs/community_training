@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Enums\ListingAction;
 
 class Listing extends Model
 {
@@ -110,35 +111,41 @@ class Listing extends Model
         $this->save();
     }
 
-        /**
-     * Update the status of the listing.
+    /**
+     * Update the status of a listing based on the provided status and action.
      *
-     * @param string $status
-     * @param string $action
-     * @return bool
+     * @param  string  $status
+     * @param  string  $action
+     * @return string|false
      */
     public function updateListingStatus($status, $action)
     {
-        // Check if the provided status is valid (published or unpublished)
-        if ($status !== 'published' && $status !== 'unpublished') {
-            return false;
-        }
-
-        // Update the status of the listing
+        // Handle status change
         $this->status = $status;
 
         // Save the updated listing
         $this->save();
 
         // Determine the action and return a success message
-        if ($action === 'publish') {
-            return 'Listing published successfully.';
-        } elseif ($action === 'unpublish') {
-            return 'Listing unpublished successfully.';
-        }
+        switch ($action) {
+            case ListingAction::PUBLISH:
+                // Implement logic to publish the listing
+                return 'Listing published successfully.';
+                break;
 
-        // If no specific action is specified, return null
-        return null;
+            case ListingAction::UNPUBLISH:
+                // Implement logic to unpublish the listing
+                return 'Listing unpublished successfully.';
+                break;
+
+            case ListingAction::DELETE:
+                // Implement logic to delete the listing
+                return 'Listing deleted successfully.';
+                break;
+
+            default:
+                return false; // Invalid action
+        }
     }
 
     public function likes()

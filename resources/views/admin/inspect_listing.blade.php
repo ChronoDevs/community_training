@@ -28,8 +28,8 @@
                         <div class="form-group">
                             <label for="status">Change Status:</label>
                             <select class="form-control" id="status" name="status">
-                                <option value="published" {{ $listing->status === 'published' ? 'selected' : '' }}>Published</option>
-                                <option value="unpublished" {{ $listing->status === 'unpublished' ? 'selected' : '' }}>Unpublished</option>
+                                <option value="{{ \App\Enums\ListingStatus::PUBLISH }}" {{ $listing->status === \App\Enums\ListingStatus::PUBLISH ? 'selected' : '' }}>Published</option>
+                                <option value="{{ \App\Enums\ListingStatus::UNPUBLISH }}" {{ $listing->status === \App\Enums\ListingStatus::UNPUBLISH ? 'selected' : '' }}>Unpublished</option>
                             </select>
                         </div>
 

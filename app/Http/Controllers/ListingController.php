@@ -12,6 +12,7 @@ use App\Models\Listing;
 use App\Models\ListingLike;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Enums\ListingAction;
 
 class ListingController extends Controller
 {
@@ -23,7 +24,7 @@ class ListingController extends Controller
     public function index()
     {
         // Fetch all listings from the database
-        $listings = Listing::where('status', 'published')->paginate(5);
+        $listings = Listing::where('status', ListingAction::PUBLISH)->paginate(10);
 
         // Return the listings view with the data
         return view('listings.index', compact('listings'));
