@@ -8,3 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
         togglePassword.classList.toggle('fa-solid fa-eye-slash');
     });
 });
+
+$(document).ready(function () {
+    // Add a click event handler to all elements with the 'clickable-link' class
+    $('.clickable-link').click(function () {
+        // Get the URL from the 'data-url' attribute
+        var url = $(this).data('url');
+
+        // Navigate to the URL
+        window.location.href = url;
+    });
+});

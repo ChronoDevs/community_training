@@ -11,6 +11,11 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('favorites.index') }}" class="{{ request()->routeIs('favorites.*') ? 'active' : '' }}">
+                <i class="fas fa-star"></i> Favorites
+            </a>
+        </li>
+        <li>
             <a href="{{ route('tags.index') }}" class="{{ request()->routeIs('tags.*') ? 'active' : '' }}">
                 <i class="fas fa-tags"></i> Tags
             </a>

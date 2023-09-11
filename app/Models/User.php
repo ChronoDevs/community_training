@@ -58,7 +58,7 @@ class User extends Authenticatable
     {
         return $this->role === AdminRole::ADMIN;
     }
-    
+
     public static function createUser(array $data)
     {
         try {
@@ -81,7 +81,7 @@ class User extends Authenticatable
             return false;
         }
     }
-    
+
     /**
      * Update user details.
      *
@@ -106,7 +106,7 @@ class User extends Authenticatable
 
             // Save the updated user details to the database
             $this->save();
-    
+
             return true; // Updated successfully
         } catch (\Exception $e) {
             return false; // An error occurred
@@ -125,5 +125,10 @@ class User extends Authenticatable
         // Customize this query as per your search criteria
         return $query->where('id', 'like', "%$keyword%")
             ->orWhere('name', 'like', "%$keyword%");
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }
