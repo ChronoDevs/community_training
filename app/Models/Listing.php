@@ -142,4 +142,23 @@ class Listing extends Model
             return "$likedBy and $remainingLikes others liked this post";
         }
     }
+
+    /**
+     * Check if the listing is favorited by the given user.
+     *
+     * @param  User  $user
+     * @return bool
+     */
+    public function isFavoritedBy(User $user)
+    {
+        return $this->favorites()->where('user_id', $user->id)->exists();
+    }
+
+    /**
+     * Define a relationship for the favorites.
+     */
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }

@@ -309,3 +309,7 @@ li {
 .invi {
     background: var(--card, #242526);
 }
+
+.clickable-link {
+    cursor: pointer;
+}

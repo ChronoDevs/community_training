@@ -64,7 +64,9 @@
                     </div>
 
                     <!-- Post Title -->
-                    <h2 class="card-subtitle mt-3" id="listing-title">{{ $listing->title }}</h2>
+                    <div>
+                        <a href="{{ route('listings.show', $listing->id) }}" class="card-subtitle mt-3 clickable-link" id="listing-title">{{ $listing->title }}</a>
+                    </div>
 
                     <!-- Tags -->
                     <div class="mt-3">
@@ -98,6 +100,24 @@
 
                             <!-- Display likes text based on the number of likes -->
                             <span class="likes-text" style="font-size: 12px; color: white;">{{ $listing->likesText }}</span>
+
+                            <!-- Favorite Link with Icon and Text -->
+                            @if ($listing->isFavoritedBy(auth()->user()))
+                                <form method="POST" action="{{ route('favorites.remove', $listing->id) }}" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="me-3 action-link">
+                                        <i class="far fa-star"></i> Remove from Favorites
+                                    </button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('favorites.add', $listing->id) }}" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="me-3 action-link">
+                                        <i class="far fa-star"></i> Add to Favorites
+                                    </button>
+                                </form>
+                            @endif
                             @endauth
                         </div>
 
@@ -105,12 +125,6 @@
                         <a href="#" class="me-3 action-button">
                             <i class="far fa-comment"></i> Comment
                         </a>
-                        <!-- Favorite Link with Icon -->
-                        @auth
-                        <a href="#" class="action-button">
-                            <i class="far fa-star"></i> Favorite
-                        </a>
-                        @endauth
                     </div>
                 </div>
             </div>

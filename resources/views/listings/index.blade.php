@@ -59,7 +59,9 @@
                     </div>
 
                     <!-- Post Title -->
-                    <h2 class="card-subtitle mt-3" id="listing-title">{{ $listing->title }}</h2>
+                    <h2 class="card-subtitle mt-3" id="listing-title">
+                        <span class="clickable-link" data-url="{{ route('listings.show', $listing->id) }}">{{ $listing->title }}</span>
+                    </h2>
 
                     <!-- Post Content (if needed) -->
                     <p class="card-text mt-3">{{ $listing->description }}</p>
@@ -83,5 +85,5 @@
 </div>
 
 
-@section('js', 'listings_index.js')
+@section('js', 'scripts.js')
 @endsection
