@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Categories')
 @section('content')
 <div class="container">
     <div class="row">
@@ -41,7 +41,7 @@
                                 <td>{{ $category->created_at }}</td>
                                 <td>
                                     <!-- Edit Category Button -->
-                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editCategoryModal{{ $category->id }}">
+                                    <button class="btn btn-primary btn-sm">
                                         <i class="fa fa-pencil"></i> Edit
                                     </button>
 
@@ -76,34 +76,6 @@
         </div>
     </div>
 </div>
-<!-- Add this modal outside of the main content -->
-@foreach ($categories as $category)
-    <div class="modal fade" id="editCategoryModal{{ $category->id }}" tabindex="-1" role="dialog" aria-labelledby="editCategoryModalLabel{{ $category->id }}" aria-hidden="true">        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editCategoryModalLabel">Edit Category</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="{{ route('admin.updateCategory', ['id' => $category->id]) }}" method="POST">
-                @csrf
-                @method('POST')
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="editCategoryTitle">Title</label>
-                        <input type="text" class="form-control" id="editCategoryTitle" name="title" value="{{ $category->title }}">
-                    </div>
-                    <!-- Add other form fields as needed -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
-@endforeach
-
+@section('js', 'categories.js')
 @endsection

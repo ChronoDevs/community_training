@@ -68,4 +68,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('admin/inspectListing/{listing}', [\App\Http\Controllers\AdminController::class, 'inspectListing'])->name('admin.inspectListing');
     Route::put('admin/updateListingStatus/{listing}', [\App\Http\Controllers\AdminController::class, 'updateListingStatus'])->name('admin.updateListingStatus');
     Route::get('admin/filterListings', [\App\Http\Controllers\AdminController::class, 'filterListings'])->name('admin.filterListings');
+
+    Route::post('/admin/categories/create', 'App\Http\Controllers\AdminController@createCategory')->name('admin.categories.create');
+    Route::get('/admin/edit-category/{id}', 'App\Http\Controllers\AdminController@editCategory')->name('admin.editCategory');
+    Route::post('/admin/update-category/{id}', 'App\Http\Controllers\AdminController@updateCategory')->name('admin.updateCategory');
+    Route::get('/admin/delete-category/{id}', 'App\Http\Controllers\AdminController@deleteCategory')->name('admin.deleteCategory');
+    Route::get('/admin/search-categories', 'App\Http\Controllers\AdminController@searchCategories')->name('admin.searchCategories');
 });
