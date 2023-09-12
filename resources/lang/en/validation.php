@@ -145,6 +145,21 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'favorites' => [
+            'add' => [
+                'success' => 'Listing added to favorites!',
+                'error' => 'Failed to add listing to favorites.',
+            ],
+            'remove' => [
+                'success' => 'Listing removed from favorites!',
+                'error' => 'Failed to remove listing from favorites.',
+                'not_found' => 'Listing was not found in your favorites.',
+            ],
+            'addToFavorites' => [
+                'success' => 'Listing added to favorites!',
+                'error' => 'Listing is already in favorites!',
+            ],
+        ],
     ],
 
     /*

@@ -10,27 +10,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Favorite;
+use App\Enums\LikeCount;
 use App\Enums\ListingAction;
+use Illuminate\Http\Request;
 
 class Listing extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // Define the fillable fields for the Listing model
     protected $fillable = [
         'user_id',
         'title',
         'description',
     ];
 
+    protected $appends = ['likesText'];
+
     protected $dates = ['deleted_at'];
 
-    // Define any relationships here, such as a user relationship
+    /**
+     * Define the user relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Define the tags relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -46,7 +59,6 @@ class Listing extends Model
     {
         $user = auth()->user();
 
-        // Attempt to create the listing within a database transaction
         return DB::transaction(function () use ($user, $request) {
             // Create the listing
             $listing = self::create([
@@ -148,11 +160,22 @@ class Listing extends Model
         }
     }
 
+    /**
+     * Define the likes relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function likes()
     {
         return $this->hasMany(ListingLike::class);
     }
 
+    /**
+     * Add a like to the listing for the given user.
+     *
+     * @param  User  $user
+     * @return void
+     */
     public function like(User $user)
     {
         if (!$this->likes()->where('user_id', $user->id)->exists()) {
@@ -160,14 +183,27 @@ class Listing extends Model
         }
     }
 
+    /**
+     * Remove a like from the listing for the given user.
+     *
+     * @param  User  $user
+     * @return void
+     */
     public function unlike(User $user)
     {
         $this->likes()->where('user_id', $user->id)->delete();
     }
 
+    /**
+     * Get the likes text attribute.
+     *
+     * @return string
+     */
     public function getLikesTextAttribute()
     {
+        // Determine the likes text based on the number of likes
         $likeCount = $this->likes->count();
+
         $currentUser = auth()->user();
 
         if ($likeCount === 0) {
@@ -208,5 +244,15 @@ class Listing extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Get the number of favorites for the listing.
+     *
+     * @return int
+     */
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
     }
 }

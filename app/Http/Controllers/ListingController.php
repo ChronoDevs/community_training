@@ -12,6 +12,7 @@ use App\Models\Listing;
 use App\Models\ListingLike;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Enums\LikeCount;
 use App\Enums\ListingAction;
 
 class ListingController extends Controller
@@ -26,6 +27,12 @@ class ListingController extends Controller
         // Fetch all listings from the database
         $listings = Listing::where('status', ListingAction::PUBLISH)->paginate(10);
 
+        // Add the like count to each listing
+        $listings->each(function ($listing) {
+            $listing->load('likes'); // Load likes relationship
+            $listing->likeCount = $listing->likeCount->value; // Access the enum value
+        });
+
         // Return the listings view with the data
         return view('listings.index', compact('listings'));
     }
@@ -38,6 +45,12 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
+        // Load the likes relationship
+        $listing->load('likes');
+
+        // Calculate the like count based on the number of likes
+        $listing->likeCount = LikeCount::from($listing->likes->count());
+
         return view('listings.show', compact('listing'));
     }
 

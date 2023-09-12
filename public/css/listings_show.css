@@ -97,3 +97,7 @@
 .count {
     color: #FFF;
 }
+
+.show-icons{
+    display: inline;
+}
