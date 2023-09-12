@@ -168,12 +168,22 @@ class Listing extends Model
     public function getLikesTextAttribute()
     {
         $likeCount = $this->likes->count();
+        $currentUser = auth()->user();
 
         if ($likeCount === 0) {
             return 'No one liked this post yet';
-        } elseif ($likeCount <= 2) {
-            $likedBy = $this->likes->pluck('user.name')->implode(', ');
-            return "$likedBy liked this post";
+        } elseif ($likeCount === 1 && $this->likes->contains('user_id', $currentUser->id)) {
+            return 'You liked this post';
+        } elseif ($likeCount === 1) {
+            $otherUser = $this->likes->first()->user->name;
+            return "$otherUser liked this post";
+        } elseif ($likeCount === 2 && $this->likes->contains('user_id', $currentUser->id)) {
+            $otherUser = $this->likes->where('user_id', '!=', $currentUser->id)->first()->user->name;
+            return "You and $otherUser liked this post";
+        } elseif ($likeCount > 2 && $this->likes->contains('user_id', $currentUser->id)) {
+            $otherUsersCount = $likeCount - 1;
+            $otherUsers = $this->likes->where('user_id', '!=', $currentUser->id)->take(2)->pluck('user.name')->implode(', ');
+            return "You, $otherUsers, and $otherUsersCount others liked this post";
         } else {
             $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
             $remainingLikes = $likeCount - 2;

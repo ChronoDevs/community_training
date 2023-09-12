@@ -85,7 +85,7 @@
                                 <form method="POST" action="{{ route('listings.like', $listing->id) }}" style="display: inline;">
                                     @csrf
                                     <button type="submit" class="me-3 action-link">
-                                        <i class="far fa-thumbs-up"></i> Like
+                                        <i class="far fa-thumbs-up"></i>
                                     </button>
                                 </form>
                             @else
@@ -94,13 +94,18 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="me-3 action-link">
-                                        <i class="far fa-thumbs-down"></i> Unlike
+                                        <i class="fas fa-thumbs-up"></i>
                                     </button>
                                 </form>
                             @endif
 
                             <!-- Display likes text based on the number of likes -->
-                            <span class="likes-text" style="font-size: 12px; color: white;">{{ $listing->likesText }}</span>
+                            <span class="me-3 likes-text" style="font-size: 12px; color: white;">{{ $listing->likesText }}</span>
+
+                            <!-- Comment Link with Icon -->
+                            <a href="#" class="me-3 action-button">
+                                <i class="far fa-comment"></i> Comment
+                            </a>
 
                             <!-- Favorite Link with Icon and Text -->
                             @if ($listing->isFavoritedBy(auth()->user()))
@@ -108,24 +113,19 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="me-3 action-link">
-                                        <i class="far fa-star"></i> Remove from Favorites
+                                        <i class="fas fa-star"></i> Remove from Favorites
                                     </button>
                                 </form>
                             @else
                                 <form method="POST" action="{{ route('favorites.add', $listing->id) }}" style="display: inline;">
                                     @csrf
-                                    <button type="submit" class="me-3 action-link">
+                                    <button type="submit" class="action-link">
                                         <i class="far fa-star"></i> Add to Favorites
                                     </button>
                                 </form>
                             @endif
                             @endauth
                         </div>
-
-                        <!-- Comment Link with Icon -->
-                        <a href="#" class="me-3 action-button">
-                            <i class="far fa-comment"></i> Comment
-                        </a>
                     </div>
                 </div>
             </div>

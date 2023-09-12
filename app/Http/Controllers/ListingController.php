@@ -171,14 +171,18 @@ class ListingController extends Controller
     }
 
     /**
-     * Unlike the listing
+     * Unlike the listing.
      *
      * @param \App\Models\Listing $listing
      * @return \Illuminate\Http\Response
      */
     public function unlike(Listing $listing)
     {
-        $listing->unlike(auth()->user());
+        $user = auth()->user();
+
+        if ($listing->likes()->where('user_id', $user->id)->exists()) {
+            $listing->likes()->where('user_id', $user->id)->delete();
+        }
 
         return redirect()->back();
     }

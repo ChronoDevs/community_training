@@ -6,17 +6,31 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <!-- Column 1: Icons and Likes -->
-        <div class="col-md-1">
+        <!-- Column 1: Icons and Likes/Dislikes -->
+        <div class="col-md-2">
             <div class="d-flex flex-column align-items-center">
-                <!-- Like Icon and Likes Count -->
+                <!-- Like or Unlike Icon and Likes Count -->
+                @auth
+                @if(auth()->user()->hasLiked($listing))
+                <form method="POST" action="{{ route('listings.unlike', $listing->id) }}" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="action-button">
+                        <i class="far fa-thumbs-down"></i> Unlike
+                    </button>
+                </form>
+                @else
                 <form method="POST" action="{{ route('listings.like', $listing->id) }}" style="display: inline;">
                     @csrf
                     <button type="submit" class="action-button">
                         <i class="far fa-thumbs-up"></i> Like
                     </button>
                 </form>
-                <span class="likes-count">{{ $listing->likes->count() }} {{ Str::plural('Like', $listing->likes->count()) }}</span>
+                @endif
+                @else
+                @endauth
+                <!-- Show likes count for non-authenticated users -->
+                <span class="likes-count count">{{ $listing->likes->count() }} {{ Str::plural('Like', $listing->likes->count()) }}</span>
 
                 <!-- Comment Icon -->
                 <a href="#" class="action-button mt-3">
@@ -36,29 +50,31 @@
         </div>
 
         <!-- Column 2: Listing Content -->
-        <div class="col-md-11">
-            <div class="card">
+        <div class="col-md-10">
+            <div class="card invi">
                 <div class="card-body" id="card-body">
-                    <!-- Listing Title -->
-                    <h2 class="card-title">{{ $listing->title }}</h2>
 
                     <!-- Listing User, Date/Time, and Description -->
                     <div class="d-flex align-items-center">
                         <img src="{{ $listing->user->avatar }}" alt="{{ $listing->user->name }}" class="rounded-circle listing-avatar" width="50">
                         <div class="ms-3">
-                            <h5 class="card-subtitle">{{ $listing->user->name }}</h5>
-                            <p class="card-text">Posted on: {{ $listing->created_at->format('F d, Y H:i:s') }}</p>
+                            <h5 class="card-subtitle" id="listing-user-name">{{ $listing->user->name }}</h5>
+                            <p class="card-text" id="listing-datetime">Posted on: {{ $listing->created_at->format('F d, Y H:i:s') }}</p>
                         </div>
                     </div>
 
-                    <p class="card-text mt-3">{{ $listing->description }}</p>
+                    <!-- Listing Title -->
+                    <h2 class="card-title" id="listing-title">{{ $listing->title }}</h2>
 
                     <!-- Tags -->
                     <div class="mt-3">
                         @foreach($listing->tags as $tag)
-                        <a href="#" class="text-decoration-none me-2">#{{ $tag->name }}</a>
+                        <a href="#" class="text-decoration-none me-2" id="listing-tags">#{{ $tag->name }}</a>
                         @endforeach
                     </div>
+
+                    <p class="card-text mt-3" id="listing-desc">{{ $listing->description }}</p>
+
                 </div>
             </div>
         </div>
