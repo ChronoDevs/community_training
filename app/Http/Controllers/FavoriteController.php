@@ -79,8 +79,9 @@ class FavoriteController extends Controller
 
         if (!$user->favorites()->where('listing_id', $listing->id)->exists()) {
             $user->favorites()->create(['listing_id' => $listing->id]);
+            return back()->with('success', 'Listing added to favorites!');
         }
 
-        return redirect()->back();
+        return back()->with('error', 'Listing is already in favorites!');
     }
 }

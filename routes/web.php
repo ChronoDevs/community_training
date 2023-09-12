@@ -39,6 +39,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('/listings', [App\Http\Controllers\ListingController::class, 'store'])->name('listings.store');
     Route::resource('listings', App\Http\Controllers\ListingController::class);
 
+    // Show a specific listing
+    Route::get('/listings/{listing}', [App\Http\Controllers\FavoriteController::class, 'show'])->name('listings.show');
+    Route::post('/listings/{listing}/favorites/add', [App\Http\Controllers\FavoriteController::class, 'addToFavorites'])->name('favorites.add');
+
     // Favorites page route
     Route::get('/favorites', [App\Http\Controllers\FavoriteController::class, 'index'])->name('favorites.index');
     Route::post('/favorites/add/{listing}', [App\Http\Controllers\FavoriteController::class, 'add'])->name('favorites.add');

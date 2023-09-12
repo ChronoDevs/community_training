@@ -31,6 +31,17 @@ class ListingController extends Controller
     }
 
     /**
+     * Display the specified listing.
+     *
+     * @param  \App\Models\Listing  $listing
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Listing $listing)
+    {
+        return view('listings.show', compact('listing'));
+    }
+
+    /**
      * Show the form for creating a new listing.
      *
      * @return \Illuminate\Http\Response
@@ -143,14 +154,18 @@ class ListingController extends Controller
     }
 
     /**
-     * Like the listing
+     * Like the listing.
      *
      * @param \App\Models\Listing $listing
      * @return \Illuminate\Http\Response
      */
     public function like(Listing $listing)
     {
-        $listing->like(auth()->user());
+        $user = auth()->user();
+
+        if (!$listing->likes()->where('user_id', $user->id)->exists()) {
+            $listing->likes()->create(['user_id' => $user->id]);
+        }
 
         return redirect()->back();
     }
