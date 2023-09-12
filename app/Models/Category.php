@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Traits\Register;
+use App\Models\Traits\Updater;
 
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, Register, Updater;
 
     protected $fillable = ['name'];
 
@@ -23,42 +25,17 @@ class Category extends Model
     }
 
     /**
-     * Create a new category.
-     *
-     * @param  string  $name
-     * @return \App\Models\Category
-     */
-    public static function createCategory($name)
-    {
-        // Create a new category instance
-        $category = new static();
-        $category->name = $name;
-        // Set other attributes if needed
-        $category->save();
-
-        return $category;
-    }
-
-    /**
-     * Update the category.
-     *
-     * @param  string  $name
-     * @return bool
-     */
-    public function updateCategory($name)
-    {
-        $this->name = $name;
-        // Update other fields if needed
-        return $this->save();
-    }
-
-    /**
      * Delete the category.
      *
      * @return bool|null
      */
     public function deleteCategory()
     {
-        return $this->delete();
+        try {
+            return $this->delete();
+        } catch (\Exception $e) {
+            // Handle the exception (e.g., log it)
+            return false; // Return false to indicate that category deletion failed
+        }
     }
 }

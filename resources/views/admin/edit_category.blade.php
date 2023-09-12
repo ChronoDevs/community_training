@@ -13,22 +13,27 @@
                 <div class="card-header">Edit Category</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.updateCategory', ['category' => $category]) }}">
-                        @csrf
-                        @method('PUT')
+                <form method="POST" action="{{ route('admin.updateCategory', ['category' => $category]) }}">
+                    @csrf
 
-                        <div class="form-group">
-                            <label for="name">Category Name:</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" required>
-                        </div>
+                    {{-- Define the HTTP method using the 'method' attribute --}}
+                    <input type="hidden" name="_method" value="PUT">
 
-                        <!-- Add more fields or customize the form as needed -->
+                    <div class="form-group">
+                        <label for="name">Category Name:</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $category->name) }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                        <div class="form-group">
-                            <a href="{{ route('admin.categories') }}" class="btn btn-secondary mr-2">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
+                    <!-- Add more fields or customize the form as needed -->
+
+                    <div class="form-group">
+                        <a href="{{ route('admin.categories') }}" class="btn btn-secondary mr-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>

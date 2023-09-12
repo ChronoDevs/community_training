@@ -7,6 +7,7 @@ use League\Csv\Writer;
 use App\Models\User;
 use App\Models\Listing;
 use App\Models\Category;
+use Illuminate\Support\Facades\Config;
 
 class AdminController extends Controller
 {
@@ -188,7 +189,9 @@ class AdminController extends Controller
      */
     public function categories()
     {
-        $categories = Category::paginate(10); // Retrieve categories with pagination
+        $page = Config::get('const.page_pagination');
+        $categories = Category::paginate($page); // Retrieve categories with pagination
+
         return view('admin.categories', compact('categories'));
     }
 
@@ -203,10 +206,23 @@ class AdminController extends Controller
         // Get the category title from the request
         $name = $request->input('category_title');
 
-        // Call the createCategory method in the Category model
-        $category = Category::createCategory($name);
+        // Call the register method from the Category model (provided by the Register trait)
+        $category = Category::register(
+            ['name' => $name],
+            null, // You can pass before_function if needed
+            null, // You can pass after_function if needed
+            function ($category) {
+                // Category created successfully
+                return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
+            },
+            function () {
+                // Category creation failed
+                return redirect()->route('admin.categories')->with('error', 'Category creation failed. Please try again.');
+            }
+        );
 
-        return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
+        // Return the result from the register method
+        return $category;
     }
 
     /**
@@ -230,15 +246,27 @@ class AdminController extends Controller
     public function updateCategory(Request $request, Category $category)
     {
         $name = $request->input('name');
-        $category->updateCategory($name);
 
-        // Fetch the updated category after saving changes
-        $updatedCategory = Category::findOrFail($category->id);
+        // Call the updater method from the Category model (provided by the Updater trait)
+        return $category->updater(
+            ['name' => $name],
+            null, // You can pass before_function if needed
+            null, // You can pass after_function if needed
+            function ($category) {
+                // Category updated successfully
+                // Fetch the updated category after saving changes
+                $updatedCategory = Category::findOrFail($category->id);
 
-        return redirect()->route('admin.categories')->with([
-            'success' => 'Category updated successfully.',
-            'updatedCategory' => $updatedCategory, // Pass the updated category to the view
-        ]);
+                return redirect()->route('admin.categories')->with([
+                    'success' => 'Category updated successfully.',
+                    'updatedCategory' => $updatedCategory, // Pass the updated category to the view
+                ]);
+            },
+            function () {
+                // Category update failed
+                return redirect()->route('admin.categories')->with('error', 'Category update failed. Please try again.');
+            }
+        );
     }
 
     /**
@@ -249,8 +277,13 @@ class AdminController extends Controller
      */
     public function deleteCategory(Category $category)
     {
-        $category->deleteCategory();
-
-        return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
-    }    
+        // Call the deleteCategory method in the Category model
+        if ($category->deleteCategory()) {
+            // Category deleted successfully
+            return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
+        } else {
+            // Category deletion failed
+            return redirect()->route('admin.categories')->with('error', 'Category deletion failed. Please try again.');
+        }
+    }   
 }

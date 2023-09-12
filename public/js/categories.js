@@ -15,3 +15,9 @@ closeButton.addEventListener('click', () => {
     adminCard.style.display = 'block';
     newCategoryForm.style.display = 'none';
 });
+
+function confirmDelete() {
+    if (confirm("Are you sure you want to delete this category?")) {
+        document.getElementById('deleteCategoryForm').submit();
+    }
+}
