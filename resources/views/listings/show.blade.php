@@ -16,14 +16,14 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="action-button">
-                        <i class="far fa-thumbs-down"></i> Unlike
+                        <i class="fas fa-thumbs-up"></i>
                     </button>
                 </form>
                 @else
                 <form method="POST" action="{{ route('listings.like', $listing->id) }}" style="display: inline;">
                     @csrf
                     <button type="submit" class="action-button">
-                        <i class="far fa-thumbs-up"></i> Like
+                        <i class="far fa-thumbs-up"></i>
                     </button>
                 </form>
                 @endif
@@ -38,14 +38,22 @@
                 </a>
 
                 <!-- Favorite Icon -->
-                @auth
-                <form method="POST" action="{{ route('favorites.add', $listing->id) }}" style="display: inline;">
-                    @csrf
-                    <button type="submit" class="action-button mt-3">
-                        <i class="far fa-star"></i> Favorite
-                    </button>
-                </form>
-                @endauth
+                @if ($listing->isFavoritedBy(auth()->user()))
+                    <form method="POST" action="{{ route('favorites.remove', $listing->id) }}" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="action-link">
+                            <i class="fas fa-star"></i>
+                        </button>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('favorites.add', $listing->id) }}" style="display: inline;">
+                        @csrf
+                        <button type="submit" class="action-link">
+                            <i class="far fa-star"></i>
+                        </button>
+                    </form>
+                @endif
             </div>
         </div>
 
