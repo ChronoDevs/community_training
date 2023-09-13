@@ -34,7 +34,7 @@
                                         <!-- User's Name and Date/Time -->
                                         <div class="ms-3">
                                             @if ($favorite->listing->user)
-                                            <h5 class="card-title" id="listing-user-name">{{ $favorite->listing->user->name }}</h5>
+                                                <h5 class="card-title" id="listing-user-name">{{ $favorite->listing->user->name }}</h5>
                                             @endif
                                             <p class="card-text" id="listing-user-position">Software Engineer</p>
                                             <p class="card-text" id="listing-datetime">Posted on: {{ $favorite->listing->created_at->format('F d, Y H:i:s') }}</p>
@@ -49,7 +49,7 @@
                                     <!-- Tags -->
                                     <div class="mt-3">
                                         @foreach($favorite->listing->tags as $tag)
-                                        <a href="#" class="text-decoration-none me-2" id="listing-tags">#{{ $tag->name }}</a>
+                                            <a href="#" class="text-decoration-none me-2" id="listing-tags">#{{ $tag->name }}</a>
                                         @endforeach
                                     </div>
 
@@ -64,7 +64,7 @@
                     @endforeach
                 </div>
             @else
-                <p class="mt-4">You haven't added any listings to your favorites yet. <a href="{{ route('home') }}">Browse listings</a> to find your favorites.</p>
+                <p class="mt-4">You haven't added any listings to your favorites yet. <a href="{{ route('home.index') }}">Browse listings</a> to find your favorites.</p>
             @endif
         </div>
     </div>

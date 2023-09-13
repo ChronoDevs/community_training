@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -130,5 +131,26 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Define a relationship to the ListingLike model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function listingLikes(): HasMany
+    {
+        return $this->hasMany(ListingLike::class);
+    }
+
+    /**
+     * Check if the user has liked a specific listing.
+     *
+     * @param  Listing  $listing
+     * @return bool
+     */
+    public function hasLiked(Listing $listing): bool
+    {
+        return $this->listingLikes->contains('listing_id', $listing->id);
     }
 }
