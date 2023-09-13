@@ -59,32 +59,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
-    Route::get('/admin/home', [\App\Http\Controllers\AdminController::class, 'home'])->name('admin.home');
-    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('admin.users');
-    Route::get('/admin/posts', [\App\Http\Controllers\AdminController::class, 'posts'])->name('admin.posts');
-    Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('admin.categories');
-    Route::get('/admin/tags', [\App\Http\Controllers\AdminController::class, 'tags'])->name('admin.tags');
+    Route::get('/admin/home', [\App\Http\Controllers\Admin\DashboardController::class, 'home'])->name('admin.home');
+    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'users'])->name('admin.users');
+    Route::get('/admin/posts', [\App\Http\Controllers\Admin\ListingController::class, 'posts'])->name('admin.posts');
+    Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'categories'])->name('admin.categories');
+    Route::get('/admin/tags', [\App\Http\Controllers\Admin\TagController::class, 'tags'])->name('admin.tags');
 
     // Admin users list page route
-    Route::get('admin/editUser/{user}', [\App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.editUser');
-    Route::put('admin/updateUser/{user}', [\App\Http\Controllers\AdminController::class, 'updateUser'])->name('admin.updateUser');
-    Route::get('/export-users', [\App\Http\Controllers\AdminController::class, 'exportUsers'])->name('export.users');
-    Route::get('/admin/users/search', [\App\Http\Controllers\AdminController::class, 'search'])->name('admin.users.search');
+    Route::get('admin/editUser/{user}', [\App\Http\Controllers\Admin\UserController::class, 'editUser'])->name('admin.editUser');
+    Route::put('admin/updateUser/{user}', [\App\Http\Controllers\Admin\UserController::class, 'updateUser'])->name('admin.updateUser');
+    Route::get('/export-users', [\App\Http\Controllers\Admin\UserController::class, 'exportUsers'])->name('export.users');
+    Route::get('/admin/users/search', [\App\Http\Controllers\Admin\UserController::class, 'search'])->name('admin.users.search');
 
     // Admin posts/listings list page route
-    Route::get('admin/inspectListing/{listing}', [\App\Http\Controllers\AdminController::class, 'inspectListing'])->name('admin.inspectListing');
-    Route::put('admin/updateListingStatus/{listing}', [\App\Http\Controllers\AdminController::class, 'updateListingStatus'])->name('admin.updateListingStatus');
-    Route::get('admin/filterListings', [\App\Http\Controllers\AdminController::class, 'filterListings'])->name('admin.filterListings');
+    Route::get('admin/inspectListing/{listing}', [\App\Http\Controllers\Admin\ListingController::class, 'inspectListing'])->name('admin.inspectListing');
+    Route::put('admin/updateListingStatus/{listing}', [\App\Http\Controllers\Admin\ListingController::class, 'updateListingStatus'])->name('admin.updateListingStatus');
+    Route::get('admin/filterListings', [\App\Http\Controllers\Admin\ListingController::class, 'filterListings'])->name('admin.filterListings');
 
     // Admin users categories list page route
-    Route::post('admin/createCategory', [\App\Http\Controllers\AdminController::class, 'createCategory'])->name('admin.createCategory');
-    Route::get('admin/editCategory/{category}', [\App\Http\Controllers\AdminController::class, 'editCategory'])->name('admin.editCategory');
-    Route::put('admin/updateCategory/{category}', [\App\Http\Controllers\AdminController::class, 'updateCategory'])->name('admin.updateCategory');
-    Route::delete('admin/deleteCategory/{category}', [\App\Http\Controllers\AdminController::class, 'deleteCategory'])->name('admin.deleteCategory');
+    Route::post('admin/createCategory', [\App\Http\Controllers\Admin\CategoryController::class, 'createCategory'])->name('admin.createCategory');
+    Route::get('admin/editCategory/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'editCategory'])->name('admin.editCategory');
+    Route::put('admin/updateCategory/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateCategory'])->name('admin.updateCategory');
+    Route::delete('admin/deleteCategory/{category}', [\App\Http\Controllers\Admin\CategoryController::class, 'deleteCategory'])->name('admin.deleteCategory');
 
     // Admin tags list page route
-    Route::post('admin/createTag', [\App\Http\Controllers\AdminController::class, 'createTag'])->name('admin.createTag');
-    Route::get('admin/editTag/{tag}', [\App\Http\Controllers\AdminController::class, 'editTag'])->name('admin.editTag');
-    Route::put('admin/updateTag/{tag}', [\App\Http\Controllers\AdminController::class, 'updateTag'])->name('admin.updateTag');
-    Route::delete('admin/deleteTag/{tag}', [\App\Http\Controllers\AdminController::class, 'deleteTag'])->name('admin.deleteTag');
+    Route::post('admin/createTag', [\App\Http\Controllers\Admin\TagController::class, 'createTag'])->name('admin.createTag');
+    Route::get('admin/editTag/{tag}', [\App\Http\Controllers\Admin\TagController::class, 'editTag'])->name('admin.editTag');
+    Route::put('admin/updateTag/{tag}', [\App\Http\Controllers\Admin\TagController::class, 'updateTag'])->name('admin.updateTag');
+    Route::delete('admin/deleteTag/{tag}', [\App\Http\Controllers\Admin\TagController::class, 'deleteTag'])->name('admin.deleteTag');
 });
