@@ -201,27 +201,40 @@ class Listing extends Model
      */
     public function getLikesTextAttribute()
     {
-        $likeCount = $this->likes->count();
+        $likeCount = LikeCount::from($this->likes->count());
         $currentUser = auth()->user();
 
-        if ($likeCount === 0) {
-            return __('listing.no_likes');
-        } elseif ($likeCount === 1 && $this->likes->contains('user_id', $currentUser->id)) {
-            return __('listing.you_liked');
-        } elseif ($likeCount === 1) {
-            $otherUser = $this->likes->first()->user->name;
-            return __('listing.other_liked', ['user' => $otherUser]);
-        } elseif ($likeCount === 2 && $this->likes->contains('user_id', $currentUser->id)) {
-            $otherUser = $this->likes->where('user_id', '!=', $currentUser->id)->first()->user->name;
-            return __('listing.you_and_other_liked', ['user' => $otherUser]);
-        } elseif ($likeCount > 2 && $this->likes->contains('user_id', $currentUser->id)) {
-            $otherUsersCount = $likeCount - 1;
-            $otherUsers = $this->likes->where('user_id', '!=', $currentUser->id)->take(2)->pluck('user.name')->implode(', ');
-            return __('listing.you_and_others_liked', ['users' => $otherUsers, 'count' => $otherUsersCount]);
-        } else {
-            $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
-            $remainingLikes = $likeCount - 2;
-            return __('listing.others_liked', ['users' => $likedBy, 'count' => $remainingLikes]);
+        switch ($likeCount) {
+            case LikeCount::ZERO():
+                return __('listing.no_likes');
+
+            case LikeCount::ONE():
+                if ($this->likes->contains('user_id', $currentUser->id)) {
+                    return __('listing.you_liked');
+                } else {
+                    $otherUser = $this->likes->first()->user->name;
+                    return __('listing.other_liked', ['user' => $otherUser]);
+                }
+
+            case LikeCount::TWO():
+                if ($this->likes->contains('user_id', $currentUser->id)) {
+                    $otherUser = $this->likes->where('user_id', '!=', $currentUser->id)->first()->user->name;
+                    return __('listing.you_and_other_liked', ['user' => $otherUser]);
+                } else {
+                    $otherUsersCount = $likeCount->value - 2;
+                    return __('listing.others_liked', ['count' => $otherUsersCount]);
+                }
+                break;
+
+            case LikeCount::MORE_THAN_TWO():
+                $otherUsersCount = $likeCount->value - 1;
+                $otherUsers = $this->likes->where('user_id', '!=', $currentUser->id)->take(2)->pluck('user.name')->implode(', ');
+                return __('listing.you_and_others_liked', ['users' => $otherUsers, 'count' => $otherUsersCount]);
+
+            default:
+                $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
+                $remainingLikes = $likeCount->value - 2;
+                return __('listing.others_liked', ['users' => $likedBy, 'count' => $remainingLikes]);
         }
     }
 
