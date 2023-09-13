@@ -21,3 +21,9 @@ function confirmDelete() {
         document.getElementById('deleteCategoryForm').submit();
     }
 }
+
+function confirmDeleteTag(tagId) {
+    if (confirm("Are you sure you want to delete this tag?")) {
+        document.getElementById('deleteTagForm_' + tagId).submit();
+    }
+}

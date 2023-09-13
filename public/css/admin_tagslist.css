@@ -1,0 +1,4 @@
+.btn-group {
+    display: flex; /* Display the buttons in a row */
+    gap: 10px; /* Adjust the spacing between buttons */
+}
