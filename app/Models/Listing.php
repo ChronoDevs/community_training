@@ -201,29 +201,27 @@ class Listing extends Model
      */
     public function getLikesTextAttribute()
     {
-        // Determine the likes text based on the number of likes
         $likeCount = $this->likes->count();
-
         $currentUser = auth()->user();
 
         if ($likeCount === 0) {
-            return 'No one liked this post yet';
+            return __('listing.no_likes');
         } elseif ($likeCount === 1 && $this->likes->contains('user_id', $currentUser->id)) {
-            return 'You liked this post';
+            return __('listing.you_liked');
         } elseif ($likeCount === 1) {
             $otherUser = $this->likes->first()->user->name;
-            return "$otherUser liked this post";
+            return __('listing.other_liked', ['user' => $otherUser]);
         } elseif ($likeCount === 2 && $this->likes->contains('user_id', $currentUser->id)) {
             $otherUser = $this->likes->where('user_id', '!=', $currentUser->id)->first()->user->name;
-            return "You and $otherUser liked this post";
+            return __('listing.you_and_other_liked', ['user' => $otherUser]);
         } elseif ($likeCount > 2 && $this->likes->contains('user_id', $currentUser->id)) {
             $otherUsersCount = $likeCount - 1;
             $otherUsers = $this->likes->where('user_id', '!=', $currentUser->id)->take(2)->pluck('user.name')->implode(', ');
-            return "You, $otherUsers, and $otherUsersCount others liked this post";
+            return __('listing.you_and_others_liked', ['users' => $otherUsers, 'count' => $otherUsersCount]);
         } else {
             $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
             $remainingLikes = $likeCount - 2;
-            return "$likedBy and $remainingLikes others liked this post";
+            return __('listing.others_liked', ['users' => $likedBy, 'count' => $remainingLikes]);
         }
     }
 
