@@ -10,27 +10,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Favorite;
+use App\Enums\LikeCount;
 use App\Enums\ListingAction;
+use Illuminate\Http\Request;
 
 class Listing extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // Define the fillable fields for the Listing model
     protected $fillable = [
         'user_id',
         'title',
         'description',
     ];
 
+    protected $appends = ['likesText'];
+
     protected $dates = ['deleted_at'];
 
-    // Define any relationships here, such as a user relationship
+    /**
+     * Define the user relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Define the tags relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -46,7 +59,6 @@ class Listing extends Model
     {
         $user = auth()->user();
 
-        // Attempt to create the listing within a database transaction
         return DB::transaction(function () use ($user, $request) {
             // Create the listing
             $listing = self::create([
@@ -148,11 +160,22 @@ class Listing extends Model
         }
     }
 
+    /**
+     * Define the likes relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function likes()
     {
         return $this->hasMany(ListingLike::class);
     }
 
+    /**
+     * Add a like to the listing for the given user.
+     *
+     * @param  User  $user
+     * @return void
+     */
     public function like(User $user)
     {
         if (!$this->likes()->where('user_id', $user->id)->exists()) {
@@ -160,24 +183,58 @@ class Listing extends Model
         }
     }
 
+    /**
+     * Remove a like from the listing for the given user.
+     *
+     * @param  User  $user
+     * @return void
+     */
     public function unlike(User $user)
     {
         $this->likes()->where('user_id', $user->id)->delete();
     }
 
+    /**
+     * Get the likes text attribute.
+     *
+     * @return string
+     */
     public function getLikesTextAttribute()
     {
-        $likeCount = $this->likes->count();
+        $likeCount = LikeCount::from($this->likes->count());
+        $currentUser = auth()->user();
 
-        if ($likeCount === 0) {
-            return 'No one liked this post yet';
-        } elseif ($likeCount <= 2) {
-            $likedBy = $this->likes->pluck('user.name')->implode(', ');
-            return "$likedBy liked this post";
-        } else {
-            $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
-            $remainingLikes = $likeCount - 2;
-            return "$likedBy and $remainingLikes others liked this post";
+        switch ($likeCount) {
+            case LikeCount::ZERO():
+                return __('listing.no_likes');
+
+            case LikeCount::ONE():
+                if ($this->likes->contains('user_id', $currentUser->id)) {
+                    return __('listing.you_liked');
+                } else {
+                    $otherUser = $this->likes->first()->user->name;
+                    return __('listing.other_liked', ['user' => $otherUser]);
+                }
+
+            case LikeCount::TWO():
+                if ($this->likes->contains('user_id', $currentUser->id)) {
+                    $otherUser = $this->likes->where('user_id', '!=', $currentUser->id)->first()->user->name;
+                    return __('listing.you_and_other_liked', ['user' => $otherUser]);
+                } else {
+                    $otherUsersCount = $likeCount->value - 2;
+                    return __('listing.others_liked', ['count' => $otherUsersCount]);
+                }
+                break;
+
+            case LikeCount::MORE_THAN_TWO():
+                $otherUsersCount = $likeCount->value - 1;
+                $otherUsers = $this->likes->where('user_id', '!=', $currentUser->id)->take(2)->pluck('user.name')->implode(', ');
+                return __('listing.you_and_others_liked', ['users' => $otherUsers, 'count' => $otherUsersCount]);
+
+            default:
+                $likedBy = $this->likes->pluck('user.name')->splice(0, 2)->implode(', ');
+                $remainingLikes = $likeCount->value - 2;
+                return __('listing.others_liked', ['users' => $likedBy, 'count' => $remainingLikes]);
         }
     }
 
@@ -198,5 +255,15 @@ class Listing extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Get the number of favorites for the listing.
+     *
+     * @return int
+     */
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
     }
 }

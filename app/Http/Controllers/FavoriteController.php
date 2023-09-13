@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
 use App\Models\Favorite;
 use App\Models\Listing;
 
@@ -37,9 +36,9 @@ class FavoriteController extends Controller
         ]);
 
         if ($favorite) {
-            return back()->with('success', 'Listing added to favorites!');
+            return back()->with('success', __('validation.custom.favorites.add.success'));
         } else {
-            return back()->with('error', 'Failed to add listing to favorites.');
+            return back()->with('error', __('validation.custom.favorites.add.error'));
         }
     }
 
@@ -58,12 +57,12 @@ class FavoriteController extends Controller
 
         if ($favorite) {
             if ($favorite->delete()) {
-                return back()->with('success', 'Listing removed from favorites!');
+                return back()->with('success', __('validation.custom.favorites.remove.success'));
             } else {
-                return back()->with('error', 'Failed to remove listing from favorites.');
+                return back()->with('error', __('validation.custom.favorites.remove.error'));
             }
         } else {
-            return back()->with('error', 'Listing was not found in your favorites.');
+            return back()->with('error', __('validation.custom.favorites.remove.not_found'));
         }
     }
 
@@ -79,8 +78,9 @@ class FavoriteController extends Controller
 
         if (!$user->favorites()->where('listing_id', $listing->id)->exists()) {
             $user->favorites()->create(['listing_id' => $listing->id]);
+            return back()->with('success', __('validation.custom.favorites.addToFavorites.success'));
         }
 
-        return redirect()->back();
+        return back()->with('error', __('validation.custom.favorites.addToFavorites.error'));
     }
 }
