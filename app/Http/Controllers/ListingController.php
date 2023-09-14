@@ -11,6 +11,7 @@ use App\Http\Requests\ListingUpdateRequest;
 use App\Models\Listing;
 use App\Models\ListingLike;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Enums\LikeCount;
 use App\Enums\ListingAction;
@@ -48,10 +49,13 @@ class ListingController extends Controller
         // Load the likes relationship
         $listing->load('likes');
 
+        // Load comments associated with the listing
+        $comments = Comment::where('listing_id', $listing->id)->orderBy('created_at', 'desc')->get();
+
         // Calculate the like count based on the number of likes
         $listing->likeCount = LikeCount::from($listing->likes->count());
 
-        return view('listings.show', compact('listing'));
+        return view('listings.show', compact('listing', 'comments')); // Pass comments to the view
     }
 
     /**
@@ -198,5 +202,33 @@ class ListingController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     * Store a newly created comment in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeComment(Request $request)
+    {
+        $user = auth()->user();
+
+        // Validate the request data for the comment
+        $validatedData = $request->validate([
+            'listing_id' => 'required|exists:listings,id',
+            'content' => 'required|string|max:255',
+        ]);
+
+        // Create a new comment
+        $comment = new Comment([
+            'listing_id' => $validatedData['listing_id'],
+            'content' => $validatedData['content'],
+            'user_id' => $user->id,
+        ]);
+
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Comment posted successfully!');
     }
 }

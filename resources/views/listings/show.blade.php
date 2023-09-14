@@ -90,6 +90,34 @@
                     </div>
 
                     <p class="card-text mt-3" id="listing-desc">{{ $listing->description }}</p>
+
+                    <!-- Comment Section -->
+                    <div class="mt-4">
+                        <h3>Comments</h3>
+                        <!-- Display Comments -->
+                        <ul class="list-unstyled" id="comment-list">
+                            @foreach($listing->comments as $comment)
+                                <li>
+                                    <strong>{{ $comment->user->name }}</strong>
+                                    <p>{{ $comment->content }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                    <!-- Comment Form -->
+                    @auth
+                        <form method="POST" action="{{ route('comments.store') }}">
+                            @csrf
+                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                            <div class="form-group">
+                                <textarea name="content" rows="4" class="form-control" placeholder="Add a comment"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Comment</button>
+                        </form>
+                    @else
+                        <p class="mt-3">Login to leave a comment.</p>
+                    @endauth
                 </div>
             </div>
         </div>
