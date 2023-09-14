@@ -16,9 +16,9 @@ closeButton.addEventListener('click', () => {
     newCategoryForm.style.display = 'none';
 });
 
-function confirmDelete() {
+function confirmDelete(categoryId) {
     if (confirm("Are you sure you want to delete this category?")) {
-        document.getElementById('deleteCategoryForm').submit();
+        document.getElementById('deleteCategoryForm_' + categoryId).submit();
     }
 }
 
