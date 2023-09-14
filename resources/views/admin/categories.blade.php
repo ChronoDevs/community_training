@@ -47,10 +47,10 @@
                                                 <i class="fa fa-pencil"></i> Edit
                                             </a>
                                             <!-- Delete Category Button -->
-                                            <form method="POST" action="{{ route('admin.deleteCategory', ['category' => $category]) }}" id="deleteCategoryForm">
+                                            <form method="POST" action="{{ route('admin.deleteCategory', ['category' => $category]) }}" id="deleteCategoryForm_{{ $category->id }}">
                                                 @csrf
-                                                @method('DELETE') <!-- Add this line to set the method to DELETE -->
-                                                <button class="btn btn-danger btn-sm fas fa-trash" type="button" onclick="confirmDelete()">Delete</button>
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm fas fa-trash" type="button" onclick="confirmDelete({{ $category->id }})">Delete</button>
                                             </form>
                                         </div>
                                     </td>

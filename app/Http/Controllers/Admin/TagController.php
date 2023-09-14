@@ -105,7 +105,7 @@ class TagController extends Controller
     public function deleteTag(Tag $tag)
     {
         // Call the deleteTag method on the $tag instance
-        if ($tag->deleteTag()) {
+        if ($tag->deleter()) {
             // Tag deleted successfully
             return redirect()->route('admin.tags')->with('success', __('messages.success.delete'));
         } else {

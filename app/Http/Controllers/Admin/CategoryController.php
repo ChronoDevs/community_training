@@ -97,20 +97,20 @@ class CategoryController extends Controller
     }
 
     /**
-     * Delete a specific category.
+     * Delete a specific tag.
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteCategory(Category $category)
     {
-        // Call the deleteCategory method in the Category model
-        if ($category->deleteCategory()) {
-            // Category deleted successfully
-            return redirect()->route('admin.categories')->with('success',  __('messages.success.delete'));
+        // Call the deleteTag method on the $tag instance
+        if ($category->deleter()) {
+            // Tag deleted successfully
+            return redirect()->route('admin.categories')->with('success', __('messages.success.delete'));
         } else {
-            // Category deletion failed
-            return redirect()->route('admin.categories')->with('error', __('messages.error.delete'));
+            // Tag deletion failed
+            return redirect()->route('admin.categories')->with('error',  __('messages.error.delete'));
         }
-    } 
+    }
 }

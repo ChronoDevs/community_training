@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\Traits\Register;
 use App\Models\Traits\Updater;
+use App\Models\Traits\Deleter;
 
 class Category extends Model
 {
-    use HasFactory, Register, Updater;
+    use HasFactory, Register, Updater, Deleter;
 
     protected $fillable = ['name'];
 
@@ -22,20 +23,5 @@ class Category extends Model
     public function listings()
     {
         return $this->belongsToMany(Listing::class);
-    }
-
-    /**
-     * Delete the category.
-     *
-     * @return bool|null
-     */
-    public function deleteCategory()
-    {
-        try {
-            return $this->delete();
-        } catch (\Exception $e) {
-            // Handle the exception (e.g., log it)
-            return false; // Return false to indicate that category deletion failed
-        }
     }
 }
