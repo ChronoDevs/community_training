@@ -33,7 +33,7 @@ class UserController extends Controller
     {
         $params = $request->all();
 
-        if ($user->updateUser($params)) {
+        if ($user->updater($params)) {
             // Successfully updated
             return redirect()->route('admin.users')->with('success',  __('messages.success.update'));
         } else {
