@@ -10,10 +10,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Enums\AdminRole;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Updater;
+use App\Models\Traits\Register;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Register, Updater;
 
     /**
      * The attributes that are mass assignable.
@@ -58,60 +60,6 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === AdminRole::ADMIN;
-    }
-
-    public static function createUser(array $data)
-    {
-        try {
-            return static::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']), // Using bcrypt() to hash the password
-                'middle_name' => $data['middle_name'],
-                'last_name' => $data['last_name'],
-                'user_name' => $data['user_name'],
-                'nickname' => $data['nickname'],
-                'gender' => $data['gender'],
-                'date_of_birth' => $data['date_of_birth'],
-                'contact_number' => $data['contact_number'],
-                'zip_code' => $data['zip_code'],
-                'address' => $data['address']
-            ]);
-        } catch (Exception $e) {
-            // Handle the error here
-            return false;
-        }
-    }
-
-    /**
-     * Update user details.
-     *
-     * @param array $data
-     * @return bool
-     */
-    public function updateUser(array $data)
-    {
-        try {
-            // Update user details based on the provided data
-            $this->name = $data['name'];
-            $this->middle_name = $data['middle_name'];
-            $this->last_name = $data['last_name'];
-            $this->gender = $data['gender'];
-            $this->email = $data['email'];
-            $this->user_name = $data['user_name'];
-            $this->nickname = $data['nickname'];
-            $this->date_of_birth = $data['date_of_birth'];
-            $this->contact_number = $data['contact_number'];
-            $this->zip_code = $data['zip_code'];
-            $this->address = $data['address'];
-
-            // Save the updated user details to the database
-            $this->save();
-
-            return true; // Updated successfully
-        } catch (\Exception $e) {
-            return false; // An error occurred
-        }
     }
 
     /**

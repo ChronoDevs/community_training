@@ -48,7 +48,7 @@ class RegisterController extends Controller
      */
     protected function register(RegisterRequest $request)
     {
-        $user = User::createUser($request->validated());
+        $user = User::register($request->validated());
     
         if (!$user) {
             return redirect()->back()->withErrors($request->errors());
