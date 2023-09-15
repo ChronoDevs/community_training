@@ -12,6 +12,7 @@ use App\Enums\AdminRole;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Updater;
 use App\Models\Traits\Register;
+use App\Notifications\PasswordResetNotification;
 
 class User extends Authenticatable
 {
@@ -100,5 +101,11 @@ class User extends Authenticatable
     public function hasLiked(Listing $listing): bool
     {
         return $this->listingLikes->contains('listing_id', $listing->id);
+    }
+
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new PasswordResetNotification($token));
     }
 }
