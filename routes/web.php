@@ -61,8 +61,8 @@ use Illuminate\Support\Facades\Route;
     // Comment
     Route::post('/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
     Route::get('/comments/{listingId}', [\App\Http\Controllers\CommentController::class, 'index'])->name('comments.index');
-    Route::post('/comments/{listingId}/broadcast', [\App\Http\Controllers\CommentController::class, 'broadcast'])->name('comments.broadcast');
-    Route::post('/comments/{listingId}/receive', [\App\Http\Controllers\CommentController::class, 'receive'])->name('comments.receive');
+    Route::post('/comments/{comment}/like', [\App\Http\Controllers\CommentController::class, 'like'])->name('comments.like');
+    Route::delete('/comments/{comment}/unlike', [\App\Http\Controllers\CommentController::class, 'unlike'])->name('comments.unlike');
 
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 //});

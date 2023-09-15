@@ -11,11 +11,13 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('listing_id');
+            $table->unsignedBigInteger('user_id'); // Add this line to create the 'user_id' column
             $table->text('content');
             $table->timestamps();
 
             // Define foreign key constraint
             $table->foreign('listing_id')->references('id')->on('listings')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
