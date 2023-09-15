@@ -42,7 +42,7 @@ class PasswordResetNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                ->subject('Password Reset hihi')
+                ->subject('Password Reset Request')
                 ->markdown('mails.passwordreset', [
                     'reset_url' => url('password/reset', $this->token),
                     ]);
