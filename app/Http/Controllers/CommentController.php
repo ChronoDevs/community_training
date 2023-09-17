@@ -8,6 +8,7 @@ use App\Events\CommentPosted;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use App\Models\Listing;
+use App\Http\Requests\CommentStoreRequest;
 
 class CommentController extends Controller
 {
@@ -19,32 +20,40 @@ class CommentController extends Controller
     /**
      * Store a new comment.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  CommentStoreRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CommentStoreRequest $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'content' => 'required|string',
-            // Add any other validation rules as needed
-        ]);
+        // Use the register method from the trait
+        $comment = Comment::register(
+            [
+                'content' => $request->input('content'),
+                'listing_id' => $request->input('listing_id'),
+                'user_id' => auth()->user()->id,
+            ],
+            null, // Add any "before_function" if needed
+            null, // Add any "after_function" if needed
+            function ($comment) use ($request) {
+                // Broadcast the new comment
+                broadcast(new CommentPosted($comment))->toOthers();
+                return $comment;
+            },
+            function ($rtn) {
+                // Handle failure if needed
+                // This function is called on failure
+                // You can add your error handling logic here
+            }
+        );
 
-        // Create a new comment in the database
-        $comment = new Comment([
-            'content' => $request->input('content'),
-            'listing_id' => $request->input('listing_id'),
-            'user_id' => auth()->user()->id, // Associate the comment with the authenticated user
-        ]);
-
-        $comment->save();
-
-        // Broadcast the new comment
-        broadcast(new CommentPosted($comment))->toOthers();
-
-        // Redirect back to the specific listing page
-        return redirect()->route('listings.show', ['listing' => $request->input('listing_id')])
-            ->with('success', 'Comment posted successfully');
+        if ($comment) {
+            // Redirect back to the specific listing page with a success message
+            return redirect()->route('listings.show', ['listing' => $request->input('listing_id')])
+                ->with('success', __('messages.success.comment'));
+        } else {
+            // Handle the case where comment registration fails with an error message
+            return redirect()->back()->with('error', __('messages.error.comment'));
+        }
     }
 
     /**
@@ -59,17 +68,16 @@ class CommentController extends Controller
         $comments = Comment::where('listing_id', $listingId)->latest()->get();
 
         // Return a JSON response with the comments data
-        // return response()->json(['comments' => $comments]);
+        return response()->json(['comments' => $comments]);
     }
 
     /**
-     * Like a comment and reload the page.
+     * Like a comment.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $commentId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function like(Request $request, $commentId)
+    public function like($commentId)
     {
         // Find the comment by ID
         $comment = Comment::findOrFail($commentId);
@@ -87,7 +95,7 @@ class CommentController extends Controller
                 $commentLike->delete();
             }
 
-            return redirect()->back()->with('success', 'Comment unliked successfully');
+            return redirect()->back()->with('success', __('messages.success.unlike'));
         } else {
             // User has not liked the comment, create a new like
             $commentLike = new CommentLike([
@@ -96,7 +104,7 @@ class CommentController extends Controller
 
             $comment->likes()->save($commentLike);
 
-            return redirect()->back()->with('success', 'Comment liked successfully');
+            return redirect()->back()->with('success', __('messages.success.like'));
         }
     }
 
@@ -123,10 +131,11 @@ class CommentController extends Controller
             if ($commentLike) {
                 $commentLike->delete();
             }
-        }
 
-        // Redirect back to the page (the comment's parent listing) after unliking
-        return redirect()->route('listings.show', ['listing' => $comment->listing_id])
-            ->with('success', 'Comment unliked successfully');
+            return redirect()->back()->with('success', __('messages.success.unlike'));
+        } else {
+            // Handle the case where the user is trying to unlike a comment they haven't previously liked
+            return redirect()->back()->with('error', __('messages.error.like'));
+        }
     }
 }

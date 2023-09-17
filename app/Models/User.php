@@ -108,6 +108,7 @@ class User extends Authenticatable
     public function listings()
     {
         return $this->hasMany(Listing::class);
+    }
 
     public function sendPasswordResetNotification($token)
     {

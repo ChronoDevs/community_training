@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ListingStoreRequest;
 use App\Http\Requests\ListingUpdateRequest;
+use App\Http\Requests\ListingStoreCommentRequest;
 use App\Models\Listing;
 use App\Models\ListingLike;
 use App\Models\Category;
@@ -207,28 +208,30 @@ class ListingController extends Controller
     /**
      * Store a newly created comment in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\ListingStoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeComment(Request $request)
+    public function storeComment(ListingStoreCommentRequest $request)
     {
         $user = auth()->user();
 
-        // Validate the request data for the comment
-        $validatedData = $request->validate([
-            'listing_id' => 'required|exists:listings,id',
-            'content' => 'required|string|max:255',
-        ]);
+        // Use the Register trait to create a new comment
+        $comment = Comment::register(
+            [
+                'listing_id' => $request->input('listing_id'),
+                'content' => $request->input('content'),
+                'user_id' => $user->id,
+            ],
+            null, // You can pass before_function, after_function, success_function, and fail_function here if needed
+            null,
+            function ($comment) {
+                return redirect()->back()->with('success', 'Comment posted successfully!');
+            },
+            function ($comment) {
 
-        // Create a new comment
-        $comment = new Comment([
-            'listing_id' => $validatedData['listing_id'],
-            'content' => $validatedData['content'],
-            'user_id' => $user->id,
-        ]);
+            }
+        );
 
-        $comment->save();
-
-        return redirect()->back()->with('success', 'Comment posted successfully!');
+        return $comment; // Return the comment or handle it as needed
     }
 }

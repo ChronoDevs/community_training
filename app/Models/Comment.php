@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CommentLike;
+use App\Models\Traits\Register;
 
 class Comment extends Model
 {
-    use HasFactory;
+    use HasFactory, Register;
 
     /**
      * The attributes that are mass assignable
