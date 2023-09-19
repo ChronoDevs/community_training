@@ -266,4 +266,32 @@ class Listing extends Model
     {
         return $this->favorites->count();
     }
+
+    /**
+     * Define the comments relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Add a comment to the listing.
+     *
+     * @param  User  $user
+     * @param  string  $content
+     * @return Comment
+     */
+    public function addComment(User $user, $content)
+    {
+        // Create a new comment
+        $comment = $this->comments()->create([
+            'user_id' => $user->id,
+            'content' => $content,
+        ]);
+
+        return $comment;
+    }
 }

@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\ListingStoreRequest;
 use App\Http\Requests\ListingUpdateRequest;
+use App\Http\Requests\ListingStoreCommentRequest;
 use App\Models\Listing;
 use App\Models\ListingLike;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Enums\LikeCount;
 use App\Enums\ListingAction;
@@ -48,10 +50,13 @@ class ListingController extends Controller
         // Load the likes relationship
         $listing->load('likes');
 
+        // Load comments associated with the listing
+        $comments = Comment::where('listing_id', $listing->id)->orderBy('created_at', 'desc')->get();
+
         // Calculate the like count based on the number of likes
         $listing->likeCount = LikeCount::from($listing->likes->count());
 
-        return view('listings.show', compact('listing'));
+        return view('listings.show', compact('listing', 'comments')); // Pass comments to the view
     }
 
     /**
@@ -198,5 +203,35 @@ class ListingController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    /**
+     * Store a newly created comment in storage.
+     *
+     * @param  \App\Http\Requests\ListingStoreCommentRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeComment(ListingStoreCommentRequest $request)
+    {
+        $user = auth()->user();
+
+        // Use the Register trait to create a new comment
+        $comment = Comment::register(
+            [
+                'listing_id' => $request->input('listing_id'),
+                'content' => $request->input('content'),
+                'user_id' => $user->id,
+            ],
+            null, // You can pass before_function, after_function, success_function, and fail_function here if needed
+            null,
+            function ($comment) {
+                return redirect()->back()->with('success', 'Comment posted successfully!');
+            },
+            function ($comment) {
+
+            }
+        );
+
+        return $comment; // Return the comment or handle it as needed
     }
 }

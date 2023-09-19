@@ -58,6 +58,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/listings/{listing}/like', [App\Http\Controllers\ListingController::class, 'like'])->name('listings.like');
     Route::delete('/listings/{listing}/unlike', [App\Http\Controllers\ListingController::class, 'unlike'])->name('listings.unlike');
 
+    // Comment
+    Route::post('/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
+    Route::get('/comments/{listingId}', [\App\Http\Controllers\CommentController::class, 'index'])->name('comments.index');
+    Route::post('/comments/{comment}/like', [\App\Http\Controllers\CommentController::class, 'like'])->name('comments.like');
+    Route::delete('/comments/{comment}/unlike', [\App\Http\Controllers\CommentController::class, 'unlike'])->name('comments.unlike');
+
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 //});
 
