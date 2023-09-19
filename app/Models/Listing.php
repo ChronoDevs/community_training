@@ -19,10 +19,13 @@ class Listing extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'listings';
+    
     protected $fillable = [
         'user_id',
         'title',
         'description',
+        'status',
     ];
 
     protected $appends = ['likesText'];

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Config;
-use League\Csv\Writer;
+use App\Enums\ListingAction;
 
 class ListingController extends Controller
 {
@@ -56,13 +56,20 @@ class ListingController extends Controller
         return redirect()->back()->with('success',  __('messages.success.update'));
     }
 
-    public function filterListings(Request $request)
-    {
-        $status = $request->input('status');
-        
-        // Fetch filtered listings based on the selected status
+public function filterListings(Request $request)
+{
+    $status = $request->input('status');
+
+    // Check if the status is 'published'
+    if ($status === ListingAction::PUBLISH) {
+        // Fetch only published listings
+        $listings = Listing::where('status', ListingAction::PUBLISH)->get();
+    } else {
+        // Fetch listings with the specified status (including non-published ones)
         $listings = Listing::where('status', $status)->get();
-        
-        return response()->json(['listings' => $listings]);
     }
+
+    return response()->json(['listings' => $listings]);
+}
+
 }

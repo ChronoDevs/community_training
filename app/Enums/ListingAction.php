@@ -4,7 +4,7 @@ namespace App\Enums;
 
 class ListingAction
 {
-    const PUBLISH = 'publish';
-    const UNPUBLISH = 'unpublish';
+    const PUBLISH = 'published';
+    const UNPUBLISH = 'unpublished';
     const DELETE = 'delete';
 }

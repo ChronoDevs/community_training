@@ -26,18 +26,19 @@ class ListingController extends Controller
      */
     public function index()
     {
-        // Fetch all listings from the database
-        $listings = Listing::where('status', ListingAction::PUBLISH)->paginate(10);
-
-        // Add the like count to each listing
+        // Fetch all listings from the database and load the 'likes' relationship
+        $listings = Listing::with('likes')
+            ->where('status', ListingAction::PUBLISH) // Use the enum value
+            ->paginate(config('const.page_pagination'));
+        
+        // Calculate the like count for each listing
         $listings->each(function ($listing) {
-            $listing->load('likes'); // Load likes relationship
-            $listing->likeCount = $listing->likeCount->value; // Access the enum value
+            $listing->likeCount = $listing->likes->count();
         });
-
+        
         // Return the listings view with the data
         return view('listings.index', compact('listings'));
-    }
+    }        
 
     /**
      * Display the specified listing.
