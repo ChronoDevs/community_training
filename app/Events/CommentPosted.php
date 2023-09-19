@@ -16,16 +16,32 @@ class CommentPosted implements ShouldBroadcast
 
     public $comment;
 
+    /**
+     * Create a new event instance.
+     *
+     * @param  mixed  $comment
+     * @return void
+     */
     public function __construct($comment)
     {
         $this->comment = $comment;
     }
 
+    /**
+     * Get the channels the event should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
     public function broadcastOn()
     {
         return new Channel('comments');
     }
 
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
     public function broadcastWith()
     {
         return [

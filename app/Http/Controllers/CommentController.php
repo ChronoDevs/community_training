@@ -12,8 +12,14 @@ use App\Http\Requests\CommentStoreRequest;
 
 class CommentController extends Controller
 {
+    /**
+     * Create a new CommentController instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
+        // Apply the 'auth' middleware to the 'like' method
         $this->middleware('auth')->only('like');
     }
 
