@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Config;
 use App\Http\Requests\ListingStoreRequest;
 use App\Http\Requests\ListingUpdateRequest;
 use App\Models\Listing;

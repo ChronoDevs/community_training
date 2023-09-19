@@ -3,10 +3,6 @@
 @section('title', 'Listings')
 @section('css', 'listings_index.css')
 
-@php
-use App\Enums\ListingAction;
-@endphp
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -27,7 +23,7 @@ use App\Enums\ListingAction;
             </div>
 
             @foreach($listings as $listing)
-                @if($listing->status === ListingAction::PUBLISH)
+                @if($listing->status === \App\Enums\ListingAction::PUBLISH)
                     <div class="card mb-3 invi">
                         <div class="card-body" id="card-body">
                             <div class="d-flex align-items-center">
