@@ -101,3 +101,41 @@
 .show-icons{
     display: inline;
 }
+
+.comment-text {
+    color: white;
+}
+
+#comment-user-name {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#comment-content {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#comment-border {
+    border-radius: 15px;
+    border: 1px solid #3D3F41;
+    width: 941px;
+    height: 128px;
+}
+
+#comment-likes-count {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

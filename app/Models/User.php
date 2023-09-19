@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Enums\AdminRole;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Listing; // Add the Listing model import here
 use App\Models\Traits\Updater;
 use App\Models\Traits\Register;
 use App\Notifications\PasswordResetNotification;
@@ -103,6 +104,11 @@ class User extends Authenticatable
         return $this->listingLikes->contains('listing_id', $listing->id);
     }
 
+    // Define the relationship to Listing
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
 
     public function sendPasswordResetNotification($token)
     {
