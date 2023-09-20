@@ -132,6 +132,14 @@ li {
     line-height: normal;
 }
 
+.edit-btn {
+    color: #FFF;
+}
+
+.delete-btn {
+    color: #f02c2c;
+}
+
 /* Listing User Position */
 #listing-user-position {
     color: var(--text-color, #A5A8AC);
@@ -285,11 +293,6 @@ li {
     width: 300px;
     height: 430px;
     flex-shrink: 0;
-}
-
-/* Hidden Elements */
-.hidden {
-    display: none;
 }
 
 /* Additional Styles */

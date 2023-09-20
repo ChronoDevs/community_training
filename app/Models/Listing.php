@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Favorite;
 use App\Models\Traits\Searchable;
 use App\Enums\LikeCount;
@@ -53,6 +54,10 @@ class Listing extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
     /**
      * Create a new listing and attach tags.
      *
@@ -62,24 +67,27 @@ class Listing extends Model
     public static function createListing(Request $request)
     {
         $user = auth()->user();
-
+    
         return DB::transaction(function () use ($user, $request) {
-            // Create the listing
+            // Strip HTML tags from the description
+            $description = strip_tags($request->input('description'));
+    
+            // Create the listing with the cleaned-up description
             $listing = self::create([
                 'user_id' => $user->id,
                 'title' => $request->input('title'),
-                'description' => $request->input('description'),
+                'description' => $description, // Use the cleaned-up description
             ]);
-
+    
             // Attach tags to the listing
             $listing->tags()->attach($request->input('tags'));
-
+    
             // If you also want to attach categories to the listing, you can do it here:
             $listing->categories()->attach($request->input('category'));
-
+    
             return $listing;
-        }, 5); // The second argument '5' specifies the number of times to attempt the transaction in case of deadlock
-    }
+        }, 5);
+    }    
 
     /**
      * Update a listing along with tags and categories using a transaction.
@@ -90,22 +98,24 @@ class Listing extends Model
     public function updateListing(array $data)
     {
         return DB::transaction(function () use ($data) {
-            // Update the listing details
+            // Strip HTML tags from the description
+            $description = strip_tags($data['description']);
+    
+            // Update the listing details with the cleaned-up description
             $this->update([
                 'title' => $data['title'],
-                'description' => $data['description'],
+                'description' => $description, // Use the cleaned-up description
             ]);
-
+    
             // Sync tags for the listing
             $this->tags()->sync($data['tags']);
-
+    
             // Update the selected category for the listing
             $this->categories()->sync($data['category']);
-
-            // Commit the transaction
+    
             return true;
         });
-    }
+    }    
 
     /**
      * Override the soft delete method to customize behavior.
