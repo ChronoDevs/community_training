@@ -235,4 +235,15 @@ class ListingController extends Controller
 
         return $comment; // Return the comment or handle it as needed
     }
+
+    public function searchListings(Request $request)
+    {
+        $searchTerm = $request->input('search'); // Get the search term from the request
+
+        // Use the correct variable for the search term
+        $listings = Listing::search($searchTerm, 'listings')
+        ->paginate(config('const.page_pagination'));
+
+        return view('listings.index', compact('listings'));
+    }
 }
