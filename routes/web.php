@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/listings', [App\Http\Controllers\ListingController::class, 'index'])->name('listings.index');
     Route::get('/listings/create', [App\Http\Controllers\ListingController::class, 'create'])->name('listings.create');
     Route::post('/listings', [App\Http\Controllers\ListingController::class, 'store'])->name('listings.store');
+    Route::get('/listings/search', [App\Http\Controllers\ListingController::class, 'searchListings'])->name('listings.search');
     Route::resource('listings', App\Http\Controllers\ListingController::class);
 
     // Show a specific listing
