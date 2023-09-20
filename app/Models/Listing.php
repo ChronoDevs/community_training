@@ -53,7 +53,12 @@ class Listing extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
-
+    
+        /**
+     * Define the tags relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function categories()
     {
         return $this->belongsToMany(Category::class);
