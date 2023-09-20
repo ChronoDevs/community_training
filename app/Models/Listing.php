@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Favorite;
+use App\Models\Traits\Searchable;
 use App\Enums\LikeCount;
 use App\Enums\ListingAction;
 use Illuminate\Http\Request;
 
 class Listing extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $table = 'listings';
     
