@@ -63,7 +63,7 @@ class CommentController extends Controller
     }
 
     /**
-     * Retrieve all comments for a listing.
+     * Retrieve all comments for a listing ordered by likes and created_at.
      *
      * @param  int  $listingId
      * @return \Illuminate\Http\JsonResponse
@@ -71,7 +71,11 @@ class CommentController extends Controller
     public function index($listingId)
     {
         // Replace 'Comment' with your actual Comment model
-        $comments = Comment::where('listing_id', $listingId)->latest()->get();
+        $comments = Comment::where('listing_id', $listingId)
+            ->withCount('likes')
+            ->orderByDesc('likes_count')
+            ->orderBy('created_at')
+            ->get();
 
         // Return a JSON response with the comments data
         return response()->json(['comments' => $comments]);

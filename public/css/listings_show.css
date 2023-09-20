@@ -5,6 +5,7 @@
     background: var(--card, #242526);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 1050px;
+    padding: 25px;
 }
 
 .invi {
@@ -14,8 +15,12 @@
 
 /* Listing Avatar */
 .listing-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50px;
     border: 1px solid var(--text-color, #A5A8AC);
+    background: lightgray 50% / cover no-repeat, #000;
+    margin-right: 16px;
 }
 
 /* Listing User Name */
@@ -104,6 +109,7 @@
 
 .comment-text {
     color: white;
+    margin-bottom: 20px;
 }
 
 #comment-user-name {
@@ -116,6 +122,12 @@
 }
 
 #comment-content {
+    display: flex;
+    width: 450px;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
     font-size: 14px;
@@ -128,7 +140,7 @@
     border-radius: 15px;
     border: 1px solid #3D3F41;
     width: 941px;
-    height: 128px;
+    padding: 1rem;
 }
 
 #comment-likes-count {
@@ -138,4 +150,73 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    position: relative;
+    top: 3px;
+}
+
+.comment-item {
+    margin-bottom: 0.75rem;
+}
+
+.comment-date {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid var(--text-color, #A5A8AC);
+    background: lightgray 50% / cover no-repeat, #000;
+}
+
+#comment-form {
+    border-radius: 15px;
+    background: #3A3B3C;
+    border-color: #3A3B3C;
+    width: 940px;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    padding: 12px 12px 0px 12px;
+    color: var(--text-color, #A5A8AC);
+}
+
+#comment-form::placeholder {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#reply-text {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+}
+
+#reply-button {
+    margin-left: 10px;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: relative;
+    top: 3px;
+    text-decoration: none;
 }
