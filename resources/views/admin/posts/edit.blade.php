@@ -15,6 +15,11 @@
                     <h2>{{ $listing->title }}</h2>
                     <p>{{ $listing->description }}</p>
                     <p>Status: {{ $listing->status }}</p>
+                    <p>Category:
+                        @foreach ($listing->categories as $category)
+                            <span class="badge badge-custom">{{ $category->name }}</span>
+                        @endforeach
+                    </p>
                     <p>Tags:
                         @foreach ($listing->tags as $tag)
                             <span class="badge badge-custom">{{ $tag->name }}</span>

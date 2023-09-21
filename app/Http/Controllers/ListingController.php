@@ -84,12 +84,12 @@ class ListingController extends Controller
     {
         // Attempt to create a new listing
         $listing = Listing::createListing($request);
-
+    
         // Check if the listing was successfully created
         if ($listing) {
-            // Attach the selected category to the listing
-            $listing->categories()->attach($request->input('category'));
-
+            // Use sync to attach the selected category, which ensures no duplicates
+            $listing->categories()->sync([$request->input('category')]);
+    
             return redirect()->route('listings.index')->with('success', 'Listing created successfully!');
         } else {
             // Handle the case where listing creation failed
@@ -130,7 +130,7 @@ class ListingController extends Controller
         if (Gate::denies('update-listing', $listing)) {
             abort(403, 'Unauthorized');
         }
-
+    
         // Prepare data for the update (title, description, tags, category)
         $data = [
             'title' => $request->input('title'),
@@ -138,9 +138,12 @@ class ListingController extends Controller
             'tags' => $request->input('tags'),
             'category' => $request->input('category'),
         ];
-
+    
         // Use the custom update method in the Listing model
         if ($listing->updateListing($data)) {
+            // Use sync to update the selected category, which ensures no duplicates
+            $listing->categories()->sync([$request->input('category')]);
+    
             return redirect()->route('listings.index')->with('success', 'Listing updated successfully!');
         } else {
             // Handle the case where the update fails within the transaction

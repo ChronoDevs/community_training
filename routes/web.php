@@ -76,7 +76,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
-    Route::get('/admin/home', [\App\Http\Controllers\Admin\DashboardController::class, 'home'])->name('admin.home');
+    Route::get('/admin/home', [\App\Http\Controllers\Admin\DashboardController::class, 'home'])->name('admin.dashboard.index');
     Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'users'])->name('admin.users.index');
     Route::get('/admin/posts', [\App\Http\Controllers\Admin\ListingController::class, 'posts'])->name('admin.posts.index');
     Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'categories'])->name('admin.category.index');
