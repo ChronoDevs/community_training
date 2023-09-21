@@ -48,14 +48,6 @@ function updateCommentSection(listingId) {
     });
 }
 
-// Function to go back to the previous page
-function goBack() {
-    window.history.back();
-}
-
-// Add a click event listener to the 'X' icon
-document.getElementById('go-back').addEventListener('click', goBack);
-
 // Call the updateCommentSection function to initially populate comments
 const listingId = document.getElementById('listing-id').value;
 updateCommentSection(listingId);
@@ -67,16 +59,3 @@ window.Echo.channel('comments')
         const comment = event.comment;
         appendComment(comment);
     });
-
-tinymce.init({
-    selector: 'textarea#description',
-    plugins: [
-        'advlist autolink lists link image charmap print preview anchor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table paste code help wordcount'
-    ],
-    toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media | removeformat | help',
-    menubar: 'file edit view insert format tools table help',
-    content_style: 'body { font-family: Arial, sans-serif; font-size: 14px; }',
-    height: 300
-});

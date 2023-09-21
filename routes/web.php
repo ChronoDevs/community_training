@@ -65,6 +65,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/comments/{comment}/like', [\App\Http\Controllers\CommentController::class, 'like'])->name('comments.like');
     Route::delete('/comments/{comment}/unlike', [\App\Http\Controllers\CommentController::class, 'unlike'])->name('comments.unlike');
 
+    // Routes for Replies
+    Route::post('comments/{comment}/replies', [\App\Http\Controllers\CommentController::class, 'storeReply'])->name('comments.storeReply');
+    Route::get('comments/{comment}/replies', [\App\Http\Controllers\CommentController::class, 'showReplies'])->name('comments.showReplies');
+    Route::post('/replies/{replyId}/like', [\App\Http\Controllers\CommentController::class, 'likeReply'])->name('reply.like');
+    Route::delete('/replies/{replyId}/unlike', [\App\Http\Controllers\CommentController::class, 'unlikeReply'])->name('reply.unlike');
+
     Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 //});
 
