@@ -25,34 +25,53 @@
             @foreach($listings as $listing)
                 @if($listing->status === \App\Enums\ListingAction::PUBLISH)
                     <div class="card mb-3 invi">
-                        <div class="card-body" id="card-body">
-                            <div class="d-flex align-items-center">
-                                <!-- User's Photo -->
-                                <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                    <div class="card-body" id="card-body">
+                        @auth
+                        @if (Gate::allows('delete-listing', $listing))
+                        <!-- Delete Icon (Form) -->
+                        <form action="{{ route('listings.destroy', $listing->id) }}" method="POST" class="float-end" onsubmit="return confirm('Are you sure you want to delete this listing?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn delete-btn btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                        @endif
+                        @if (Gate::allows('update-listing', $listing))
+                        <!-- Edit Icon -->
+                        <a href="{{ route('listings.edit', $listing->id) }}" class="btn edit-btn btn-sm float-end">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        @endif
+                        @endauth
 
-                                <!-- User's Name and Date/Time -->
-                                <div class="ms-3">
-                                    @if ($listing->user)
-                                        <h5 class="card-title" id="listing-user-name">{{ $listing->user->name }}</h5>
-                                    @endif
-                                    <p class="card-text" id="listing-user-position">Software Engineer</p>
-                                    <p class="card-text" id="listing-datetime">Posted on: {{ $listing->created_at->format('F d, Y H:i:s') }}</p>
-                                </div>
-                            </div>
+                        <div class="d-flex align-items-center">
+                            <!-- User's Photo -->
+                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
 
-                            <!-- Post Title -->
-                            <div>
-                                <a href="{{ route('listings.show', $listing->id) }}" class="card-subtitle mt-3 clickable-link" id="listing-title">{{ $listing->title }}</a>
-                            </div>
-
-                            <!-- Tags -->
-                            <div class="mt-3">
-                                @foreach($listing->tags as $tag)
-                                    <a href="#" class="text-decoration-none me-2" id="listing-tags">#{{ $tag->name }}</a>
-                                @endforeach
+                            <!-- User's Name and Date/Time -->
+                            <div class="ms-3">
+                                @if ($listing->user)
+                                <h5 class="card-title" id="listing-user-name">{{ $listing->user->name }}</h5>
+                                @endif
+                                <p class="card-text" id="listing-user-position">Software Engineer</p>
+                                <p class="card-text" id="listing-datetime">Posted on: {{ $listing->created_at->format('F d, Y H:i:s') }}</p>
                             </div>
                         </div>
+
+                        <!-- Post Title -->
+                        <h2 class="card-subtitle mt-3" id="listing-title">
+                            <span class="clickable-link" data-url="{{ route('listings.show', $listing->id) }}">{{ $listing->title }}</span>
+                        </h2>
+
+                        <!-- Tags -->
+                        <div class="mt-3">
+                            @foreach($listing->tags as $tag)
+                            <a href="#" class="text-decoration-none me-2" id="listing-tags">#{{ $tag->name }}</a>
+                            @endforeach
+                        </div>
                     </div>
+                </div>
                 @endif
             @endforeach
 

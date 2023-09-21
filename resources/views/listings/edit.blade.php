@@ -48,7 +48,11 @@
                         <!-- Tags Input -->
                         <div class="mb-3">
                             <label for="tags" class="form-label">Tags</label>
-                            <input type="text" name="tags" id="tags" class="form-control" placeholder="Enter tags (comma-separated)" value="{{ implode(', ', $listing->tags->pluck('name')->toArray()) }}">
+                            <select id="tags" name="tags[]" class="form-select" multiple>
+                                @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <!-- Submit Button -->
