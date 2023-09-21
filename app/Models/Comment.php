@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Events\CommentPosted;
 use App\Models\CommentLike;
 use App\Models\Listing;
 use App\Models\Reply;

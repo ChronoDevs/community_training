@@ -45,7 +45,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm" id="container">
+        <nav class="navbar navbar-expand-md navbar-light sticky-top shadow-sm" id="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo">
             </a>
@@ -53,65 +53,61 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
+                <div class="me-auto">
                     @auth
                     <form action="{{ route('listings.search') }}" method="GET" class="search-bar">
                         @csrf
-                        <div>
+                        <div class="d-flex align-items-center">
                             <input type="text" name="search" placeholder="Search...">
                             <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
                         </div>
                     </form>
                     @endif
-                </ul>
+                </div>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
+                <div class="ms-auto">
                     <!-- Authentication Links -->
                     @guest
                     @if (Route::has('login'))
-                    <li class="nav-item signin">
+                    <div class="nav-item signin">
                         <a class="nav-link" href="{{ route('login') }}">
                             <button class="btn signintext-btn">{{ __('Sign In') }}</button>
                         </a>
-                    </li>
+                    </div>
                     @endif
 
                     @if (Route::has('register'))
-                    <li class="nav-item signup">
+                    <div class="nav-item signup">
                         <a class="nav-link" href="{{ route('register') }}">
                             <button class="btn signuptext-btn">{{ __('Sign Up') }}</button>
                         </a>
-                    </li>
+                    </div>
                     @endif
                     @else
-                    <li class="nav-item dropdown">
-                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; height: 50px; float: left; margin-right: 7px; flex-shrink: 0;">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <div class="nav-item dropdown">
+                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" id="nav-avatar" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; weight: 50px; float: left;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Sign Out') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Sign Out') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                     </div>
-                </li>
-                @endguest
-            </ul>
-        </div>
-    </nav>
-    <main class="py-4">
-        @yield('content')
-    </main>
-</div>
+                    @endguest
+                </div>
+            </div>
+        </nav>
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
 </body>
 </html>
