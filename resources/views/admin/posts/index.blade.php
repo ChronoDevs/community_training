@@ -62,6 +62,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $listings->links('pagination::bootstrap-4') }} <!-- Add pagination links at the bottom -->
             </div>
         </div>
     </div>

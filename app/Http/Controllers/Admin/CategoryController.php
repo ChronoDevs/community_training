@@ -19,7 +19,7 @@ class CategoryController extends Controller
         $page = Config::get('const.page_pagination');
         $categories = Category::paginate($page); // Retrieve categories with pagination
 
-        return view('admin.categories', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
 
     /**
@@ -40,11 +40,11 @@ class CategoryController extends Controller
             null, // You can pass after_function if needed
             function ($category) {
                 // Category created successfully
-                return redirect()->route('admin.categories')->with('success',  __('messages.success.create'));
+                return redirect()->route('admin.category.index')->with('success',  __('messages.success.create'));
             },
             function () {
                 // Category creation failed
-                return redirect()->route('admin.categories')->with('error',  __('messages.error.create'));
+                return redirect()->route('admin.category.index')->with('error',  __('messages.error.create'));
             }
         );
 
@@ -60,7 +60,7 @@ class CategoryController extends Controller
      */
     public function editCategory(Category $category)
     {
-        return view('admin.edit_category', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -84,14 +84,14 @@ class CategoryController extends Controller
                 // Fetch the updated category after saving changes
                 $updatedCategory = Category::findOrFail($category->id);
 
-                return redirect()->route('admin.categories')->with([
+                return redirect()->route('admin.category.index')->with([
                     'success' =>  __('messages.success.update'),
                     'updatedCategory' => $updatedCategory, // Pass the updated category to the view
                 ]);
             },
             function () {
                 // Category update failed
-                return redirect()->route('admin.categories')->with('error',  __('messages.error.update'));
+                return redirect()->route('admin.category.index')->with('error',  __('messages.error.update'));
             }
         );
     }
@@ -107,10 +107,10 @@ class CategoryController extends Controller
         // Call the deleteTag method on the $tag instance
         if ($category->deleter()) {
             // Tag deleted successfully
-            return redirect()->route('admin.categories')->with('success', __('messages.success.delete'));
+            return redirect()->route('admin.category.index')->with('success', __('messages.success.delete'));
         } else {
             // Tag deletion failed
-            return redirect()->route('admin.categories')->with('error',  __('messages.error.delete'));
+            return redirect()->route('admin.category.index')->with('error',  __('messages.error.delete'));
         }
     }
 }

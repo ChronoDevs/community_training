@@ -40,7 +40,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <a href="{{ route('admin.posts') }}" class="btn btn-secondary mr-2">Return to Posts</a>
+                            <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary mr-2">Return to Posts</a>
                             <button type="submit" class="btn btn-primary">Update Listing</button>
                         </div>
                     </form>

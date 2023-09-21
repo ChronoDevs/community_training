@@ -71,10 +71,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:admin'])->group(function () {
     // Routes only accessible to admins
     Route::get('/admin/home', [\App\Http\Controllers\Admin\DashboardController::class, 'home'])->name('admin.home');
-    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'users'])->name('admin.users');
-    Route::get('/admin/posts', [\App\Http\Controllers\Admin\ListingController::class, 'posts'])->name('admin.posts');
-    Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'categories'])->name('admin.categories');
-    Route::get('/admin/tags', [\App\Http\Controllers\Admin\TagController::class, 'tags'])->name('admin.tags');
+    Route::get('/admin/users', [\App\Http\Controllers\Admin\UserController::class, 'users'])->name('admin.users.index');
+    Route::get('/admin/posts', [\App\Http\Controllers\Admin\ListingController::class, 'posts'])->name('admin.posts.index');
+    Route::get('/admin/categories', [\App\Http\Controllers\Admin\CategoryController::class, 'categories'])->name('admin.category.index');
+    Route::get('/admin/tags', [\App\Http\Controllers\Admin\TagController::class, 'tags'])->name('admin.tags.index');
 
     // Admin users list page route
     Route::get('admin/editUser/{user}', [\App\Http\Controllers\Admin\UserController::class, 'editUser'])->name('admin.editUser');

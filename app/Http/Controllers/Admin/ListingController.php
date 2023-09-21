@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\Category;
 use Illuminate\Support\Facades\Config;
 use App\Enums\ListingAction;
 
@@ -19,7 +20,7 @@ class ListingController extends Controller
         // Fetch listings with their associated users and tags
         $listings = Listing::with('user', 'tags')->paginate(config('const.page_pagination'));
 
-        return view('admin.posts', ['listings' => $listings]);
+        return view('admin.posts.index', ['listings' => $listings]);
     }
 
     /**
@@ -30,7 +31,7 @@ class ListingController extends Controller
      */
     public function inspectListing(Listing $listing)
     {
-        return view('admin.inspect_listing', ['listing' => $listing]);
+        return view('admin.posts.edit', ['listing' => $listing]);
     }
 
     /**
