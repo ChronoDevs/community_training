@@ -34,54 +34,22 @@ class CommentController extends Controller
      */
     public function store(CommentStoreRequest $request)
     {
-        // Get the parent_id from the form data
-        $parentId = $request->input('parent_id');
+        // Data to pass to the static method
+        $data = [
+            'content' => $request->input('content'),
+            'listing_id' => $request->input('listing_id'),
+            'parent_id' => $request->input('parent_id'),
+        ];
 
-        // Check if a parent_id is provided
-        if ($parentId) {
-            $parentComment = Comment::find($parentId);
-
-            // If the parent comment doesn't exist, return an error or handle it as needed
-            if (!$parentComment) {
-                return redirect()->back()->with('error', __('Parent comment not found.'));
-            }
-
-            $comment = Comment::create([
-                'content' => $request->input('content'),
-                'listing_id' => $parentComment->listing_id,
-                'user_id' => auth()->user()->id,
-                'parent_id' => $parentId,
-            ]);
-        } else {
-            // Create a new comment if no parent_id is provided
-            $comment = Comment::register(
-                [
-                    'content' => $request->input('content'),
-                    'listing_id' => $request->input('listing_id'),
-                    'user_id' => auth()->user()->id,
-                    'parent_id' => null, // Ensure parent_id is null for comments
-                ],
-                null, // Add any "before_function" if needed
-                null, // Add any "after_function" if needed
-                function ($comment) use ($request) {
-                    // Broadcast the new comment
-                    broadcast(new CommentPosted($comment))->toOthers();
-                    return $comment;
-                },
-                function ($rtn) {
-                    // Handle failure if needed
-                    // This function is called on failure
-                    // You can add your error handling logic here
-                }
-            );
-        }
+        // Use the static method to store the comment
+        $comment = Comment::storeComment($data);
 
         if ($comment) {
             // Redirect back to the specific listing page with a success message
             return redirect()->route('listings.show', ['listing' => $request->input('listing_id')])
                 ->with('success', __('messages.success.comment'));
         } else {
-            // Handle the case where comment registration fails with an error message
+            // Handle the case where comment creation or registration fails with an error message
             return redirect()->back()->with('error', __('messages.error.comment'));
         }
     }
@@ -176,7 +144,7 @@ class CommentController extends Controller
     /**
      * Reply to a comment.
      *
-     * @param  Request  $request
+     * @param  ReplyToCommentRequest  $request
      * @param  int  $commentId
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -185,20 +153,18 @@ class CommentController extends Controller
         // Find the parent comment
         $parentComment = Comment::findOrFail($commentId);
 
-        // Create a new reply comment
-        $comment = new Comment([
+        // Use the new method to reply to the comment
+        $comment = $parentComment->replyToComment([
             'content' => $request->input('content'),
-            'listing_id' => $request->input('listing_id'),
-            'user_id' => auth()->user()->id,
         ]);
 
-        // Associate the reply comment with the parent comment
-        $comment->parent_id = $parentComment->id;
-        $comment->save();
-
-        // Redirect back to the specific listing page with a success message
-        return redirect()->route('listings.show', ['listing' => $request->input('listing_id')])
-            ->with('success', __('messages.success.comment_reply'));
+        if ($comment) {
+            return redirect()->route('listings.show', ['listing' => $request->input('listing_id')])
+                ->with('success', __('messages.success.comment_reply'));
+        } else {
+            // Handle the case where the reply creation failed
+            return redirect()->back()->with('error', __('messages.error.comment_reply'));
+        }
     }
 
     /**
@@ -212,16 +178,16 @@ class CommentController extends Controller
     {
         $comment = Comment::findOrFail($commentId);
 
-        // Create a new reply with the content and associate it with the authenticated user
-        $reply = new Reply([
+        $reply = $comment->storeReply([
             'content' => $request->input('content'),
         ]);
-        $reply->user_id = auth()->user()->id; // Set the user_id
 
-        // Save the reply and associate it with the comment
-        $comment->replies()->save($reply);
-
-        return redirect()->back()->with('success', __('messages.success.create_reply'));
+        if ($reply) {
+            return redirect()->back()->with('success', __('messages.success.create_reply'));
+        } else {
+            // Handle the case where the reply creation failed
+            return redirect()->back()->with('error', __('messages.error.create_reply'));
+        }
     }
 
     /**
@@ -241,22 +207,13 @@ class CommentController extends Controller
     /**
      * Like a reply.
      *
-     * @param  int  $replyId
+     * @param int $replyId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function likeReply($replyId)
     {
         $reply = Reply::findOrFail($replyId);
-
-        // Check if the user has already liked the reply
-        $userId = auth()->user()->id;
-        if (!$reply->isLikedByUser($userId)) {
-            $like = new ReplyLike([
-                'user_id' => $userId,
-            ]);
-
-            $reply->likes()->save($like);
-        }
+        $reply->like(auth()->user()->id);
 
         return redirect()->back();
     }
@@ -264,20 +221,13 @@ class CommentController extends Controller
     /**
      * Unlike a reply.
      *
-     * @param  int  $replyId
+     * @param int $replyId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function unlikeReply($replyId)
     {
         $reply = Reply::findOrFail($replyId);
-
-        // Check if the user has already liked the reply and remove the like
-        $userId = auth()->user()->id;
-        $like = $reply->likes()->where('user_id', $userId)->first();
-
-        if ($like) {
-            $like->delete();
-        }
+        $reply->unlike(auth()->user()->id);
 
         return redirect()->back();
     }

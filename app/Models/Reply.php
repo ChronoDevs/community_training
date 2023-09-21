@@ -37,4 +37,36 @@ class Reply extends Model
     {
         return $this->likes()->where('user_id', $userId)->exists();
     }
+
+    /**
+     * Like this reply.
+     *
+     * @param int $userId
+     * @return void
+     */
+    public function like($userId)
+    {
+        if (!$this->isLikedByUser($userId)) {
+            $like = new ReplyLike([
+                'user_id' => $userId,
+            ]);
+
+            $this->likes()->save($like);
+        }
+    }
+
+    /**
+     * Unlike this reply.
+     *
+     * @param int $userId
+     * @return void
+     */
+    public function unlike($userId)
+    {
+        $like = $this->likes()->where('user_id', $userId)->first();
+
+        if ($like) {
+            $like->delete();
+        }
+    }
 }
