@@ -18,14 +18,12 @@ class CreateListingsTable extends Migration
             $table->unsignedBigInteger('user_id'); // User who created the listing
             $table->string('title');
             $table->text('description');
-            $table->unsignedBigInteger('category_id')->nullable();
             $table->enum('status', ['published', 'unpublished'])->default('published');
             $table->dateTime('deleted_at')->nullable(); // Soft delete column
             $table->unsignedBigInteger('deleted_by')->nullable(); // User who deleted the listing
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('deleted_by')->references('id')->on('users')->onDelete('set null');
         });
     }
@@ -40,9 +38,6 @@ class CreateListingsTable extends Migration
         Schema::dropIfExists('listings');
 
         Schema::table('listings', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
-            $table->dropColumn('category_id');
-            $table->dropColumn('status');
         });
     }
 }

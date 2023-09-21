@@ -45,7 +45,10 @@
                         <input type="text" name="address" value="{{ $user->address }}" class="userlist_label"></p>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <div class="form-group">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-danger mr-2">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
             </form>
         </div>
     </div>
