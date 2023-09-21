@@ -35,7 +35,8 @@ class ListingStoreRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'description' => 'required',
-            'tags' => 'array', // Ensure 'tags' is an array in the request
+            'tags' => 'array',
+            'categories' => 'array', // Ensure 'tags' is an array in the request
         ];
     }
 }

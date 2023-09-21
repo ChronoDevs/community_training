@@ -19,7 +19,7 @@ class TagController extends Controller
         $page = Config::get('const.page_pagination');
         $tags = Tag::paginate($page); // Retrieve tags with pagination
 
-        return view('admin.tags', compact('tags'));
+        return view('admin.tags.index', compact('tags'));
     }
 
     /**
@@ -40,11 +40,11 @@ class TagController extends Controller
             null, // You can pass after_function if needed
             function () {
                 // Tag created successfully
-                return redirect()->route('admin.tags')->with('success', __('messages.success.create'));
+                return redirect()->route('admin.tags.index')->with('success', __('messages.success.create'));
             },
             function () {
                 // Tag creation failed
-                return redirect()->route('admin.tags')->with('error', __('messages.error.create'));
+                return redirect()->route('admin.tags.index')->with('error', __('messages.error.create'));
             }
         );
 
@@ -60,7 +60,7 @@ class TagController extends Controller
      */
     public function editTag(Tag $tag)
     {
-        return view('admin.edit_tag', compact('tag'));
+        return view('admin.tags.edit', compact('tag'));
     }
 
         /**
@@ -84,14 +84,14 @@ class TagController extends Controller
                 // Fetch the updated tag after saving changes
                 $updatedTag = Tag::findOrFail($tag->id);
 
-                return redirect()->route('admin.tags')->with([
+                return redirect()->route('admin.tags.index')->with([
                     'success' => __('messages.success.update'),
                     'updatedTag' => $updatedTag, // Pass the updated tag to the view
                 ]);
             },
             function () {
                 // tag update failed
-                return redirect()->route('admin.tags')->with('error', __('messages.error.update'));
+                return redirect()->route('admin.tags.index')->with('error', __('messages.error.update'));
             }
         );
     }
@@ -107,10 +107,10 @@ class TagController extends Controller
         // Call the deleteTag method on the $tag instance
         if ($tag->deleter()) {
             // Tag deleted successfully
-            return redirect()->route('admin.tags')->with('success', __('messages.success.delete'));
+            return redirect()->route('admin.tags.index')->with('success', __('messages.success.delete'));
         } else {
             // Tag deletion failed
-            return redirect()->route('admin.tags')->with('error',  __('messages.error.delete'));
+            return redirect()->route('admin.tags.index')->with('error',  __('messages.error.delete'));
         }
     }
 }

@@ -19,7 +19,7 @@ class UserController extends Controller
         $page = Config::get('const.page_pagination');
         $users = User::paginate($page); // Retrieve users with pagination
 
-        return view('admin.users', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -35,10 +35,10 @@ class UserController extends Controller
 
         if ($user->updater($params)) {
             // Successfully updated
-            return redirect()->route('admin.users')->with('success',  __('messages.success.update'));
+            return redirect()->route('admin.users.index')->with('success',  __('messages.success.update'));
         } else {
             // Handle the error case
-            return redirect()->route('admin.users')->with('error',  __('messages.error.update'));
+            return redirect()->route('admin.users.index')->with('error',  __('messages.error.update'));
         }
     }
 
@@ -50,7 +50,7 @@ class UserController extends Controller
      */
     public function editUser(User $user)
     {
-        return view('admin/update_user', compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -110,8 +110,8 @@ class UserController extends Controller
         $keyword = $request->input('search');
 
         // Use the scope to perform the search
-        $users = User::search($keyword)->get();
+        $users = User::search($keyword)->paginate(config('const.page_pagination'));
 
-        return view('admin.users', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 }
