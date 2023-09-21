@@ -220,3 +220,27 @@
     top: 3px;
     text-decoration: none;
 }
+
+.reply-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid var(--text-color, #A5A8AC);
+    background: lightgray 50% / cover no-repeat, #000;
+    margin-right: 16px;
+}
+
+#reply-content {
+    display: flex;
+    width: 450px;
+    height: 36px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

@@ -116,11 +116,7 @@
                         <h3 class="comment-text">Top Comments ({{ $listing->comments->count() }})</h3>
                         <!-- Display Comments -->
                         <ul class="list-unstyled" id="comment-list">
-                            @foreach($listing->comments()
-                                ->withCount('likes') // Load the likes count for each comment
-                                ->orderByDesc('likes_count') // Order by likes count in descending order
-                                ->orderBy('created_at') // Then, order by created_at in ascending order (oldest first)
-                                ->get() as $comment)
+                            @foreach($listing->comments()->with('replies')->withCount('likes')->orderByDesc('likes_count')->orderBy('created_at')->get() as $comment)
                                 <li class="comment-item mb-3">
                                     <div class="d-flex align-items-start comment-wrapper">
                                         @if(isset($comment->user))
@@ -156,11 +152,62 @@
                                                         @endif
                                                         <!-- Display the total number of likes -->
                                                         <span id="comment-likes-count">{{ $comment->likes->count() }} {{ Str::plural('Like', $comment->likes->count()) }}</span>
-                                                        <button type="submit" class="btn btn-link btn-sm" id="reply-button">
+                                                        <!-- Reply button -->
+                                                        <button type="button" class="btn btn-link btn-sm reply-button" data-comment-id="{{ $comment->id }}">
                                                             <i class="fas fa-comment" id="reply-text"></i> Reply
                                                         </button>
                                                     </div>
                                                 </div>
+
+                                                <!-- Reply form (hidden by default) -->
+                                                <div class="reply-form" data-comment-id="{{ $comment->id }}" style="display: none;">
+                                                    <form method="POST" action="{{ route('comments.storeReply', $comment->id) }}">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <textarea name="content" rows="3" class="form-control" placeholder="Add a reply"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Submit Reply</button>
+                                                    </form>
+                                                </div>
+
+                                                <!-- Display replies for this comment -->
+                                                @foreach($comment->replies as $reply)
+                                                    <div class="comment-item mb-3">
+                                                        <div class="d-flex align-items-start comment-wrapper">
+                                                            @if(isset($reply->user))
+                                                                <!-- Display user avatar -->
+                                                                <img src="{{ $reply->user->avatar }}" alt="{{ $reply->user->name }}" class="rounded-circle comment-avatar" width="50">
+                                                                <div class="ms-3" id="comment-border">
+                                                                    <!-- Display username and creation date -->
+                                                                    <strong id="comment-user-name">{{ $reply->user->name }} •
+                                                                        <span class="comment-date">{{ $reply->created_at->format('M j') }}</span>
+                                                                    </strong>
+                                                                    <!-- Display reply content -->
+                                                                    <p id="comment-content">{{ $reply->content }}</p>
+                                                                    <!-- Like button -->
+                                                                    @auth
+                                                                        <form method="POST" action="{{ route('reply.like', $reply->id) }}">
+                                                                            @csrf
+                                                                            <button type="submit" class="btn btn-link btn-sm">
+                                                                                @if($reply->isLikedByUser(auth()->user()->id))
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                @else
+                                                                                    <i class="far fa-thumbs-up"></i>
+                                                                                @endif
+                                                                            </button>
+                                                                            <!-- Display the total number of likes -->
+                                                                            <span id="comment-likes-count">{{ $reply->likes->count() }} {{ Str::plural('Like', $reply->likes->count()) }}</span>
+                                                                            <!-- Reply button -->
+                                                                            <button type="button" class="btn btn-link btn-sm reply-button" data-comment-id="{{ $comment->id }}">
+                                                                                <i class="fas fa-comment" id="reply-text"></i> Reply
+                                                                            </button>
+                                                                        </form>
+                                                                    @endauth
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         @else
                                             <!-- Handle the case where $comment->user is null or doesn't exist -->
@@ -175,6 +222,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Handle "Reply" button click
+        $('.reply-button').on('click', function () {
+            const commentId = $(this).data('comment-id');
+            const replyForm = $('.reply-form[data-comment-id="' + commentId + '"]');
+
+            // Toggle the reply form's visibility
+            replyForm.toggle();
+        });
+    });
+</script>
 
 @section('js', 'listings_show.js')
 @endsection

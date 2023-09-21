@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CommentLike;
+use App\Models\Listing;
+use App\Models\Reply;
+use App\Models\User;
 use App\Models\Traits\Register;
 
 class Comment extends Model
@@ -59,5 +62,10 @@ class Comment extends Model
     public function isLikedByUser($userId)
     {
         return $this->likes->contains('user_id', $userId);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 }
