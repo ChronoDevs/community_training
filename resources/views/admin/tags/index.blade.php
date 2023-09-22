@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            @include('adminsidebar')
+            @include('templates.admin_sidebar')
         </div>
         <div class="col-md-9"> <!-- Adjust the column width as needed -->
             <div class="admin-header">
