@@ -18,19 +18,17 @@ class ListingSeeder extends Seeder
      */
     public function run()
     {
-        // Get a list of user IDs and category IDs for association
-        $userIds = User::inRandomOrder()->pluck('id'); // Pick random user IDs
-        $categoryIds = Category::pluck('id'); // Get all category IDs
+        // Get a list of user IDs for association
+        $userIds = User::inRandomOrder()->pluck('id')->toArray();
 
         // Get all tag IDs
         $tagIds = Tag::pluck('id')->toArray();
 
         // Create 10 sample listings with random tags and categories
         for ($i = 1; $i <= 10; $i++) {
-            // Create a new listing with random user, category, and sample data
+            // Create a new listing with random user and sample data
             $listing = Listing::create([
-                'user_id' => $userIds->random(), // Assign a random user
-                'category_id' => $categoryIds->random(), // Assign a random category
+                'user_id' => $userIds[array_rand($userIds)], // Assign a random user
                 'title' => "Sample Listing $i",
                 'description' => "This is a sample description for Listing $i.",
             ]);
@@ -40,6 +38,12 @@ class ListingSeeder extends Seeder
 
             // Attach random tags to the listing
             $listing->tags()->attach($randomTags);
+
+            // Get a list of category IDs for association
+            $categoryIds = Category::pluck('id')->toArray();
+
+            // Attach random categories to the listing
+            $listing->categories()->attach($categoryIds[array_rand($categoryIds)]);
         }
     }
 }

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\ListingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // Seed Users
+        $this->call(UserSeeder::class);
+
+        // Seed Listings (or other seeders)
+        $this->call(ListingSeeder::class);
+
+        // Add more seeders as needed
     }
 }
