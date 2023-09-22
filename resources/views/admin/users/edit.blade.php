@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            @include('adminsidebar')
+            @include('templates.admin_sidebar')
         </div>
         <div class="col-md-9">
             <h1>Update User Details</h1>

@@ -180,7 +180,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user instanceof \App\Models\Admin) {
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.dashboard.index');
         } else {
             return redirect()->route('home');
         }
