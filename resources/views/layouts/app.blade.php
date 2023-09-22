@@ -30,6 +30,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -44,74 +45,76 @@
     @endif
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm" id="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-md navbar-light sticky-top shadow-sm" id="header">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
-                    @auth
-                    <form action="{{ route('listings.search') }}" method="GET" class="search-bar">
-                        @csrf
-                        <div>
-                            <input type="text" name="search" placeholder="Search...">
-                            <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
-                    @endif
-                </ul>
+        <div class="navbar-collapse">
+            <!-- Left Side Of Navbar -->
+            <div class="me-auto">
+                @auth
+                <form action="{{ route('listings.search') }}" method="GET" class="search-bar">
+                    @csrf
+                    <div class="d-flex align-items-center">
+                        <input type="text" name="search" placeholder="Search...">
+                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+                @endauth
+            </div>
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @guest
+            <!-- Right Side Of Navbar -->
+            <div class="ms-auto">
+                <!-- Authentication Links -->
+                @guest
+                <div class="nav-item d-flex align-items-center">
                     @if (Route::has('login'))
-                    <li class="nav-item signin">
+                    <div class="signin">
                         <a class="nav-link" href="{{ route('login') }}">
                             <button class="btn signintext-btn">{{ __('Sign In') }}</button>
                         </a>
-                    </li>
+                    </div>
                     @endif
 
                     @if (Route::has('register'))
-                    <li class="nav-item signup">
+                    <div class="signup">
                         <a class="nav-link" href="{{ route('register') }}">
                             <button class="btn signuptext-btn">{{ __('Sign Up') }}</button>
                         </a>
-                    </li>
-                    @endif
-                    @else
-                    <li class="nav-item dropdown">
-                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; height: 50px; float: left; margin-right: 7px; flex-shrink: 0;">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Sign Out') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
                     </div>
-                </li>
+                    @endif
+                </div>
                 @endguest
-            </ul>
+
+                @auth
+                <div class="ms-auto d-flex align-items-center">
+                    <div>
+                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" id="nav-avatar" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; width: 50px; margin-right: 10px;">
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary dropdown-toggle" id="avatar-name-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" id="dropdown-actions" aria-labelledby="avatar-name-button">
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                {{ __('Sign Out') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endauth
+            </div>
         </div>
     </nav>
     <main class="py-4">
         @yield('content')
     </main>
-</div>
 </body>
 </html>

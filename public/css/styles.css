@@ -258,17 +258,69 @@ body {
     color: #284CC8;
 }
 
-#navbarDropdown {
+.dropdown {
+    border-radius: 50px;
+    height: 50px;
+    width: 100px;
+    float: left;
+    position: relative;
+    right: 50px;
+}
+
+.nav-avatar {
+    border: 2px solid var(--skyblue, #00BDFE);
+    border-radius: 50px;
+    height: 50px;
+    width: 50px;
+    float: left;
+}
+
+#header {
+    background: #242526;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    height: 100px;
+    padding: 23px 70px 17px 70px;
+    justify-content: center;
+    align-items: center;
+}
+
+#avatar-name-button {
+    background-color: #242526;
+    border-color: #242526;
     color: var(--skyblue, #00BDFE);
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    display: flex;
-    width: 200px;
-    height: 20px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
+}
+
+.navbar-collapse {
+    height: 100px;
+}
+
+/* Override Bootstrap styles for the dropdown menu */
+#dropdown-actions {
+    background-color: #00BDFE;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* Override Bootstrap styles for the dropdown items */
+#dropdown-actions .dropdown-item {
+    background-color: #00BDFE; /* Set the background color to your desired static color */
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+/* Remove the hover effect on dropdown items */
+#dropdown-actions .dropdown-item:hover {
+    background-color: #00BDFE; /* You can set it to the same static color if you want to keep it the same */
 }
