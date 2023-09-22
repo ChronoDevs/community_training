@@ -33,30 +33,34 @@
                 <span class="likes-count count">{{ $listing->likes->count() }} {{ Str::plural('Like', $listing->likes->count()) }}</span>
 
                 <!-- Comment Icon -->
-                <button type="submit" class="btn btn-link btn-sm">
-                    <i class="far fa-comment"></i>
-                </button>
+                @auth
+                    <button type="submit" class="btn btn-link btn-sm">
+                        <i class="far fa-comment"></i>
+                    </button>
+                @endauth
 
                 <!-- Display the total number of comments -->
                 <span class="count">{{ $listing->comments->count() }} {{ Str::plural('Comment', $listing->comments->count()) }}</span>
 
                 <!-- Favorite Icon -->
-                @if ($listing->isFavoritedBy(auth()->user()))
-                    <form method="POST" action="{{ route('favorites.remove', $listing->id) }}" class="show-icons">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-link btn-sm">
-                            <i class="fas fa-star"></i>
-                        </button>
-                    </form>
-                @else
-                    <form method="POST" action="{{ route('favorites.add', $listing->id) }}" class="show-icons">
-                        @csrf
-                        <button type="submit" class="btn btn-link btn-sm">
-                            <i class="far fa-star"></i>
-                        </button>
-                    </form>
-                @endif
+                @auth
+                    @if ($listing->isFavoritedBy(auth()->user()))
+                        <form method="POST" action="{{ route('favorites.remove', $listing->id) }}" class="show-icons">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-link btn-sm">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('favorites.add', $listing->id) }}" class="show-icons">
+                            @csrf
+                            <button type="submit" class="btn btn-link btn-sm">
+                                <i class="far fa-star"></i>
+                            </button>
+                        </form>
+                    @endif
+                @endauth
 
                 <!-- Display the number of favorites -->
                 <span class="favorites-count count">{{ $listing->favoritesCount }} {{ Str::plural('Favorite', $listing->favoritesCount) }}</span>
@@ -70,9 +74,21 @@
                     <!-- Listing User, Date/Time, and Description in the center -->
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">
-                            <img src="{{ $listing->user->avatar }}" alt="{{ $listing->user->name }}" class="rounded-circle listing-avatar" width="50">
+                            <!-- Check if the user exists and has an avatar -->
+                            @if($listing->user && $listing->user->avatar)
+                                <img src="{{ $listing->user->avatar }}" alt="{{ $listing->user->name }}" class="rounded-circle listing-avatar" width="50">
+                            @else
+                                <!-- Handle the case when the user is not available or doesn't have an avatar -->
+                                <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="rounded-circle listing-avatar" width="50">
+                            @endif
                             <div class="ms-3">
-                                <h5 class="card-subtitle" id="listing-user-name">{{ $listing->user->name }}</h5>
+                                <!-- Check if the user exists -->
+                                @if($listing->user)
+                                    <h5 class="card-subtitle" id="listing-user-name">{{ $listing->user->name }}</h5>
+                                @else
+                                    <!-- Handle the case when the user is not available -->
+                                    <p class="card-text" id="listing-user-name">Unknown User</p>
+                                @endif
                                 <p class="card-text" id="listing-datetime">Posted on: {{ $listing->created_at->format('F d, Y H:i:s') }}</p>
                             </div>
                         </div>
@@ -108,7 +124,7 @@
                             </form>
                         </div>
                     @else
-                        <p class="mt-3">Login to leave a comment.</p>
+                        <p class="mt-3" id="notice">Login to leave a comment.</p>
                     @endauth
 
                     <!-- Comment Section -->
