@@ -53,11 +53,11 @@
                         <div class="card-body" id="card-body">
                             <div class="d-flex align-items-center">
                                 <!-- User's Photo -->
-                                @if (Auth::check() && Auth::user()->avatar)
-                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                                @if ($listing->user && $listing->user->avatar)
+                                    <img src="{{ $listing->user->avatar }}" alt="{{ $listing->user->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
                                 @else
-                                    <!-- Handle the case when the user is not logged in or doesn't have an avatar -->
-                                    <img src="images/default-avatar.png" alt="Default Avatar" class="rounded-circle listing-avatar" width="50">
+                                    <!-- Handle the case when the user doesn't have an avatar -->
+                                    <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="rounded-circle listing-avatar" width="50">
                                 @endif
 
                                 <!-- User's Name and Date/Time -->
