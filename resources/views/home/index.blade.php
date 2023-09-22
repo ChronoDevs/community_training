@@ -53,7 +53,12 @@
                         <div class="card-body" id="card-body">
                             <div class="d-flex align-items-center">
                                 <!-- User's Photo -->
-                                <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                                @if (Auth::check() && Auth::user()->avatar)
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                                @else
+                                    <!-- Handle the case when the user is not logged in or doesn't have an avatar -->
+                                    <img src="images/default-avatar.png" alt="Default Avatar" class="rounded-circle listing-avatar" width="50">
+                                @endif
 
                                 <!-- User's Name and Date/Time -->
                                 <div class="ms-3">
