@@ -93,7 +93,11 @@
                 @auth
                 <div class="ms-auto d-flex align-items-center">
                     <div>
-                        <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" id="nav-avatar" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; width: 50px; margin-right: 10px;">
+                        @if(Auth::user()->avatar)
+                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" id="nav-avatar" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; width: 50px; margin-right: 10px;">
+                        @else
+                            <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" id="nav-avatar" style="border: 2px solid var(--skyblue, #00BDFE); border-radius: 50px; height: 50px; width: 50px; margin-right: 10px;">
+                        @endif
                     </div>
                     <div>
                         <button class="btn btn-secondary dropdown-toggle" id="avatar-name-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
