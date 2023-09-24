@@ -45,7 +45,7 @@
                             <div class="login-forms">
                                 <div class="mb-3 email">
                                     <label id="email-text" for="email" class="form-label text-start">{{ __('Email') }}</label>
-                                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="someemail@domain.com">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="someemail@domain.com">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -91,6 +91,7 @@
                                     </a>
                                 @endif
                             </div>
+                            <button class="btn btn-link" id="admin-login-button" onclick="window.location.href='{{ route('admin.login') }}'">Admin Login</button>
                         </form>
                     </div>
                 </div>

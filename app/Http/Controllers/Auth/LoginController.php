@@ -160,17 +160,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the guard to use for authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    protected function guard()
-    {
-        return Auth::guard('admin'); // Use the 'admin' guard for administrators
-        // This method returns the guard to use for authentication.
-    }
-
-    /**
      * Handle an authenticated user.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -179,12 +168,7 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if ($user instanceof \App\Models\Admin) {
-            return redirect()->route('admin.home');
-        } else {
-            return redirect()->route('home');
-        }
-        // This method is called after a user is authenticated. It redirects the user to the appropriate dashboard.
+        return redirect()->route('home.index');
     }
 
     /**
@@ -194,14 +178,7 @@ class LoginController extends Controller
      */
     protected function username()
     {
-        $input = request()->input('email');
-
-        $fieldType = filter_var($input, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-
-        request()->merge([$fieldType => $input]);
-
-        return $fieldType;
-        // This method determines the username to use for authentication. By default, it uses the email address, but it can be customized to use another field.
+        return 'email'; // Use the 'email' field for user authentication
     }
 
     /**
@@ -219,5 +196,10 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/home');
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login'); // Replace 'auth.login' with the actual view name
     }
 }

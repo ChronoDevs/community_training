@@ -15,23 +15,23 @@ class AdminMiddleware
             return $next($request);
         }
 
-        // If the request is for the '/home' route, allow access without authentication
-        if ($request->is('home')) {
+        // If the request is for the '/admin/login' route, allow access without authentication
+        if ($request->is('admin/login')) {
             return $next($request);
         }
 
         // For all other routes, perform the regular redirection logic
         $intendedUrl = url()->previous();
 
-        // Define URLs that should not trigger a redirect (e.g., login, logout, etc.)
+        // Define URLs that should not trigger a redirect (e.g., admin login, admin logout, etc.)
         $excludedUrls = [
-            route('auth.login'), // Adjust this based on your login route
-            route('auth.logout'), // Adjust this based on your logout route
+            route('admin.login'), // Adjust this based on your admin login route
+            route('admin.logout'), // Adjust this based on your admin logout route
         ];
 
         if (!in_array($intendedUrl, $excludedUrls)) {
             // Redirect the user to the admin login page
-            return redirect()->route('auth.login'); // Adjust this based on your login route
+            return redirect()->route('admin.login'); // Adjust this based on your admin login route
         }
 
         // If the intended URL is an excluded URL, allow the request to proceed

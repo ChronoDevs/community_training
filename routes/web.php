@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware(['auth:guest'])->group(function () {
     Auth::routes();
+    
+// routes/web.php
+
+    Route::get('/login', '\App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
+    Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login');
+    Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+
+    Route::get('/admin/login', '\App\Http\Controllers\Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/admin/login', '\App\Http\Controllers\Auth\AdminLoginController@login');
+    Route::post('/admin/logout', '\App\Http\Controllers\Auth\AdminLoginController@logout')->name('admin.logout');
 
     // Facebook Login
     Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');

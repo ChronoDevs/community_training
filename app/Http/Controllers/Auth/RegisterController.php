@@ -54,6 +54,6 @@ class RegisterController extends Controller
             return redirect()->back()->withErrors($request->errors());
         }
     
-        return redirect()->route('home')->with('success', 'Registration successful! Welcome to our platform.');
+        return redirect()->route('home.index')->with('success', 'Registration successful! Welcome to our platform.');
     }       
 }
