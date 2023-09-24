@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,7 @@ class Listing extends Model
     use HasFactory, SoftDeletes, Searchable;
 
     protected $table = 'listings';
-    
+
     protected $fillable = [
         'user_id',
         'title',
@@ -53,7 +54,7 @@ class Listing extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
-    
+
         /**
      * Define the tags relationship.
      *
@@ -72,27 +73,27 @@ class Listing extends Model
     public static function createListing(Request $request)
     {
         $user = auth()->user();
-    
+
         return DB::transaction(function () use ($user, $request) {
             // Strip HTML tags from the description
             $description = strip_tags($request->input('description'));
-    
+
             // Create the listing with the cleaned-up description
             $listing = self::create([
                 'user_id' => $user->id,
                 'title' => $request->input('title'),
                 'description' => $description, // Use the cleaned-up description
             ]);
-    
+
             // Attach tags to the listing
             $listing->tags()->attach($request->input('tags'));
-    
+
             // If you also want to attach categories to the listing, you can do it here:
             $listing->categories()->attach($request->input('category'));
-    
+
             return $listing;
         }, 5);
-    }    
+    }
 
     /**
      * Update a listing along with tags and categories using a transaction.
@@ -105,22 +106,22 @@ class Listing extends Model
         return DB::transaction(function () use ($data) {
             // Strip HTML tags from the description
             $description = strip_tags($data['description']);
-    
+
             // Update the listing details with the cleaned-up description
             $this->update([
                 'title' => $data['title'],
                 'description' => $description, // Use the cleaned-up description
             ]);
-    
+
             // Sync tags for the listing
             $this->tags()->sync($data['tags']);
-    
+
             // Update the selected category for the listing
             $this->categories()->sync($data['category']);
-    
+
             return true;
         });
-    }    
+    }
 
     /**
      * Override the soft delete method to customize behavior.
@@ -312,5 +313,22 @@ class Listing extends Model
         ]);
 
         return $comment;
+    }
+
+    /**
+     * Scope a query to order listings by the most used tag.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOrderByMostUsedTag(Builder $query)
+    {
+        return $query
+            ->select('listings.*') // Select all columns from the listings table
+            ->join('listing_tag', 'listings.id', '=', 'listing_tag.listing_id')
+            ->join('tags', 'listing_tag.tag_id', '=', 'tags.id')
+            ->selectRaw('COUNT(listing_tag.tag_id) as tag_count')
+            ->groupBy('listings.id')
+            ->orderByDesc('tag_count');
     }
 }

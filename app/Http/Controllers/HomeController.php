@@ -9,12 +9,7 @@ use App\Models\Listing;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function index(Request $request)
     {
         // Fetch all categories
         $categories = Category::all();
@@ -28,8 +23,22 @@ class HomeController extends Controller
             ->take(10) // Limit to the top 10 tags
             ->get();
 
-        // Fetch all listings from the database
-        $listings = Listing::orderBy('created_at', 'desc')->paginate(5);
+        // Start with a base query for listings
+        $listingsQuery = Listing::query();
+
+        // Sort the listings based on the 'sort' query parameter
+        $sort = $request->query('sort');
+        if ($sort === 'latest') {
+            $listingsQuery->orderBy('created_at', 'desc');
+        } elseif ($sort === 'top') {
+            $listingsQuery->withCount('likes')->orderByDesc('likes_count');
+        } else {
+            // Default to sorting by the most used tag
+            $listingsQuery->orderByMostUsedTag();
+        }
+
+        // Fetch paginated listings
+        $listings = $listingsQuery->paginate(5);
 
         return view('home.index', compact('listings', 'popularTags', 'categories'));
     }
