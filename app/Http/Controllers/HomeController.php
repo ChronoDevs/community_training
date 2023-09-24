@@ -38,7 +38,7 @@ class HomeController extends Controller
         }
 
         // Fetch paginated listings
-        $listings = $listingsQuery->paginate(5);
+        $listings = $listingsQuery->paginate(10);
 
         return view('home.index', compact('listings', 'popularTags', 'categories'));
     }
