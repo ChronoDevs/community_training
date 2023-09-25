@@ -37,9 +37,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
     // Admin Login Routes
-    Route::get('/admin/login', [\App\Http\Controllers\Auth\AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('/admin/login', [\App\Http\Controllers\Auth\AdminLoginController::class, 'login']);
-    Route::post('/admin/logout', [\App\Http\Controllers\Auth\AdminLoginController::class, 'showLoginForm'])->name('admin.logout');
+    Route::get('/admin/login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'login']);
+    Route::post('/admin/logout', [\App\Http\Controllers\Admin\AdminLoginController::class, 'showLoginForm'])->name('admin.logout');
 //});
 
 //Route::middleware(['auth'])->group(function () {
