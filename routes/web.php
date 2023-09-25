@@ -15,21 +15,31 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware(['auth:guest'])->group(function () {
     Auth::routes();
+    
+// routes/web.php
 
-    // Facebook Login
+// Social Login Routes
     Route::get('login/facebook', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToFacebook'])->name('login.facebook');
     Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleFacebookCallback']);
 
-    // Google Login
     Route::get('login/google', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle'])->name('login.google');
     Route::get('login/google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleGoogleCallback']);
+
+    Route::get('login/line', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToLine'])->name('login.line');
+    Route::get('login/line/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleLineCallback']);
+
+    // Regular Authentication Routes
+    Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
     // Home Index
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-    // Line Login
-    Route::get('login/line', [\App\Http\Controllers\Auth\LoginController::class, 'redirectToLine'])->name('login.line');
-    Route::get('login/line/callback', [\App\Http\Controllers\Auth\LoginController::class, 'handleLineCallback']);
+    // Admin Login Routes
+    Route::get('/admin/login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [\App\Http\Controllers\Admin\AdminLoginController::class, 'login']);
+    Route::post('/admin/logout', [\App\Http\Controllers\Admin\AdminLoginController::class, 'showLoginForm'])->name('admin.logout');
 //});
 
 //Route::middleware(['auth'])->group(function () {

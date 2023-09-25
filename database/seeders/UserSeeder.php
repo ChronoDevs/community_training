@@ -32,7 +32,6 @@ class UserSeeder extends Seeder
             'address' => $faker->address,
             'email' => $faker->unique()->safeEmail,
             'password' => Hash::make('password123'),
-            'role' => 'user',
         ]);
 
         // Create more users with random data
@@ -50,7 +49,6 @@ class UserSeeder extends Seeder
                 'address' => $faker->address,
                 'email' => $faker->unique()->safeEmail,
                 'password' => Hash::make('password123'),
-                'role' => 'user',
             ]);
         }
     }
