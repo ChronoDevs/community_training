@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use Illuminate\Support\Facades\Hash; // Import the Hash facade
 use App\Models\ClientSupport;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
@@ -23,6 +24,11 @@ trait Register
             $rtn = [];
             if (!empty($before_function)) {
                 $attributes = $before_function($attributes);
+            }
+
+            // Hash the password before creating the user
+            if (isset($attributes['password'])) {
+                $attributes['password'] = Hash::make($attributes['password']);
             }
 
             $rtn = self::create($attributes);

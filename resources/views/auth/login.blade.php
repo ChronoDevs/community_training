@@ -43,15 +43,16 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="login-forms">
-                            <div class="mb-3 email">
-                                <label id="email-text" for="email" class="form-label text-start">{{ __('Email') }}</label>
-                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="someemail@domain.com">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="login-forms">
+                                <div class="mb-3 email">
+                                    <label id="email-text" for="email" class="form-label text-start">{{ __('Email') }}</label>
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="someemail@domain.com">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="login-forms">
@@ -82,17 +83,19 @@
                             </div>
                         </div>
 
-                        <div class="mb-0 text-center">
-                            <button class="btn btn-primary" type="submit" id="continue-button">
-                                {{ __('Continue') }}
-                            </button>
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link" id="forget-password-text" href="{{ route('password.request') }}">
-                                    {{ __('Forget Password?') }}
-                                </a>
-                            @endif
-                        </div>
-                    </form>
+                            <div class="mb-0 text-center">
+                                <button class="btn btn-primary" type="submit" id="continue-button">
+                                    {{ __('Continue') }}
+                                </button>
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" id="forget-password-text" href="{{ route('password.request') }}">
+                                        {{ __('Forget Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                            <a href="{{ route('admin.login') }}" class="btn btn-link" id="admin-login-button">Admin Login</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
