@@ -16,6 +16,7 @@ use App\Models\Favorite;
 use App\Models\Traits\Searchable;
 use App\Enums\LikeCount;
 use App\Enums\ListingAction;
+use App\Enums\ListingSort;
 use Illuminate\Http\Request;
 
 class Listing extends Model
@@ -330,5 +331,48 @@ class Listing extends Model
             ->selectRaw('COUNT(listing_tag.tag_id) as tag_count')
             ->groupBy('listings.id')
             ->orderByDesc('tag_count');
+    }
+
+    /**
+     * Sort listings based on the specified sort option.
+     *
+     * @param string $sortOption The sorting option to apply.
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function sortBy($sortOption)
+    {
+        $query = self::query();
+
+        switch ($sortOption) {
+            case ListingSort::LATEST:
+                $query->orderBy('created_at', 'desc');
+                break;
+            case ListingSort::TOP:
+                $query->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case ListingSort::MOST_USED_TAG:
+            default:
+                $query->orderByMostUsedTag();
+                break;
+        }
+
+        return $query;
+    }
+
+    /**
+     * Retrieve the most used tags with a specified limit.
+     *
+     * @param int $limit The limit for the number of popular tags to retrieve.
+     * @return \Illuminate\Support\Collection
+     */
+    public static function mostUsedTags($limit)
+    {
+        return DB::table('listing_tag')
+            ->join('tags', 'listing_tag.tag_id', '=', 'tags.id')
+            ->select('tags.name', DB::raw('COUNT(listing_tag.tag_id) as tag_count'))
+            ->groupBy('tags.name')
+            ->orderByDesc('tag_count')
+            ->limit($limit)
+            ->get();
     }
 }
