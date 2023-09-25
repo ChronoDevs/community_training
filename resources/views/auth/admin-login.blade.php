@@ -1,4 +1,3 @@
-<!-- resources/views/auth/admin-login.blade.php -->
 @extends('layouts.app')
 @section('title', 'Admin Login')
 
@@ -40,10 +39,13 @@
                         <div class="mb-0 text-center">
                             <button type="submit" class="btn btn-primary">Login</button>
                         </div>
+                        <a href="{{ route('login') }}" class="btn btn-link" id="user-login-button">User Login</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section('js', 'scripts.js')
 @endsection
