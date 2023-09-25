@@ -37,10 +37,11 @@
         <!-- Column 2: Post Filtering and Display Section -->
         <div class="col-md-6">
             <div class="d-flex justify-content-between mb-3">
+                <!-- Inside the <div class="d-flex justify-content-between mb-3"> section -->
                 <div class="d-flex justify-content-between top">
-                    <span class="me-2 filter-link {{ request()->is('home') ? 'active-link' : '' }}">Relevant</span>
-                    <span class="me-2 filter-link {{ request()->is('listing') ? 'active-link' : '' }}">Latest</span>
-                    <span class="filter-link {{ request()->is('tags') ? 'active-link' : '' }}">Top</span>
+                    <a href="{{ route('home.index', ['sort' => 'latest']) }}" class="me-2 filter-link {{ request()->input('sort') === 'latest' ? 'active-link' : '' }}" id="latest-link">Latest</a>
+                    <a href="{{ route('home.index', ['sort' => 'relevant']) }}" class="me-2 filter-link {{ request()->input('sort') === 'relevant' ? 'active-link' : '' }}" id="relevant-link">Relevant</a>
+                    <a href="{{ route('home.index', ['sort' => 'top']) }}" class="filter-link {{ request()->input('sort') === 'top' ? 'active-link' : '' }}" id="top-link">Top</a>
                 </div>
                 @auth
                     <a href="{{ route('listings.create') }}" class="btn btn-primary">New Listing</a>
@@ -172,5 +173,5 @@
     </div>
 </div>
 
-@section('js', 'home_index.js')
+@section('js', 'home_index.js sorting.js')
 @endsection

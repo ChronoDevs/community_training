@@ -3,33 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Listing;
+use App\Enums\ListingSort;
 
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Display the home page with listings and popular tags.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         // Fetch all categories
         $categories = Category::all();
 
-        // Retrieve the most used tags in descending order of usage count
-        $popularTags = DB::table('listing_tag')
-            ->join('tags', 'listing_tag.tag_id', '=', 'tags.id')
-            ->select('tags.name', DB::raw('COUNT(listing_tag.tag_id) as tag_count'))
-            ->groupBy('tags.name')
-            ->orderByDesc('tag_count')
-            ->take(10) // Limit to the top 10 tags
-            ->get();
+        // Sort the listings based on the 'sort' query parameter or use the default
+        $sort = $request->query('sort', ListingSort::MOST_USED_TAG);
+        $listings = Listing::sortBy($sort)->paginate(ListingSort::TOP_TAGS_LIMIT());
 
-        // Fetch all listings from the database
-        $listings = Listing::orderBy('created_at', 'desc')->paginate(5);
+        // Retrieve the most used tags with the limit from the enum
+        $popularTags = Listing::mostUsedTags(ListingSort::TOP_TAGS_LIMIT());
 
         return view('home.index', compact('listings', 'popularTags', 'categories'));
     }
