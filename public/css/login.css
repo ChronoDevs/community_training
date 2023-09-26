@@ -238,6 +238,18 @@
     line-height: normal;
 }
 
+#admin-login-button {
+    color: var(--skyblue, #00BDFE);
+    text-align: center;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    padding-top: 14px;
+}
+
 #forget-password-text {
     color: var(--skyblue, #00BDFE);
     text-align: center;

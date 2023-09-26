@@ -72,30 +72,6 @@
     border-radius: 10px;
 }
 
-.dropdowns {
-    display: flex;
-    gap: 10px;
-    text-align: center;
-    /* ... (styles for dropdowns) ... */
-}
-
-.dropdown {
-    width: 148px;
-    height: 46px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border:none;
-    background: #3A3B3C;
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin-right: 25px;
-    text-align: center;
-}
-
 .admin-header {
     display: flex;
     justify-content: space-between;
@@ -157,8 +133,8 @@
     top: 12px;
     left: 364px;
     color: #016EB5;
-
 }
+
 /* Admin Card */
 .admin-card {
     width: 934px;
