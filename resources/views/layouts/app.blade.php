@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'Chronostep Community') }}</title>
+    <title>@yield('title') | {{ config('app.name') }}</title>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -46,7 +46,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light sticky-top shadow-sm" id="header">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -59,7 +59,7 @@
                 @auth
                 <form action="{{ route('listings.search') }}" method="GET" class="search-bar">
                     @csrf
-                    <div class="d-flex align-items-center">
+                    <div class="align-items-center">
                         <input type="text" name="search" placeholder="Search...">
                         <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
                     </div>

@@ -36,6 +36,7 @@
 /* Form Styles */
 #email-text, #password-text, #form-check-label-text {
     float: left;
+    margin-bottom: 6px;
     padding-top: 4px;
 }
 
@@ -165,6 +166,7 @@
     flex-direction: column;
     justify-content: center;
 }
+
 /* Input Styles */
 .user-login-text, #email, #password {
     font-family: Inter;
@@ -172,10 +174,18 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    width: 500px;
 }
 
 #email::placeholder{
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#password::placeholder{
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
     font-size: 14px;
@@ -199,7 +209,6 @@
 }
 
 #email, #password {
-    width: 500px;
     height: 60px;
     flex-shrink: 0;
     border-radius: 15px;
@@ -208,14 +217,29 @@
     color: var(--text-color, #A5A8AC);
 }
 
+#email {
+    width: 500px;
+}
+
+#password {
+    width: 100%;
+    flex: 1;
+    margin-right: 8px; /* Adjust as needed for spacing */
+}
+
+.password {
+    width: 500px;
+}
+
 /* Form Controls */
-#email-text, #password-text, #form-check-label-text {
+#email-text, #password-text {
     color: #FFF;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    width: 500px;
 }
 
 #continue-button {
@@ -248,4 +272,35 @@
     line-height: normal;
     text-decoration: none;
     padding-top: 14px;
+}
+
+.password-text-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Add this CSS for the password container and input with eye */
+.password-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-with-eye {
+    display: flex;
+    align-items: center;
+}
+
+#password-text {
+    margin-bottom: 6px; /* Adjust as needed for spacing */
+}
+
+.toggle-password {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.field-icon {
+    font-size: 20px;
+    color: #333; /* Adjust the color as needed */
 }

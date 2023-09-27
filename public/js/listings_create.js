@@ -1,3 +1,29 @@
+const tagsSelect = document.getElementById('tags');
+const selectedTagsContainer = document.getElementById('selected-tags');
+
+tagsSelect.addEventListener('change', (event) => {
+    selectedTagsContainer.innerHTML = ''; // Clear previous selection
+
+    // Iterate through selected options and create labels with remove buttons
+    for (const option of event.target.selectedOptions) {
+        const tagLabel = document.createElement('span');
+        tagLabel.textContent = option.text;
+        tagLabel.classList.add('badge', 'bg-primary', 'me-2', 'mb-2', 'tag-label');
+
+        // Create a remove button (x)
+        const removeButton = document.createElement('span');
+        removeButton.innerHTML = '&times;';
+        removeButton.classList.add('tag-remove-button');
+        removeButton.addEventListener('click', () => {
+            tagsSelect.querySelector(`option[value="${option.value}"]`).selected = false; // Deselect the option
+            tagLabel.remove(); // Remove the label
+        });
+
+        tagLabel.appendChild(removeButton);
+        selectedTagsContainer.appendChild(tagLabel);
+    }
+});
+
 tinymce.init({
     selector: 'textarea#description',
     plugins: [
