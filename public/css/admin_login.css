@@ -36,7 +36,6 @@
 /* Form Styles */
 #email-text, #password-text, #form-check-label-text {
     float: left;
-    margin-bottom: 6px;
     padding-top: 4px;
 }
 
@@ -64,7 +63,7 @@
     background: var(--card, #242526);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     width: 600px;
-    height: 800px;
+    height: 600px;
     padding: 25px 50px 25px 50px;
 }
 
@@ -97,48 +96,6 @@
     line-height: normal;
 }
 
-/* Social Media Buttons */
-#facebook-button, #google-button, #line-button {
-    width: 500px;
-    height: 60px;
-    padding: 13px 130px 14px 131px;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    border-radius: 15px;
-    background: #FFF;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.social-login{
-    border: 131px 13px 130px 14px;
-}
-
-#facebook-button {
-    border: 2px solid var(--primary-2, #18328D);
-    color: var(--primary-2, #18328D);
-    width: 500px;
-}
-
-#google-button {
-    border: 2px solid var(--skyblue, #00BDFE);
-    color: var(--skyblue, #00BDFE);
-    width: 500px;
-    margin-top: 15px;
-}
-
-#line-button {
-    border: 2px solid var(--skyblue, #06C755);
-    color: var(--skyblue, #06C755);
-    width: 500px;
-    margin-top: 15px;
-    margin-bottom: 22px;
-}
-
 .button-icon {
     color: var(--skyblue, #00BDFE);
     text-align: center;
@@ -166,7 +123,6 @@
     flex-direction: column;
     justify-content: center;
 }
-
 /* Input Styles */
 .user-login-text, #email, #password {
     font-family: Inter;
@@ -174,18 +130,10 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    width: 500px;
 }
 
 #email::placeholder{
-    color: var(--text-color, #A5A8AC);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-#password::placeholder{
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
     font-size: 14px;
@@ -208,7 +156,8 @@
     width: 300px;
 }
 
-#email, #password {
+#user_name, #password {
+    width: 500px;
     height: 60px;
     flex-shrink: 0;
     border-radius: 15px;
@@ -217,29 +166,14 @@
     color: var(--text-color, #A5A8AC);
 }
 
-#email {
-    width: 500px;
-}
-
-#password {
-    width: 100%;
-    flex: 1;
-    margin-right: 8px; /* Adjust as needed for spacing */
-}
-
-.password {
-    width: 500px;
-}
-
 /* Form Controls */
-#email-text, #password-text {
+#email-text, #password-text, #form-check-label-text {
     color: #FFF;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width: 500px;
 }
 
 #continue-button {
@@ -262,7 +196,7 @@
     line-height: normal;
 }
 
-#admin-login-button {
+#user-login-button {
     color: var(--skyblue, #00BDFE);
     text-align: center;
     font-family: Inter;
@@ -272,6 +206,7 @@
     line-height: normal;
     text-decoration: none;
     padding-top: 14px;
+    margin-top: 10px;
 }
 
 #forget-password-text {
@@ -286,33 +221,22 @@
     padding-top: 14px;
 }
 
-.password-text-container {
-    display: flex;
-    flex-direction: column;
+.form-title {
+    color: #A5A8AC;
 }
 
-/* Add this CSS for the password container and input with eye */
-.password-container {
-    display: flex;
-    flex-direction: column;
+.form-check-title {
+    color: #A5A8AC;
 }
 
-.input-with-eye {
-    display: flex;
-    align-items: center;
+.admin-login-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #A5A8AC;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-#password-text {
-    margin-bottom: 6px; /* Adjust as needed for spacing */
-}
-
-.toggle-password {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-}
-
-.field-icon {
-    font-size: 20px;
-    color: #333; /* Adjust the color as needed */
+.admin-login-form {
+    margin-top: 35px;
 }

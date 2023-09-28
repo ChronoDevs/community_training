@@ -41,10 +41,19 @@
     border-radius: 10px;
 }
 
-.sidebar-link {
+.sidebar-item i {
+    margin-right: 10px;
+}
+
+.sidebar-item:hover button {
+    color: #395de1;
+}
+.sidebar-button {
     display: flex;
     width: 154px; /* Adjust width to fill the available space */
-    height: 18px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
@@ -55,10 +64,8 @@
     font-weight: 700;
     line-height: normal;
     text-decoration: none;
-}
-
-.sidebar-link i {
-    margin-right: 8px; /* Add space between icon and text */
+    background-color: #24252600;
+    border: none;
 }
 
 .sidebar-item.active {
@@ -72,28 +79,24 @@
     border-radius: 10px;
 }
 
-.dropdowns {
-    display: flex;
-    gap: 10px;
-    text-align: center;
-    /* ... (styles for dropdowns) ... */
+.sidebar-item.active button {
+    color: #00BDFE;
 }
 
-.dropdown {
-    width: 148px;
-    height: 46px;
-    flex-shrink: 0;
-    border-radius: 15px;
-    border:none;
-    background: #3A3B3C;
+.sidebar-logout {
+    display: flex;
+    width: 154px; /* Adjust width to fill the available space */
+    height: 18px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
-    margin-right: 25px;
-    text-align: center;
+    text-decoration: none;
 }
 
 .admin-header {
@@ -157,8 +160,8 @@
     top: 12px;
     left: 364px;
     color: #016EB5;
-
 }
+
 /* Admin Card */
 .admin-card {
     width: 934px;

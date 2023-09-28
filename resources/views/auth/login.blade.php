@@ -75,13 +75,20 @@
                         </div>
 
                         <div class="mb-0 text-center">
-                            <button class="btn btn-primary" type="submit" id="continue-button">{{ __('Continue') }}</button>
+                            <button class="btn btn-primary" type="submit" id="continue-button">
+                                {{ __('Continue') }}
+                            </button>
                             @if (Route::has('password.request'))
-                                <a class="btn btn-link" id="forget-password-text" href="{{ route('password.request') }}">{{ __('Forget Password?') }}</a>
+                                <a class="btn btn-link" id="forget-password-text" href="{{ route('password.request') }}">
+                                    {{ __('Forget Password?') }}
+                                </a>
                             @endif
-                        </div>
-                        <a href="{{ route('admin.login') }}" class="btn btn-link" id="admin-login-button">Admin Login</a>
-                    </form>
+                                <a  class="btn btn-link" href="{{ route('admin.login') }}" id="admin-login-button">
+                                    Admin Login
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

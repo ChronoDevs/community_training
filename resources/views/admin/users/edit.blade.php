@@ -8,13 +8,19 @@
             @include('templates.admin_sidebar')
         </div>
         <div class="col-md-9">
-            <h1>Update User Details</h1>
+            <div class="edit-user-title">
+                    Update User
+            </div>
             <form method="POST" action="{{ route('admin.updateUser', ['user' => $user]) }}">
                 @csrf
                 @method('PUT')
-                <div class="row">
+                <div class="row user-container">
                     <div class="col-md-6 text-center avatar-col">
                         <img src="{{ $user->avatar }}" alt="Avatar" class="avatar-img">
+                        <div class="user-btn">
+                            <a href="{{ route('admin.users.index') }}" class="btn btn-danger mr-2">Cancel</a>
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </div>
                     </div>
                     <div class="col-md-6 user-details-col">
                     <!-- User Details -->
@@ -44,10 +50,6 @@
                         <p><label for="address">Address:</label>
                         <input type="text" name="address" value="{{ $user->address }}" class="userlist_label"></p>
                     </div>
-                </div>
-                <div class="form-group">
-                    <a href="{{ route('admin.users.index') }}" class="btn btn-danger mr-2">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
             </form>
         </div>

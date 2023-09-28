@@ -1,32 +1,46 @@
 @extends('layouts.app')
-@section('css', 'register.css')
+
 @section('title', 'Register')
+@section('css', 'register.css')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card-body" id="card-body">
                 <div class="intro">
-                        <h1>
-                            <span id="chronostep-text" class="styled-text">
-                                Chronostep
-                            </span>
-                            <span id="community-text" class="styled-text">
-                                Community
-                            </span>
-                        </h1>
-                        <div id="introtwo" class="small-font">Welcome to the amazing community of engineers in Chronostep Inc.</div>
-                    </div>
-                    <br>
-                    <div class="social-login">
-                        <button class="btn btn-primary" id="fb-button" data-oauth-provider="facebook">Continue with Facebook</button>
-                        <button class="btn btn-danger" id="google-button" data-oauth-provider="google">Continue with Google</button>
-                    </div>
-                    <div class="email-register">
-                        <p class="email-register-text">Already have an account? <a href="{{ route('login') }}">Log in</a>.</p>
-                    </div>
-
-
+                    <h1>
+                        <span id="chronostep-text" class="styled-text">
+                            Chronostep
+                        </span>
+                        <span id="community-text" class="styled-text">
+                            Community
+                        </span>
+                    </h1>
+                    <div id="introtwo" class="small-font">Welcome to the amazing community of engineers in Chronostep Inc.</div>
+                </div>
+                <br>
+                <div class="social-login">
+                    <a href="{{ route('login.facebook') }}" class="btn btn-primary" id="facebook-button">
+                        <img src="images/facebook_icon.png" alt="Facebook Icon" class="button-icon">
+                        Continue with Facebook
+                    </a>
+                </div>
+                <div class="social-login">
+                    <a href="{{ route('login.google') }}" class="btn btn-danger" id="google-button">
+                        <img src="images/google_icon.png" alt="Google Icon" class="button-icon">
+                        Continue with Google
+                    </a>
+                </div>
+                <div class="social-login">
+                    <a href="{{ route('login.line') }}" class="btn btn-success" id="line-button">
+                        <img src="images/line_icon.png" alt="LINE Icon" class="line-icon">
+                        Continue with LINE
+                    </a>
+                </div>
+                <div class="email-register">
+                    <p class="email-register-text">Already have an account? <a href="{{ route('login') }}">Log in</a>.</p>
+                </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" class="register-form">
                         @csrf
@@ -182,4 +196,5 @@
         </div>
     </div>
 </div>
+@section('js', 'scripts.js')
 @endsection

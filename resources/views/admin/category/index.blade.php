@@ -50,7 +50,9 @@
                                             <form method="POST" action="{{ route('admin.deleteCategory', ['category' => $category]) }}" id="deleteCategoryForm_{{ $category->id }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn btn-danger btn-sm fas fa-trash" type="button" onclick="confirmDelete({{ $category->id }})">Delete</button>
+                                                <button class="btn btn-danger btn-sm" type="button" onclick="confirmDelete({{ $category->id }})">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
                                             </form>
                                         </div>
                                     </td>

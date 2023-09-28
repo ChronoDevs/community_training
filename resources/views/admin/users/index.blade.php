@@ -15,11 +15,11 @@
                 <div class="search-export">
                     <form action="{{ route('admin.users.search') }}" method="GET" class="search-bar">
                         @csrf
-                        <div>
+                        <div class="d-flex align-items-center">
                             <input type="text" name="search" placeholder="Search...">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
+                            <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
                         </div>
+                    </form>
                     <button class="export-button">
                         <a href="{{ route('export.users') }}" class="export-text">Export
                             <i class="fa fa-download"></i>

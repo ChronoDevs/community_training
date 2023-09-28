@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Posts')
+@section('css', 'admin_postlists.css')
 @section('content')
 <div class="container">
     <div class="row">
@@ -16,8 +17,8 @@
                         <input type="text" placeholder="Search...">
                         <i class="fa fa-search"></i>
                     </div>
-                    <div class="dropdowns">
-                        <select class="dropdown" name="status">
+                    <div class="posts-dropdowns">
+                        <select class="posts-dropdown" name="status">
                             <option value="" disabled selected>Status</option>
                             <option value="published">Published</option>
                             <option value="unpublished">Unpublished</option>
@@ -67,5 +68,4 @@
         </div>
     </div>
 </div>
-@section('js', 'post_status.js')
 @endsection
