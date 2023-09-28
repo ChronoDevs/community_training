@@ -70,7 +70,7 @@
 
                 <!-- Submit Button -->
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Update Listing</button>
+                    <button type="submit" class="btn btn-primary" id="post-button">Update Listing</button>
                 </div>
             </form>
         </div>

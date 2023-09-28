@@ -284,3 +284,9 @@ li {
     cursor: pointer;
     margin-left: 4px;
 }
+
+/* Adjust the height and padding of the select input */
+.custom-select {
+    height: auto; /* Adjust the height as needed */
+    padding: 10px; /* Adjust the padding as needed */
+}

@@ -1,29 +1,39 @@
+// Get DOM elements
 const tagsSelect = document.getElementById('tags');
 const selectedTagsContainer = document.getElementById('selected-tags');
 
-tagsSelect.addEventListener('change', (event) => {
-    selectedTagsContainer.innerHTML = ''; // Clear previous selection
+// Event listener for tag removal
+selectedTagsContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('tag-remove-button')) {
+        const tagText = event.target.previousSibling.textContent;
+        const optionToRemove = Array.from(tagsSelect.options).find(option => option.text === tagText);
 
-    // Iterate through selected options and create labels with remove buttons
-    for (const option of event.target.selectedOptions) {
+        if (optionToRemove) {
+            optionToRemove.selected = false; // Deselect the option
+            event.target.parentElement.remove(); // Remove the label
+        }
+    }
+});
+
+// Event listener for tag selection
+tagsSelect.addEventListener('change', () => {
+    selectedTagsContainer.innerHTML = '';
+
+    for (const option of tagsSelect.selectedOptions) {
         const tagLabel = document.createElement('span');
         tagLabel.textContent = option.text;
         tagLabel.classList.add('badge', 'bg-primary', 'me-2', 'mb-2', 'tag-label');
 
-        // Create a remove button (x)
         const removeButton = document.createElement('span');
         removeButton.innerHTML = '&times;';
         removeButton.classList.add('tag-remove-button');
-        removeButton.addEventListener('click', () => {
-            tagsSelect.querySelector(`option[value="${option.value}"]`).selected = false; // Deselect the option
-            tagLabel.remove(); // Remove the label
-        });
 
         tagLabel.appendChild(removeButton);
         selectedTagsContainer.appendChild(tagLabel);
     }
 });
 
+// Initialize TinyMCE editor
 tinymce.init({
     selector: 'textarea#description',
     plugins: [
