@@ -92,8 +92,10 @@
                                         {{ __('Forget Password?') }}
                                     </a>
                                 @endif
+                                    <a  class="btn btn-link" href="{{ route('admin.login') }}" id="admin-login-button">
+                                        Admin Login
+                                    </a>
                             </div>
-                            <a href="{{ route('admin.login') }}" class="btn btn-link" id="admin-login-button">Admin Login</a>
                         </form>
                     </div>
                 </div>
