@@ -23,6 +23,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
@@ -41,7 +42,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light sticky-top shadow-sm" id="header">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -54,7 +55,7 @@
                 @auth
                 <form action="{{ route('listings.search') }}" method="GET" class="search-bar">
                     @csrf
-                    <div class="d-flex align-items-center">
+                    <div class="align-items-center">
                         <input type="text" name="search" placeholder="Search...">
                         <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
                     </div>

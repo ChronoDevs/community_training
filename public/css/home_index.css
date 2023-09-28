@@ -8,9 +8,11 @@
 .btn-link {
     display: block;
 }
+
 .btn-link.user-likes-listing {
     display: none;
 }
+
 .action-button {
     color: white;
     text-decoration: none;
@@ -23,6 +25,21 @@
     scrollbar-width: thin;
     scrollbar-color: #6b6c6d var(--card, #242526);
     background-color: #18191A;
+}
+
+.categorylist {
+    color: var(--Primary, #016EB5);
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+}
+
+.categorylist:hover {
+    color: var(--Primary, #012bb5);
+    text-decoration: underline;
 }
 
 .categories-list::-webkit-scrollbar {
@@ -56,6 +73,16 @@
     scrollbar-color: #6b6c6d var(--card, #242526);
     background-color: #18191A;
     border-color: #18191A;
+}
+
+.taglist {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.taglist:hover {
+    color: #b9b9b9;
+    text-decoration: underline;
 }
 
 .tags-list::-webkit-scrollbar {
@@ -153,6 +180,10 @@ li {
     line-height: normal;
 }
 
+.listing-title {
+    margin-top: 10px;
+}
+
 #listing-title {
     color: #FFF;
     font-family: Inter;
@@ -160,7 +191,6 @@ li {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-top: 10px;
     text-decoration: none;
     height: 50px;
 }
@@ -175,16 +205,22 @@ li {
     margin-right: 5px;
 }
 
-/* Comment and Favorite Buttons */
+/* Like, Comment and Favorite Buttons */
+.like-button,
 .comment-button,
 .favorite-button {
-    color: var(--text-color, #A5A8AC);
+    color: #FFF;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     text-decoration: none;
+}
+
+.like-button {
+    padding-left: 0px;
+    padding-right: 5px;
 }
 
 /* Like and Comment Counts */
@@ -205,6 +241,7 @@ li {
     color: var(--text-color, #A5A8AC);
 }
 
+.like-button:hover,
 .comment-button:hover,
 .favorite-button:hover {
     text-decoration: none;
@@ -312,4 +349,28 @@ li {
 
 .clickable-link {
     cursor: pointer;
+}
+
+.likes-text {
+    font-size: 14px;
+    color: var(--text-color, #A5A8AC);
+}
+
+.forms {
+    display: inline;
+}
+
+.page-item {
+    text-decoration: none;
+}
+
+#new-listing-button {
+    border-radius: 10px;
+    border: 2px solid var(--card, #242526);
+    background: #242526;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
 }

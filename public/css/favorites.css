@@ -78,6 +78,10 @@
     line-height: normal;
 }
 
+.listing-title {
+    margin-top: 10px;
+}
+
 /* Listing Title */
 #listing-title {
     text-decoration: none;
@@ -87,7 +91,6 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-top: 10px;
     height: 50px;
 }
 
@@ -104,4 +107,12 @@
 
 .clickable-link {
     cursor: pointer;
+}
+
+.notice {
+    color: #FFFFFF;
+}
+
+.form {
+    display: inline;
 }

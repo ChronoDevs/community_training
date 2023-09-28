@@ -19,12 +19,12 @@
                 <div class="d-flex justify-content-between top">
                     <span class="me-2 filter-link {{ request()->is('listings') ? 'active-link' : '' }}">Listings</span>
                 </div>
-                <a href="{{ route('listings.create') }}" class="btn btn-primary">New Listing</a>
+                <a href="{{ route('listings.create') }}" class="btn btn-primary" id="new-listing-button">New Listing</a>
             </div>
 
             @foreach($listings as $listing)
                 @if($listing->status === \App\Enums\ListingAction::PUBLISH)
-                    <div class="card mb-3 invi">
+                <div class="card mb-3 invi">
                     <div class="card-body" id="card-body">
                         @auth
                         @if (Gate::allows('delete-listing', $listing))
@@ -47,7 +47,12 @@
 
                         <div class="d-flex align-items-center">
                             <!-- User's Photo -->
-                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                            @if ($listing->user && $listing->user->avatar)
+                                <img src="{{ $listing->user->avatar }}" alt="{{ $listing->user->name }}" alt="User Photo" class="rounded-circle listing-avatar" width="50">
+                            @else
+                                <!-- Handle the case when the user doesn't have an avatar -->
+                                <img src="{{ asset('images/default-avatar.png') }}" alt="Default Avatar" class="rounded-circle listing-avatar" width="50">
+                            @endif
 
                             <!-- User's Name and Date/Time -->
                             <div class="ms-3">
@@ -60,9 +65,9 @@
                         </div>
 
                         <!-- Post Title -->
-                        <h2 class="card-subtitle mt-3" id="listing-title">
-                            <span class="clickable-link" data-url="{{ route('listings.show', $listing->id) }}">{{ $listing->title }}</span>
-                        </h2>
+                        <div class="listing-title">
+                            <a href="{{ route('listings.show', $listing->id) }}" class="card-subtitle mt-3 clickable-link" id="listing-title">{{ $listing->title }}</a>
+                        </div>
 
                         <!-- Tags -->
                         <div class="mt-3">

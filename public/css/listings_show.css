@@ -1,16 +1,16 @@
 /* Card Body */
 #card-body {
+    width: 1050px;
+    padding: 25px;
     border-radius: 10px;
     border: 1px solid #3D3F41;
     background: var(--card, #242526);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    width: 1050px;
-    padding: 25px;
 }
 
 .invi {
-    background: var(--card, #242526);
     width: 1050px;
+    background: var(--card, #242526);
 }
 
 /* Listing Avatar */
@@ -66,7 +66,7 @@
 }
 
 /* Listing Title */
-#listing-title {
+.listing-title {
     color: #FFF;
     font-family: Inter;
     font-size: 25px;
@@ -74,8 +74,6 @@
     font-weight: 700;
     line-height: normal;
     margin-top: 10px;
-    text-decoration: none;
-    height: 50px;
 }
 
 /* Listing Tags */
@@ -99,11 +97,7 @@
     line-height: normal;
 }
 
-.count {
-    color: #FFF;
-}
-
-.show-icons{
+.show-icons {
     display: inline;
 }
 
@@ -134,24 +128,23 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-bottom: 0px;
 }
 
 #comment-border {
-    border-radius: 15px;
-    border: 1px solid #3D3F41;
     width: 941px;
     padding: 1rem;
+    border-radius: 15px;
+    border: 1px solid #3D3F41;
 }
 
-#comment-likes-count {
+.count {
     color: var(--text-color, #A5A8AC);
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    position: relative;
-    top: 3px;
 }
 
 .comment-item {
@@ -177,15 +170,15 @@
 }
 
 #comment-form {
+    width: 940px;
+    padding: 12px 12px 0px 12px;
     border-radius: 15px;
     background: #3A3B3C;
     border-color: #3A3B3C;
-    width: 940px;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    padding: 12px 12px 0px 12px;
     color: var(--text-color, #A5A8AC);
 }
 
@@ -208,16 +201,14 @@
     text-decoration: none;
 }
 
-#reply-button {
+.reply-button {
     margin-left: 10px;
-    color: var(--text-color, #A5A8AC);
+    color: #FFF;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    position: relative;
-    top: 3px;
     text-decoration: none;
 }
 
@@ -247,4 +238,104 @@
 
 #notice {
     color: #FFFFFF;
+}
+
+.like-button,
+.comment-button,
+.favorite-button,
+.reply-button:hover {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+}
+
+#reply-icon {
+    padding-right: 12px;
+}
+
+.comment-like-button,
+.comment-like-button:hover {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    padding-left: 0px;
+}
+
+#submit-comment-button {
+    border-radius: 10px;
+    border: 2px solid var(--card, #383a3b);
+    background: #383a3b;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    float: right;
+    margin-top: 10px;
+}
+
+#reply-form {
+    width: 100%;
+    padding: 12px 12px 0px 12px;
+    border-radius: 15px;
+    background: #3A3B3C;
+    border-color: #3A3B3C;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text-color, #A5A8AC);
+    margin-top: 10px;
+}
+
+#reply-form::placeholder {
+    color: var(--text-color, #A5A8AC);
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+#submit-reply-button {
+    border-radius: 10px;
+    border: 2px solid var(--card, #383a3b);
+    background: #383a3b;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+}
+
+.reply-section {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#reply-like-button,
+#reply-like-button:hover {
+    color: #FFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    padding-left: 0px;
+}
+
+.set-aside {
+    float: right;
 }

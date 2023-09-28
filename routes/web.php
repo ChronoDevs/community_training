@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware(['auth:guest'])->group(function () {
     Auth::routes();
-    
+
 // routes/web.php
 
 // Social Login Routes
