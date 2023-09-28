@@ -30,7 +30,7 @@
                     <!-- Add more fields or customize the form as needed -->
 
                     <div class="form-group">
-                        <a href="{{ route('admin.categories') }}" class="btn btn-secondary mr-2">Cancel</a>
+                        <a href="{{ route('admin.category.index') }}" class="btn btn-secondary mr-2">Cancel</a>
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>

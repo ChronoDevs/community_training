@@ -68,5 +68,4 @@
         </div>
     </div>
 </div>
-@section('js', 'post_status.js')
 @endsection

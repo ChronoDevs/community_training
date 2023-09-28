@@ -47,7 +47,7 @@
                                     <form method="POST" action="{{ route('admin.deleteTag', ['tag' => $tag]) }}" id="deleteTagForm_{{ $tag->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm fas fa-trash" type="button" onclick="confirmDeleteTag({{ $tag->id }})">Delete</button>
+                                        <button class="btn btn-danger btn-sm fas fa-trash-alt" type="button" onclick="confirmDeleteTag({{ $tag->id }})">Delete</button>
                                     </form>
                                 </div>
                             </td>
